@@ -7,17 +7,34 @@ Spring Boot REST API для складского учёта
 - **Maven** - сборка проекта и управление зависимостями
 - **Checkstyle** - контроль качества кода
 
-com.hikaro.warehouse/
-├── controller/ # REST контроллеры (входные точки API)
-│ ├── HomeController.java # Базовые endpoint'ы (главная страница)
-│ └── ProductController.java # CRUD операции для товаров
-├── dto/ # Data Transfer Objects
-│ └── ProductResponseDto.java # DTO для ответов API
-├── entity/ # JPA сущности (Entity)
-│ └── Product.java # Модель товара
-├── mapper/ # Преобразование Entity ↔ DTO
-│ └── ProductMapper.java # Маппер для Product
-├── repository/ # Доступ к данным (Spring Data JPA)
-│ └── ProductRepository.java # Репозиторий для Product
-└── service/ # Бизнес-логика
-└── ProductService.java # Сервис для работы с товарами
+Базовый пакет приложения: ```com.hikaro.warehouse/```
+
+```controller/``` # REST контроллеры
+
+```HomeController.java``` # Базовые endpoint'ы
+
+```ProductController.java``` # CRUD операции для товаров
+
+```ProductResponseDto.java``` # DTO для ответов API
+
+```entity/``` # JPA сущности (Entity)
+
+```Product.java``` # Модель товара
+
+```mapper/``` # Преобразование Entity ↔ DTO
+
+```ProductMapper.java``` # Маппер для Product
+
+```repository/``` # Доступ к данным
+
+```ProductRepository.java``` # Репозиторий для Product
+
+```service/``` # Бизнес-логика
+
+```ProductService.java``` # Сервис для работы с товарами
+
+# Запуск
+
+```./mvnw spring-boot:run```
+
+Приложение стартует на ```http://localhost:8080```.
