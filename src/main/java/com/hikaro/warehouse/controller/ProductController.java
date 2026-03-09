@@ -3,6 +3,7 @@ package com.hikaro.warehouse.controller;
 import com.hikaro.warehouse.dto.ProductResponseDto;
 import com.hikaro.warehouse.mapper.ProductMapper;
 import com.hikaro.warehouse.service.ProductService;
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
@@ -24,6 +24,7 @@ public class ProductController {
         this.productService = productService;
         this.productMapper = productMapper;
     }
+
 
     @GetMapping("/{id}")
     public ProductResponseDto getById(@PathVariable Long id) {

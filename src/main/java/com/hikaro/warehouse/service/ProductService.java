@@ -2,9 +2,8 @@ package com.hikaro.warehouse.service;
 
 import com.hikaro.warehouse.entity.Product;
 import com.hikaro.warehouse.repository.ProductRepository;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
@@ -17,7 +16,9 @@ public class ProductService {
 
     public Product getById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Product with id " + id + " not found"));
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Product with id " + id + " not found")
+                );
     }
 
     public List<Product> findByName(String name) {
