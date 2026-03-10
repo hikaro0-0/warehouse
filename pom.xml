@@ -26,12 +26,14 @@
 		<tag/>
 		<url/>
 	</scm>
-	<properties>
-		<java.version>21</java.version>
-		<sonar.organization>hikaro0-0</sonar.organization>
-		<maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
-		<checkstyle.version>10.21.4</checkstyle.version>
-	</properties>
+		<properties>
+			<java.version>21</java.version>
+			<sonar.organization>hikaro0-0</sonar.organization>
+			<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+			<maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
+			<checkstyle.version>10.21.4</checkstyle.version>
+			<jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+		</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -68,9 +70,9 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>${maven-checkstyle-plugin.version}</version>
 				<dependencies>
 					<dependency>
@@ -94,9 +96,29 @@
 							<goal>check</goal>
 						</goals>
 					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>${jacoco-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>prepare-jacoco-agent</id>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>generate-jacoco-report</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</build>
 
 </project>
