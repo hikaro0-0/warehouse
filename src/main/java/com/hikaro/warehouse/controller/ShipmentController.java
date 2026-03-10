@@ -2,6 +2,7 @@ package com.hikaro.warehouse.controller;
 
 import com.hikaro.warehouse.dto.ShipmentRequestDto;
 import com.hikaro.warehouse.dto.ShipmentResponseDto;
+import com.hikaro.warehouse.entity.Product;
 import com.hikaro.warehouse.entity.Shipment;
 import com.hikaro.warehouse.service.ShipmentService;
 import java.util.List;
