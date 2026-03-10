@@ -64,7 +64,7 @@ public class ShipmentController {
                 shipment.getSupplier().getName(),
                 shipment.getProducts()
                         .stream()
-                        .map(product -> product.getId())
+                        .map(Product::getId)
                         .sorted()
                         .toList()
         );

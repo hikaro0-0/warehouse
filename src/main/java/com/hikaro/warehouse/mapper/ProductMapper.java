@@ -1,6 +1,7 @@
 package com.hikaro.warehouse.mapper;
 
 import com.hikaro.warehouse.dto.ProductResponseDto;
+import com.hikaro.warehouse.entity.Category;
 import com.hikaro.warehouse.entity.Product;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +20,7 @@ public class ProductMapper {
                 product.getSupplier().getName(),
                 product.getCategories()
                         .stream()
-                        .map(category -> category.getName())
+                        .map(Category::getName)
                         .sorted()
                         .toList()
         );

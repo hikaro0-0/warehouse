@@ -20,6 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ProductService {
 
+    private static final String NOT_FOUND_SUFFIX = " not found";
+    private static final String PRODUCT_WITH_ID_PREFIX = "Product with id ";
+
     private final ProductRepository productRepository;
     private final WarehouseRepository warehouseRepository;
     private final SupplierRepository supplierRepository;
@@ -48,7 +51,7 @@ public class ProductService {
                 .findFirst()
                 .orElseThrow(
                         () -> new ResourceNotFoundException(
-                                "Product with id " + id + " not found"
+                                PRODUCT_WITH_ID_PREFIX + id + NOT_FOUND_SUFFIX
                         )
                 );
     }
@@ -84,7 +87,7 @@ public class ProductService {
         Product product = productRepository.findById(id)
                 .orElseThrow(
                         () -> new ResourceNotFoundException(
-                                "Product with id " + id + " not found"
+                                PRODUCT_WITH_ID_PREFIX + id + NOT_FOUND_SUFFIX
                         )
                 );
         applyRequest(product, request);
@@ -95,7 +98,7 @@ public class ProductService {
         Product product = productRepository.findById(id)
                 .orElseThrow(
                         () -> new ResourceNotFoundException(
-                                "Product with id " + id + " not found"
+                                PRODUCT_WITH_ID_PREFIX + id + NOT_FOUND_SUFFIX
                         )
                 );
         productRepository.delete(product);
@@ -107,7 +110,7 @@ public class ProductService {
                         () -> new ResourceNotFoundException(
                                 "Warehouse with id "
                                         + request.warehouseId()
-                                        + " not found"
+                                        + NOT_FOUND_SUFFIX
                         )
                 );
         Supplier supplier = supplierRepository.findById(request.supplierId())
@@ -115,7 +118,7 @@ public class ProductService {
                         () -> new ResourceNotFoundException(
                                 "Supplier with id "
                                         + request.supplierId()
-                                        + " not found"
+                                        + NOT_FOUND_SUFFIX
                         )
                 );
         Set<Category> categories = loadCategories(request.categoryIds());

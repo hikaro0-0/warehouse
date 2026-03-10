@@ -91,9 +91,11 @@ class WarehouseApplicationTests {
         long productsBefore = productRepository.count();
         long shipmentsBefore = shipmentRepository.count();
 
+        BulkOperationRequestDto request = buildBulkRequest("SKU-TX", "tx@example.com");
+
         Assertions.assertThrows(
                 IllegalStateException.class,
-                () -> demoService.saveGraphWithTransaction(buildBulkRequest("SKU-TX", "tx@example.com"))
+                () -> demoService.saveGraphWithTransaction(request)
         );
 
         Assertions.assertEquals(suppliersBefore, supplierRepository.count());
