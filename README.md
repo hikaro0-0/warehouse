@@ -1,37 +1,23 @@
-# Система управления складом
+# Warehouse Management System
 
-## Описание проекта
+## Описание
 
-Данный проект представляет собой RESTful веб-приложение на **Spring Boot** для просмотра складских товаров.
-Приложение реализует многослойную архитектуру:
-`Controller -> Service -> Repository`,
-а для выдачи данных в API использует DTO.
+Проект представляет собой REST API на Spring Boot для управления складом.
+Основная БД проекта сейчас `H2 (in-memory)`.
 
-В качестве хранилища данных используется встроенная база **H2 (in-memory)**.
-При запуске приложение автоматически загружает тестовые товары из `data.sql`.
+Модель данных включает 5 сущностей:
 
-## Выполняемые функции
+- `Product`
+- `Category`
+- `Supplier`
+- `Warehouse`
+- `Shipment`
 
-Приложение предоставляет REST API для работы с товарами склада:
+Связи:
 
-### 1. Получение списка всех товаров
-
-- Метод: `GET`
-- Эндпоинт: `/api/products`
-- Описание: возвращает список всех товаров.
-
-### 2. Получение товара по ID
-
-- Метод: `GET`
-- Эндпоинт: `/api/products/{id}`
-- Описание: возвращает товар по уникальному идентификатору.
-- Ошибка: при отсутствии товара возвращается `404 Not Found`.
-
-### 3. Поиск товаров по названию (`@RequestParam`)
-
-- Метод: `GET`
-- Эндпоинт: `/api/products?name=...`
-- Описание: возвращает товары, в названии которых содержится переданное значение (без учета регистра).
+- `Warehouse -> Product` и `Supplier -> Product` реализованы как `OneToMany / ManyToOne`
+- `Product <-> Category` реализована как `ManyToMany`
+- `Shipment <-> Product` реализована как дополнительная `ManyToMany`
 
 ## Технологии
 
@@ -43,48 +29,87 @@
 - Maven
 - Checkstyle
 
-## Запуск проекта
+## Конфигурация БД
 
-### 1. Клонирование
+- приложение работает на встроенной `H2`
+- схема создаётся автоматически при запуске
+- `data.sql` загружает стартовые данные
+
+## Обоснование CascadeType и FetchType
+
+В проекте используются следующие настройки:
+
+- `FetchType.LAZY` для коллекций и связей `ManyToOne`
+  Это уменьшает количество лишних SQL-запросов и позволяет явно управлять загрузкой.
+
+- `CascadeType.PERSIST, MERGE` для `Supplier -> products`, `Supplier -> shipments`,
+  `Warehouse -> products`
+  Это удобно для сохранения и обновления связанных объектов без каскадного удаления.
+
+- для `ManyToMany` каскад удаления не используется
+  Категории, товары и поставки остаются самостоятельными сущностями.
+
+## CRUD API
+
+Реализованы CRUD-операции для:
+
+- `/api/products`
+- `/api/categories`
+- `/api/suppliers`
+- `/api/warehouses`
+- `/api/shipments`
+
+Пример создания товара:
 
 ```bash
-git clone <url-репозитория>
-cd warehouse
+curl -X POST http://localhost:8080/api/products \
+  -H "Content-Type: application/json" \
+  -d '{
+    "sku": "SKU-500",
+    "name": "USB Hub",
+    "quantity": 25,
+    "warehouseId": 1,
+    "supplierId": 1,
+    "categoryIds": [1, 2]
+  }'
 ```
 
-### 2. Запуск приложения
+## Демонстрация N+1
+
+Проблемный сценарий:
+
+- `GET /api/products/n-plus-one`
+
+Оптимизированный сценарий:
+
+- `GET /api/products/optimized`
+
+Оптимизация выполнена через `@EntityGraph`.
+
+## Демонстрация транзакций
+
+Endpoints:
+
+- `POST /api/demo/without-transaction`
+- `POST /api/demo/with-transaction`
+
+Без `@Transactional` часть данных сохраняется.
+С `@Transactional` операция откатывается полностью.
+
+## Запуск
+
+1. Запусти проект:
 
 ```bash
 ./mvnw spring-boot:run
 ```
 
-После запуска приложение будет доступно по адресу:
+После запуска:
 
 - API: `http://localhost:8080/api/products`
-- Главная страница (редирект на API): `http://localhost:8080/`
-- H2 Console: `http://localhost:8080/h2-console`
+- H2 console: `http://localhost:8080/h2-console`
 
-## Примеры запросов
-
-### Получить все товары
-
-```bash
-curl -X GET "http://localhost:8080/api/products"
-```
-
-### Получить товар по ID
-
-```bash
-curl -X GET "http://localhost:8080/api/products/1"
-```
-
-### Поиск по названию
-
-```bash
-curl -X GET "http://localhost:8080/api/products?name=lap"
-```
-
-## Тестирование и проверка стиля
+## Тесты
 
 ```bash
 ./mvnw test

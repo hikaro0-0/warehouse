@@ -10,9 +10,18 @@ public class ProductMapper {
     public ProductResponseDto toResponseDto(Product product) {
         return new ProductResponseDto(
                 product.getId(),
+                product.getSku(),
                 product.getName(),
                 product.getQuantity(),
-                product.getLocation()
+                product.getWarehouse().getId(),
+                product.getWarehouse().getName(),
+                product.getSupplier().getId(),
+                product.getSupplier().getName(),
+                product.getCategories()
+                        .stream()
+                        .map(category -> category.getName())
+                        .sorted()
+                        .toList()
         );
     }
 }

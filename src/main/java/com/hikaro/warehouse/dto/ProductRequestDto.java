@@ -2,15 +2,12 @@ package com.hikaro.warehouse.dto;
 
 import java.util.List;
 
-public record ProductResponseDto(
-        Long id,
+public record ProductRequestDto(
         String sku,
         String name,
         Integer quantity,
         Long warehouseId,
-        String warehouseName,
         Long supplierId,
-        String supplierName,
-        List<String> categories
+        List<Long> categoryIds
 ) {
 }

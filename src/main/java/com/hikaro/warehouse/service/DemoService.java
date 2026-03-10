@@ -1,0 +1,108 @@
+package com.hikaro.warehouse.service;
+
+import com.hikaro.warehouse.dto.BulkOperationRequestDto;
+import com.hikaro.warehouse.dto.TransactionDemoResponseDto;
+import com.hikaro.warehouse.entity.Category;
+import com.hikaro.warehouse.entity.Product;
+import com.hikaro.warehouse.entity.Supplier;
+import com.hikaro.warehouse.entity.Warehouse;
+import com.hikaro.warehouse.exception.ResourceNotFoundException;
+import com.hikaro.warehouse.repository.CategoryRepository;
+import com.hikaro.warehouse.repository.ProductRepository;
+import com.hikaro.warehouse.repository.ShipmentRepository;
+import com.hikaro.warehouse.repository.SupplierRepository;
+import com.hikaro.warehouse.repository.WarehouseRepository;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+public class DemoService {
+
+    private final SupplierRepository supplierRepository;
+    private final WarehouseRepository warehouseRepository;
+    private final ProductRepository productRepository;
+    private final ShipmentRepository shipmentRepository;
+    private final CategoryRepository categoryRepository;
+
+    public DemoService(
+            SupplierRepository supplierRepository,
+            WarehouseRepository warehouseRepository,
+            ProductRepository productRepository,
+            ShipmentRepository shipmentRepository,
+            CategoryRepository categoryRepository
+    ) {
+        this.supplierRepository = supplierRepository;
+        this.warehouseRepository = warehouseRepository;
+        this.productRepository = productRepository;
+        this.shipmentRepository = shipmentRepository;
+        this.categoryRepository = categoryRepository;
+    }
+
+    public TransactionDemoResponseDto saveGraphWithoutTransaction(BulkOperationRequestDto request) {
+        try {
+            saveRelatedEntities(request);
+            return buildResponse("without-transaction", "Saved all entities");
+        } catch (IllegalStateException ex) {
+            return buildResponse("without-transaction", ex.getMessage());
+        }
+    }
+
+    @Transactional
+    public TransactionDemoResponseDto saveGraphWithTransaction(BulkOperationRequestDto request) {
+        saveRelatedEntities(request);
+        return buildResponse("with-transaction", "Saved all entities");
+    }
+
+    private void saveRelatedEntities(BulkOperationRequestDto request) {
+        Supplier supplier = supplierRepository.save(
+                new Supplier(null, request.supplierName(), request.contactEmail())
+        );
+        Warehouse warehouse = warehouseRepository.save(
+                new Warehouse(null, request.warehouseName(), request.warehouseAddress())
+        );
+
+        Product product = new Product(
+                null,
+                request.sku(),
+                request.productName(),
+                request.quantity()
+        );
+        product.setSupplier(supplier);
+        product.setWarehouse(warehouse);
+        product.setCategories(loadCategories(request.categoryIds()));
+        productRepository.save(product);
+
+        throw new IllegalStateException(
+                "Intentional failure after saving supplier, warehouse and product"
+        );
+    }
+
+    private Set<Category> loadCategories(List<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return new LinkedHashSet<>();
+        }
+        Set<Category> categories = new LinkedHashSet<>(categoryRepository.findAllById(ids));
+        if (categories.size() != ids.size()) {
+            throw new ResourceNotFoundException("One or more categories not found");
+        }
+        return categories;
+    }
+
+    public TransactionDemoResponseDto snapshot(String mode, String message) {
+        return buildResponse(mode, message);
+    }
+
+    private TransactionDemoResponseDto buildResponse(String mode, String message) {
+        return new TransactionDemoResponseDto(
+                mode,
+                message,
+                supplierRepository.count(),
+                warehouseRepository.count(),
+                productRepository.count(),
+                shipmentRepository.count()
+        );
+    }
+}
