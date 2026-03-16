@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 015-reset-identity-counters
+      author: hikaro
+      changes:
+        - sql:
+            sql: ALTER TABLE warehouses ALTER COLUMN id RESTART WITH 100;
+        - sql:
+            sql: ALTER TABLE suppliers ALTER COLUMN id RESTART WITH 100;
+        - sql:
+            sql: ALTER TABLE categories ALTER COLUMN id RESTART WITH 100;
+        - sql:
+            sql: ALTER TABLE products ALTER COLUMN id RESTART WITH 100;
+        - sql:
+            sql: ALTER TABLE shipments ALTER COLUMN id RESTART WITH 100;

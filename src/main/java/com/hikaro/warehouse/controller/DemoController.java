@@ -1,7 +1,6 @@
 package com.hikaro.warehouse.controller;
 
 import com.hikaro.warehouse.dto.BulkOperationRequestDto;
-import com.hikaro.warehouse.dto.TransactionDemoResponseDto;
 import com.hikaro.warehouse.service.DemoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,24 +21,17 @@ public class DemoController {
 
     @PostMapping("/without-transaction")
     @ResponseStatus(HttpStatus.OK)
-    public TransactionDemoResponseDto withoutTransaction(
+    public void withoutTransaction(
             @RequestBody BulkOperationRequestDto request
     ) {
-        return demoService.saveGraphWithoutTransaction(request);
+        demoService.saveGraphWithoutTransaction(request);
     }
 
     @PostMapping("/with-transaction")
     @ResponseStatus(HttpStatus.OK)
-    public TransactionDemoResponseDto withTransaction(
+    public void withTransaction(
             @RequestBody BulkOperationRequestDto request
     ) {
-        try {
-            return demoService.saveGraphWithTransaction(request);
-        } catch (IllegalStateException ex) {
-            return demoService.snapshot(
-                    "with-transaction",
-                    ex.getMessage()
-            );
-        }
+        demoService.saveGraphWithTransaction(request);
     }
 }

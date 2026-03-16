@@ -1,7 +1,10 @@
 package com.hikaro.warehouse.controller;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -14,7 +17,6 @@ import com.hikaro.warehouse.dto.ShipmentRequestDto;
 import com.hikaro.warehouse.dto.ShipmentResponseDto;
 import com.hikaro.warehouse.dto.SupplierRequestDto;
 import com.hikaro.warehouse.dto.SupplierResponseDto;
-import com.hikaro.warehouse.dto.TransactionDemoResponseDto;
 import com.hikaro.warehouse.dto.WarehouseRequestDto;
 import com.hikaro.warehouse.dto.WarehouseResponseDto;
 import com.hikaro.warehouse.entity.Category;
@@ -196,22 +198,19 @@ class ControllerUnitTest {
     }
 
     @Test
-    void demoControllerShouldReturnServiceResponsesAndFallbackSnapshot() {
+    void demoControllerShouldPropagateFailuresForScenarioScreenshots() {
         BulkOperationRequestDto request = new BulkOperationRequestDto(
                 "Supplier", "mail@example.com", "Warehouse", "Street", "Product", "SKU", 3, List.of(1L, 2L)
         );
-        TransactionDemoResponseDto success = new TransactionDemoResponseDto(
-                "without-transaction", "ok", 1L, 1L, 1L, 0L
-        );
-        TransactionDemoResponseDto snapshot = new TransactionDemoResponseDto(
-                "with-transaction", "boom", 1L, 1L, 1L, 0L
-        );
 
-        when(demoService.saveGraphWithoutTransaction(request)).thenReturn(success);
-        when(demoService.saveGraphWithTransaction(request)).thenThrow(new IllegalStateException("boom"));
-        when(demoService.snapshot("with-transaction", "boom")).thenReturn(snapshot);
+        assertDoesNotThrow(() -> { demoController.withoutTransaction(request); });
+        verify(demoService).saveGraphWithoutTransaction(request);
 
-        assertEquals(success, demoController.withoutTransaction(request));
-        assertEquals(snapshot, demoController.withTransaction(request));
+        doThrow(new IllegalStateException("boom")).when(demoService).saveGraphWithTransaction(request);
+        IllegalStateException exception = assertThrows(
+                IllegalStateException.class,
+                () -> demoController.withTransaction(request)
+        );
+        assertEquals("boom", exception.getMessage());
     }
 }

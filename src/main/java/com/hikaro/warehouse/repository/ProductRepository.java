@@ -12,10 +12,14 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByNameContainingIgnoreCase(String name);
 
     @EntityGraph(attributePaths = {"warehouse", "supplier", "categories"})
+    @Query("select p from Product p")
+    List<Product> findAllWithDetails();
+
+    @EntityGraph(attributePaths = {"warehouse", "supplier", "categories"})
     @Query("""
             select p
             from Product p
-            where (:name is null or lower(p.name) like lower(concat('%', :name, '%')))
+            where lower(p.name) like lower(concat('%', :name, '%'))
             """)
-    List<Product> findAllWithDetails(@Param("name") String name);
+    List<Product> findAllWithDetailsByName(@Param("name") String name);
 }

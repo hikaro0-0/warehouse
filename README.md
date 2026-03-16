@@ -1,115 +1,127 @@
-# Warehouse Management System
+# Warehouse Accounting System
 
-## Описание
+## Что сделано
 
-Проект представляет собой REST API на Spring Boot для управления складом.
-Основная БД проекта сейчас `H2 (in-memory)`.
+Проект `warehouse2.0` реализует Spring Boot REST API по теме складского учёта.
+Структура базы данных и миграций теперь организована по образцу `FinanceTracker`:
 
-Модель данных включает 5 сущностей:
+- `src/main/resources/db/db.changelog-master.yaml`
+- `src/main/resources/db/migrations/*.yaml`
+- инициализация схемы и данных через `Liquibase`
 
-- `Product`
-- `Category`
-- `Supplier`
-- `Warehouse`
-- `Shipment`
+Из проекта удалены старые ресурсы, которые больше не используются:
 
-Связи:
+- `data.sql`
+- `application-postgres.properties`
 
-- `Warehouse -> Product` и `Supplier -> Product` реализованы как `OneToMany / ManyToOne`
-- `Product <-> Category` реализована как `ManyToMany`
-- `Shipment <-> Product` реализована как дополнительная `ManyToMany`
+## Выполненные требования
 
-## Технологии
+1. Создано Spring Boot приложение.
+2. Реализован REST API для ключевой сущности `Product`.
+3. Есть `GET` с `@PathVariable`: `GET /api/products/{id}`.
+4. Есть `GET` с `@RequestParam`: `GET /api/products?name=lap`.
+5. Использованы слои `Controller -> Service -> Repository`.
+6. Реализованы DTO и mapper (`ProductMapper`).
+7. Подключена реляционная БД PostgreSQL.
+8. В модели данных есть 5 сущностей:
+   - `Product`
+   - `Category`
+   - `Supplier`
+   - `Warehouse`
+   - `Shipment`
+9. Есть связь `OneToMany`:
+   - `Warehouse -> Product`
+   - `Supplier -> Product`
+   - `Supplier -> Shipment`
+10. Есть связь `ManyToMany`:
+   - `Product <-> Category`
+   - `Shipment <-> Product`
+11. Реализованы CRUD операции.
+12. Продемонстрирована проблема `N+1` и решение через `@EntityGraph`.
+13. Реализовано сохранение нескольких связанных сущностей с демонстрацией поведения без транзакции и с транзакцией.
 
-- Java 21
-- Spring Boot 4
-- Spring Web
-- Spring Data JPA
-- H2 Database
-- Maven
-- Checkstyle
+## Liquibase migrations
 
-## Конфигурация БД
+Порядок миграций:
 
-- приложение работает на встроенной `H2`
-- схема создаётся автоматически при запуске
-- `data.sql` загружает стартовые данные
+- `001-create-warehouses.yaml`
+- `002-create-suppliers.yaml`
+- `003-create-categories.yaml`
+- `004-create-products.yaml`
+- `005-create-product-categories.yaml`
+- `006-create-shipments.yaml`
+- `007-create-shipment-products.yaml`
+- `008-014` — стартовые данные
 
-## Обоснование CascadeType и FetchType
+При запуске приложения Liquibase:
 
-В проекте используются следующие настройки:
+- создаёт таблицы
+- создаёт связи и ограничения
+- загружает стартовые данные
 
-- `FetchType.LAZY` для коллекций и связей `ManyToOne`
-  Это уменьшает количество лишних SQL-запросов и позволяет явно управлять загрузкой.
+## API
 
-- `CascadeType.PERSIST, MERGE` для `Supplier -> products`, `Supplier -> shipments`,
-  `Warehouse -> products`
-  Это удобно для сохранения и обновления связанных объектов без каскадного удаления.
+Основная сущность:
 
-- для `ManyToMany` каскад удаления не используется
-  Категории, товары и поставки остаются самостоятельными сущностями.
+- `GET /api/products/{id}`
+- `GET /api/products?name=lap`
+- `POST /api/products`
+- `PUT /api/products/{id}`
+- `DELETE /api/products/{id}`
 
-## CRUD API
+Дополнительный CRUD:
 
-Реализованы CRUD-операции для:
-
-- `/api/products`
 - `/api/categories`
 - `/api/suppliers`
 - `/api/warehouses`
 - `/api/shipments`
 
-Пример создания товара:
+N+1:
 
-```bash
-curl -X POST http://localhost:8080/api/products \
-  -H "Content-Type: application/json" \
-  -d '{
-    "sku": "SKU-500",
-    "name": "USB Hub",
-    "quantity": 25,
-    "warehouseId": 1,
-    "supplierId": 1,
-    "categoryIds": [1, 2]
-  }'
-```
+- проблемный endpoint: `GET /api/products/n-plus-one`
+- оптимизированный endpoint: `GET /api/products/optimized`
 
-## Демонстрация N+1
-
-Проблемный сценарий:
-
-- `GET /api/products/n-plus-one`
-
-Оптимизированный сценарий:
-
-- `GET /api/products/optimized`
-
-Оптимизация выполнена через `@EntityGraph`.
-
-## Демонстрация транзакций
-
-Endpoints:
+Транзакции:
 
 - `POST /api/demo/without-transaction`
 - `POST /api/demo/with-transaction`
 
-Без `@Transactional` часть данных сохраняется.
-С `@Transactional` операция откатывается полностью.
+## CascadeType и FetchType
+
+В проекте выбраны следующие настройки:
+
+- `FetchType.LAZY` для коллекций и связей `ManyToOne`
+- `CascadeType.PERSIST, MERGE` для `Supplier.products`, `Supplier.shipments`, `Warehouse.products`
+- для `ManyToMany` каскад удаления не используется
+
+Это уменьшает количество лишних запросов, позволяет отдельно контролировать загрузку графа и не удаляет связанные справочники по цепочке.
 
 ## Запуск
 
-1. Запусти проект:
+1. Настрой `.env` на основе [`.env.example`](./.env.example).
+2. Подними PostgreSQL через Docker Compose.
+3. Из-за сетевых ограничений Docker на Fedora контейнер запускается в `host` network mode и использует порт `5432` напрямую на хосте.
+4. Запусти:
 
 ```bash
+cd /home/hikaro/java/warehouse2.0
 ./mvnw spring-boot:run
 ```
 
-После запуска:
+При старте Liquibase сам применит все миграции к твоей БД.
 
-- API: `http://localhost:8080/api/products`
-- H2 console: `http://localhost:8080/h2-console`
+Команды запуска:
+
+```bash
+docker compose down -v --remove-orphans
+docker compose up -d
+cp .env.example .env
+./mvnw spring-boot:run
+```
 
 ## Тесты
+
+Для тестов используется H2 и те же Liquibase migrations.
 
 ```bash
 ./mvnw test

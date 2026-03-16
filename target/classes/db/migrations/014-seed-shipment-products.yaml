@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 014-seed-shipment-products
+      author: hikaro
+      changes:
+        - insert:
+            tableName: shipment_products
+            columns:
+              - column: { name: shipment_id, valueNumeric: 1 }
+              - column: { name: product_id, valueNumeric: 1 }
+        - insert:
+            tableName: shipment_products
+            columns:
+              - column: { name: shipment_id, valueNumeric: 1 }
+              - column: { name: product_id, valueNumeric: 4 }
+        - insert:
+            tableName: shipment_products
+            columns:
+              - column: { name: shipment_id, valueNumeric: 2 }
+              - column: { name: product_id, valueNumeric: 2 }
+        - insert:
+            tableName: shipment_products
+            columns:
+              - column: { name: shipment_id, valueNumeric: 2 }
+              - column: { name: product_id, valueNumeric: 3 }

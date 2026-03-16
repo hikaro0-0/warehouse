@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 012-seed-product-categories
+      author: hikaro
+      changes:
+        - insert:
+            tableName: product_categories
+            columns:
+              - column: { name: product_id, valueNumeric: 1 }
+              - column: { name: category_id, valueNumeric: 1 }
+        - insert:
+            tableName: product_categories
+            columns:
+              - column: { name: product_id, valueNumeric: 1 }
+              - column: { name: category_id, valueNumeric: 3 }
+        - insert:
+            tableName: product_categories
+            columns:
+              - column: { name: product_id, valueNumeric: 2 }
+              - column: { name: category_id, valueNumeric: 1 }
+        - insert:
+            tableName: product_categories
+            columns:
+              - column: { name: product_id, valueNumeric: 2 }
+              - column: { name: category_id, valueNumeric: 2 }
+        - insert:
+            tableName: product_categories
+            columns:
+              - column: { name: product_id, valueNumeric: 3 }
+              - column: { name: category_id, valueNumeric: 1 }
+        - insert:
+            tableName: product_categories
+            columns:
+              - column: { name: product_id, valueNumeric: 4 }
+              - column: { name: category_id, valueNumeric: 1 }
+        - insert:
+            tableName: product_categories
+            columns:
+              - column: { name: product_id, valueNumeric: 4 }
+              - column: { name: category_id, valueNumeric: 3 }

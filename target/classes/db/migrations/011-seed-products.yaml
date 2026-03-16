@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 011-seed-products
+      author: hikaro
+      changes:
+        - insert:
+            tableName: products
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: sku, value: SKU-100 }
+              - column: { name: name, value: Laptop }
+              - column: { name: quantity, valueNumeric: 10 }
+              - column: { name: warehouse_id, valueNumeric: 1 }
+              - column: { name: supplier_id, valueNumeric: 1 }
+        - insert:
+            tableName: products
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: sku, value: SKU-101 }
+              - column: { name: name, value: Keyboard }
+              - column: { name: quantity, valueNumeric: 50 }
+              - column: { name: warehouse_id, valueNumeric: 1 }
+              - column: { name: supplier_id, valueNumeric: 2 }
+        - insert:
+            tableName: products
+            columns:
+              - column: { name: id, valueNumeric: 3 }
+              - column: { name: sku, value: SKU-102 }
+              - column: { name: name, value: Mouse }
+              - column: { name: quantity, valueNumeric: 75 }
+              - column: { name: warehouse_id, valueNumeric: 2 }
+              - column: { name: supplier_id, valueNumeric: 2 }
+        - insert:
+            tableName: products
+            columns:
+              - column: { name: id, valueNumeric: 4 }
+              - column: { name: sku, value: SKU-103 }
+              - column: { name: name, value: Monitor }
+              - column: { name: quantity, valueNumeric: 15 }
+              - column: { name: warehouse_id, valueNumeric: 2 }
+              - column: { name: supplier_id, valueNumeric: 1 }

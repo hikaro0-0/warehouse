@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 010-seed-categories
+      author: hikaro
+      changes:
+        - insert:
+            tableName: categories
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: name, value: Electronics }
+              - column: { name: description, value: Devices and peripherals }
+        - insert:
+            tableName: categories
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: name, value: Office }
+              - column: { name: description, value: Office inventory }
+        - insert:
+            tableName: categories
+            columns:
+              - column: { name: id, valueNumeric: 3 }
+              - column: { name: name, value: Premium }
+              - column: { name: description, value: High margin products }

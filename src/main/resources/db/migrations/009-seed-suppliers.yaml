@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009-seed-suppliers
+      author: hikaro
+      changes:
+        - insert:
+            tableName: suppliers
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: name, value: TechSource }
+              - column: { name: contact_email, value: sales@techsource.example }
+        - insert:
+            tableName: suppliers
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: name, value: OfficeLine }
+              - column: { name: contact_email, value: orders@officeline.example }

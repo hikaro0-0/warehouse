@@ -1,7 +1,6 @@
 package com.hikaro.warehouse.service;
 
 import com.hikaro.warehouse.dto.BulkOperationRequestDto;
-import com.hikaro.warehouse.dto.TransactionDemoResponseDto;
 import com.hikaro.warehouse.entity.Category;
 import com.hikaro.warehouse.entity.Product;
 import com.hikaro.warehouse.entity.Supplier;
@@ -9,7 +8,6 @@ import com.hikaro.warehouse.entity.Warehouse;
 import com.hikaro.warehouse.exception.ResourceNotFoundException;
 import com.hikaro.warehouse.repository.CategoryRepository;
 import com.hikaro.warehouse.repository.ProductRepository;
-import com.hikaro.warehouse.repository.ShipmentRepository;
 import com.hikaro.warehouse.repository.SupplierRepository;
 import com.hikaro.warehouse.repository.WarehouseRepository;
 import java.util.LinkedHashSet;
@@ -24,36 +22,28 @@ public class DemoService {
     private final SupplierRepository supplierRepository;
     private final WarehouseRepository warehouseRepository;
     private final ProductRepository productRepository;
-    private final ShipmentRepository shipmentRepository;
     private final CategoryRepository categoryRepository;
 
     public DemoService(
             SupplierRepository supplierRepository,
             WarehouseRepository warehouseRepository,
             ProductRepository productRepository,
-            ShipmentRepository shipmentRepository,
+            com.hikaro.warehouse.repository.ShipmentRepository shipmentRepository,
             CategoryRepository categoryRepository
     ) {
         this.supplierRepository = supplierRepository;
         this.warehouseRepository = warehouseRepository;
         this.productRepository = productRepository;
-        this.shipmentRepository = shipmentRepository;
         this.categoryRepository = categoryRepository;
     }
 
-    public TransactionDemoResponseDto saveGraphWithoutTransaction(BulkOperationRequestDto request) {
-        try {
-            saveRelatedEntities(request);
-            return buildResponse("without-transaction", "Saved all entities");
-        } catch (IllegalStateException ex) {
-            return buildResponse("without-transaction", ex.getMessage());
-        }
+    public void saveGraphWithoutTransaction(BulkOperationRequestDto request) {
+        saveRelatedEntities(request);
     }
 
     @Transactional
-    public TransactionDemoResponseDto saveGraphWithTransaction(BulkOperationRequestDto request) {
+    public void saveGraphWithTransaction(BulkOperationRequestDto request) {
         saveRelatedEntities(request);
-        return buildResponse("with-transaction", "Saved all entities");
     }
 
     private void saveRelatedEntities(BulkOperationRequestDto request) {
@@ -89,20 +79,5 @@ public class DemoService {
             throw new ResourceNotFoundException("One or more categories not found");
         }
         return categories;
-    }
-
-    public TransactionDemoResponseDto snapshot(String mode, String message) {
-        return buildResponse(mode, message);
-    }
-
-    private TransactionDemoResponseDto buildResponse(String mode, String message) {
-        return new TransactionDemoResponseDto(
-                mode,
-                message,
-                supplierRepository.count(),
-                warehouseRepository.count(),
-                productRepository.count(),
-                shipmentRepository.count()
-        );
     }
 }

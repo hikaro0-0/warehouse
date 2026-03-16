@@ -45,7 +45,7 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public Product getById(Long id) {
-        return productRepository.findAllWithDetails(null)
+        return productRepository.findAllWithDetails()
                 .stream()
                 .filter(product -> product.getId().equals(id))
                 .findFirst()
@@ -59,7 +59,10 @@ public class ProductService {
     @Transactional(readOnly = true)
     public List<Product> findByName(String name) {
         String filter = normalizeName(name);
-        return productRepository.findAllWithDetails(filter);
+        if (filter == null) {
+            return productRepository.findAllWithDetails();
+        }
+        return productRepository.findAllWithDetailsByName(filter);
     }
 
     @Transactional(readOnly = true)
@@ -74,7 +77,11 @@ public class ProductService {
     @Transactional(readOnly = true)
     public List<Product> findByNameWithEntityGraph(String name) {
         entityManager.clear();
-        return productRepository.findAllWithDetails(normalizeName(name));
+        String filter = normalizeName(name);
+        if (filter == null) {
+            return productRepository.findAllWithDetails();
+        }
+        return productRepository.findAllWithDetailsByName(filter);
     }
 
     public Product create(ProductRequestDto request) {
