@@ -42,23 +42,6 @@
 
 ## Liquibase migrations
 
-Порядок миграций:
-
-- `001-create-warehouses.yaml`
-- `002-create-suppliers.yaml`
-- `003-create-categories.yaml`
-- `004-create-products.yaml`
-- `005-create-product-categories.yaml`
-- `006-create-shipments.yaml`
-- `007-create-shipment-products.yaml`
-- `008-014` — стартовые данные
-
-При запуске приложения Liquibase:
-
-- создаёт таблицы
-- создаёт связи и ограничения
-- загружает стартовые данные
-
 ## API
 
 Основная сущность:
@@ -104,7 +87,7 @@ N+1:
 4. Запусти:
 
 ```bash
-cd /home/hikaro/java/warehouse2.0
+cd /home/hikaro/java/warehouse
 ./mvnw spring-boot:run
 ```
 
@@ -117,13 +100,4 @@ docker compose down -v --remove-orphans
 docker compose up -d
 cp .env.example .env
 ./mvnw spring-boot:run
-```
-
-## Тесты
-
-Для тестов используется H2 и те же Liquibase migrations.
-
-```bash
-./mvnw test
-./mvnw verify
 ```
