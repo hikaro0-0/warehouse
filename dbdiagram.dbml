@@ -1,0 +1,50 @@
+Table warehouses {
+  id bigint [pk, increment, not null]
+  name varchar(255) [not null, unique]
+  address varchar(255) [not null]
+}
+
+Table suppliers {
+  id bigint [pk, increment, not null]
+  name varchar(255) [not null]
+  contact_email varchar(255) [not null, unique]
+}
+
+Table categories {
+  id bigint [pk, increment, not null]
+  name varchar(255) [not null, unique]
+  description varchar(255) [not null]
+}
+
+Table products {
+  id bigint [pk, increment, not null]
+  sku varchar(255) [not null, unique]
+  name varchar(255) [not null]
+  quantity int [not null]
+  warehouse_id bigint [not null, ref: > warehouses.id]
+  supplier_id bigint [not null, ref: > suppliers.id]
+}
+
+Table product_categories {
+  product_id bigint [pk, not null, ref: > products.id]
+  category_id bigint [pk, not null, ref: > categories.id]
+
+  indexes {
+    (category_id, product_id) [name: 'pk_product_categories']
+  }
+}
+
+Table shipments {
+  id bigint [pk, increment, not null]
+  reference_number varchar(255) [not null, unique]
+  supplier_id bigint [not null, ref: > suppliers.id]
+}
+
+Table shipment_products {
+  shipment_id bigint [pk, not null, ref: > shipments.id]
+  product_id bigint [pk, not null, ref: > products.id]
+
+  indexes {
+    (product_id, shipment_id) [name: 'pk_shipment_products']
+  }
+}
