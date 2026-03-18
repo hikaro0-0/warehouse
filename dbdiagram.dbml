@@ -48,3 +48,6 @@ Table shipment_products {
     (product_id, shipment_id) [name: 'pk_shipment_products']
   }
 }
+
+Ref product_to_categories: products.id <> categories.id
+Ref shipments_to_products: shipments.id <> products.id
