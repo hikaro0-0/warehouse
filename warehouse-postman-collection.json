@@ -1,0 +1,502 @@
+{
+  "info": {
+    "name": "Warehouse CRUD",
+    "_postman_id": "7f8d1d6e-9c4c-4f9c-b001-warehouse-crud",
+    "description": "CRUD requests for warehouse Spring Boot API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/categories",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "categories"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Laptops\",\n  \"description\": \"Portable computers and ultrabooks\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/categories",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "categories"]
+            }
+          }
+        },
+        {
+          "name": "Get Category By Id",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/categories/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "categories", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/categories/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "categories", "1"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Office Laptops\",\n  \"description\": \"Laptops for office staff\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/categories/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "categories", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Suppliers",
+      "item": [
+        {
+          "name": "Create Supplier",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/suppliers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "suppliers"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tech Supply LLC\",\n  \"contactEmail\": \"sales@techsupply.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Suppliers",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/suppliers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "suppliers"]
+            }
+          }
+        },
+        {
+          "name": "Get Supplier By Id",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/suppliers/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "suppliers", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Supplier",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/suppliers/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "suppliers", "1"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tech Supply Group\",\n  \"contactEmail\": \"contact@techsupply.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Supplier",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/suppliers/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "suppliers", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Warehouses",
+      "item": [
+        {
+          "name": "Create Warehouse",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/warehouses",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "warehouses"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Central Warehouse\",\n  \"address\": \"Minsk, Industrialnaya 12\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Warehouses",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/warehouses",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "warehouses"]
+            }
+          }
+        },
+        {
+          "name": "Get Warehouse By Id",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/warehouses/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "warehouses", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Warehouse",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/warehouses/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "warehouses", "1"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Central Warehouse A\",\n  \"address\": \"Minsk, Industrialnaya 14\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Warehouse",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/warehouses/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "warehouses", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"LAP-001\",\n  \"name\": \"Lenovo ThinkPad E14\",\n  \"quantity\": 15,\n  \"warehouseId\": 1,\n  \"supplierId\": 1,\n  \"categoryIds\": [1]\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products"]
+            }
+          }
+        },
+        {
+          "name": "Get Product By Id",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/products/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "1"]
+            }
+          }
+        },
+        {
+          "name": "Find Products By Name",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/products?name=think",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "think"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "N+1 Demo",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/products/n-plus-one",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "n-plus-one"]
+            }
+          }
+        },
+        {
+          "name": "Optimized Query",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/products/optimized",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "optimized"]
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "1"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"LAP-001\",\n  \"name\": \"Lenovo ThinkPad E14 Gen 2\",\n  \"quantity\": 20,\n  \"warehouseId\": 1,\n  \"supplierId\": 1,\n  \"categoryIds\": [1]\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/products/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shipments",
+      "item": [
+        {
+          "name": "Create Shipment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"referenceNumber\": \"SHIP-2026-001\",\n  \"supplierId\": 1,\n  \"productIds\": [1]\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Shipments",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments"]
+            }
+          }
+        },
+        {
+          "name": "Get Shipment By Id",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Shipment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "1"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"referenceNumber\": \"SHIP-2026-001-UPD\",\n  \"supplierId\": 1,\n  \"productIds\": [1]\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Shipment",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transactions Demo",
+      "item": [
+        {
+          "name": "Without Transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/without-transaction",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "demo", "without-transaction"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"supplierName\": \"Bulk Supplier\",\n  \"supplierEmail\": \"bulk@example.com\",\n  \"warehouseName\": \"Bulk Warehouse\",\n  \"warehouseAddress\": \"Failure street 1\",\n  \"productName\": \"Stress Product\",\n  \"productSku\": \"SKU-BULK-1\",\n  \"quantity\": 5,\n  \"categoryIds\": [1, 2]\n}"
+            }
+          }
+        },
+        {
+          "name": "With Transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/with-transaction",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "demo", "with-transaction"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"supplierName\": \"Bulk Supplier\",\n  \"supplierEmail\": \"bulk@example.com\",\n  \"warehouseName\": \"Bulk Warehouse\",\n  \"warehouseAddress\": \"Failure street 1\",\n  \"productName\": \"Stress Product\",\n  \"productSku\": \"SKU-BULK-2\",\n  \"quantity\": 5,\n  \"categoryIds\": [1, 2]\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
