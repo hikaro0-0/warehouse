@@ -1,7 +1,9 @@
 package com.hikaro.warehouse;
 
+import com.hikaro.warehouse.controller.ProductController;
 import com.hikaro.warehouse.dto.BulkOperationRequestDto;
 import com.hikaro.warehouse.dto.ProductRequestDto;
+import com.hikaro.warehouse.dto.ProductResponseDto;
 import com.hikaro.warehouse.entity.Product;
 import com.hikaro.warehouse.repository.ProductRepository;
 import com.hikaro.warehouse.repository.ShipmentRepository;
@@ -27,6 +29,9 @@ class WarehouseApplicationTests {
     private ProductService productService;
 
     @Autowired
+    private ProductController productController;
+
+    @Autowired
     private DemoService demoService;
 
     @Autowired
@@ -47,6 +52,15 @@ class WarehouseApplicationTests {
     @Test
     void contextLoads() {
         Assertions.assertTrue(productRepository.count() >= 4);
+    }
+
+    @Test
+    void shouldReturnNPlusOneDemoWithoutLazyInitializationFailure() {
+        List<ProductResponseDto> response = productController.demoNplusOne(null);
+
+        Assertions.assertFalse(response.isEmpty());
+        Assertions.assertNotNull(response.getFirst().warehouseName());
+        Assertions.assertNotNull(response.getFirst().supplierName());
     }
 
     @Test

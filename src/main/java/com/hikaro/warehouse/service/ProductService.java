@@ -68,10 +68,14 @@ public class ProductService {
     @Transactional(readOnly = true)
     public List<Product> demoNplusOne(String name) {
         entityManager.clear();
+        List<Product> products;
         if (isBlank(name)) {
-            return productRepository.findAll();
+            products = productRepository.findAll();
+        } else {
+            products = productRepository.findByNameContainingIgnoreCase(name);
         }
-        return productRepository.findByNameContainingIgnoreCase(name);
+        initializeAssociations(products);
+        return products;
     }
 
     @Transactional(readOnly = true)
@@ -151,6 +155,14 @@ public class ProductService {
 
     private String normalizeName(String name) {
         return isBlank(name) ? null : name;
+    }
+
+    private void initializeAssociations(List<Product> products) {
+        products.forEach(product -> {
+            product.getWarehouse().getName();
+            product.getSupplier().getName();
+            product.getCategories().size();
+        });
     }
 
     private boolean isBlank(String value) {
