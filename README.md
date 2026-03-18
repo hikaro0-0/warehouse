@@ -2,7 +2,7 @@
 
 ## Что сделано
 
-Проект `warehouse2.0` реализует Spring Boot REST API по теме складского учёта.
+Проект `warehouse` реализует Spring Boot REST API по теме складского учёта.
 Структура базы данных и миграций теперь организована по образцу `FinanceTracker`:
 
 - `src/main/resources/db/db.changelog-master.yaml`
