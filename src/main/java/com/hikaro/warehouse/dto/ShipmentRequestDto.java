@@ -4,7 +4,7 @@ import java.util.List;
 
 public record ShipmentRequestDto(
         String referenceNumber,
-        Long supplierId,
+        Long warehouseId,
         List<Long> productIds
 ) {
 }

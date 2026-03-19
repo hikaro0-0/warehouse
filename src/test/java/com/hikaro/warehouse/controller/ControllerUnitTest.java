@@ -147,11 +147,11 @@ class ControllerUnitTest {
 
     @Test
     void shipmentControllerShouldMapRequestsAndResponses() {
-        Supplier supplier = new Supplier(2L, "ACME", "acme@example.com");
+        Warehouse warehouse = new Warehouse(2L, "Main", "Street 1");
         Product firstProduct = new Product(5L, "SKU-5", "Mouse", 2);
         Product secondProduct = new Product(3L, "SKU-3", "Keyboard", 4);
         Shipment shipment = new Shipment(7L, "REF-7");
-        shipment.setSupplier(supplier);
+        shipment.setWarehouse(warehouse);
         shipment.setProducts(new LinkedHashSet<>(List.of(firstProduct, secondProduct)));
         ShipmentRequestDto request = new ShipmentRequestDto("REF-7", 2L, List.of(5L, 3L));
 
@@ -162,7 +162,7 @@ class ControllerUnitTest {
 
         List<ShipmentResponseDto> all = shipmentController.findAll();
         assertIterableEquals(List.of(3L, 5L), all.getFirst().productIds());
-        assertEquals("ACME", shipmentController.getById(7L).supplierName());
+        assertEquals("Main", shipmentController.getById(7L).warehouseName());
         assertEquals("REF-7", shipmentController.create(request).referenceNumber());
         assertEquals(7L, shipmentController.update(7L, request).id());
 

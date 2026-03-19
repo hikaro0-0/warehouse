@@ -3,52 +3,61 @@ package com.hikaro.warehouse.service;
 import com.hikaro.warehouse.dto.ShipmentRequestDto;
 import com.hikaro.warehouse.entity.Product;
 import com.hikaro.warehouse.entity.Shipment;
-import com.hikaro.warehouse.entity.Supplier;
+import com.hikaro.warehouse.entity.Warehouse;
 import com.hikaro.warehouse.exception.ResourceNotFoundException;
 import com.hikaro.warehouse.repository.ProductRepository;
 import com.hikaro.warehouse.repository.ShipmentRepository;
-import com.hikaro.warehouse.repository.SupplierRepository;
+import com.hikaro.warehouse.repository.WarehouseRepository;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ShipmentService {
 
     private final ShipmentRepository shipmentRepository;
-    private final SupplierRepository supplierRepository;
+    private final WarehouseRepository warehouseRepository;
     private final ProductRepository productRepository;
 
     public ShipmentService(
             ShipmentRepository shipmentRepository,
-            SupplierRepository supplierRepository,
+            WarehouseRepository warehouseRepository,
             ProductRepository productRepository
     ) {
         this.shipmentRepository = shipmentRepository;
-        this.supplierRepository = supplierRepository;
+        this.warehouseRepository = warehouseRepository;
         this.productRepository = productRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<Shipment> findAll() {
-        return shipmentRepository.findAll();
+        List<Shipment> shipments = shipmentRepository.findAll();
+        initializeAssociations(shipments);
+        return shipments;
     }
 
+    @Transactional(readOnly = true)
     public Shipment getById(Long id) {
-        return shipmentRepository.findById(id)
+        Shipment shipment = shipmentRepository.findById(id)
                 .orElseThrow(
                         () -> new ResourceNotFoundException(
                                 "Shipment with id " + id + " not found"
                         )
                 );
+        initializeAssociations(List.of(shipment));
+        return shipment;
     }
 
+    @Transactional
     public Shipment create(ShipmentRequestDto request) {
         Shipment shipment = new Shipment();
         applyRequest(shipment, request);
         return shipmentRepository.save(shipment);
     }
 
+    @Transactional
     public Shipment update(Long id, ShipmentRequestDto request) {
         Shipment shipment = getById(id);
         applyRequest(shipment, request);
@@ -61,11 +70,11 @@ public class ShipmentService {
     }
 
     private void applyRequest(Shipment shipment, ShipmentRequestDto request) {
-        Supplier supplier = supplierRepository.findById(request.supplierId())
+        Warehouse warehouse = warehouseRepository.findById(request.warehouseId())
                 .orElseThrow(
                         () -> new ResourceNotFoundException(
-                                "Supplier with id "
-                                        + request.supplierId()
+                                "Warehouse with id "
+                                        + request.warehouseId()
                                         + " not found"
                         )
                 );
@@ -77,7 +86,14 @@ public class ShipmentService {
         }
 
         shipment.setReferenceNumber(request.referenceNumber());
-        shipment.setSupplier(supplier);
+        shipment.setWarehouse(warehouse);
         shipment.setProducts(products);
+    }
+
+    private void initializeAssociations(List<Shipment> shipments) {
+        shipments.forEach(shipment -> {
+            shipment.getWarehouse().getName();
+            shipment.getProducts().size();
+        });
     }
 }

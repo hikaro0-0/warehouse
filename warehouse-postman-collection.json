@@ -27,8 +27,13 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/categories",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "categories"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "categories"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -42,8 +47,13 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/categories",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "categories"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "categories"
+              ]
             }
           }
         },
@@ -53,8 +63,14 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/categories/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "categories", "1"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "categories",
+                "1"
+              ]
             }
           }
         },
@@ -70,8 +86,14 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/categories/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "categories", "1"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "categories",
+                "1"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -85,8 +107,14 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/api/categories/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "categories", "1"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "categories",
+                "1"
+              ]
             }
           }
         }
@@ -107,8 +135,13 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/suppliers",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "suppliers"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "suppliers"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -122,8 +155,13 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/suppliers",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "suppliers"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "suppliers"
+              ]
             }
           }
         },
@@ -133,8 +171,14 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/suppliers/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "suppliers", "1"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "suppliers",
+                "1"
+              ]
             }
           }
         },
@@ -150,8 +194,14 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/suppliers/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "suppliers", "1"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "suppliers",
+                "1"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -165,8 +215,14 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/api/suppliers/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "suppliers", "1"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "suppliers",
+                "1"
+              ]
             }
           }
         }
@@ -187,8 +243,13 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/warehouses",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "warehouses"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "warehouses"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -202,8 +263,13 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/warehouses",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "warehouses"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "warehouses"
+              ]
             }
           }
         },
@@ -213,8 +279,14 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/warehouses/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "warehouses", "1"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "warehouses",
+                "1"
+              ]
             }
           }
         },
@@ -230,8 +302,14 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/warehouses/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "warehouses", "1"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "warehouses",
+                "1"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -245,8 +323,14 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/api/warehouses/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "warehouses", "1"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "warehouses",
+                "1"
+              ]
             }
           }
         }
@@ -267,8 +351,13 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/products",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "products"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -282,8 +371,13 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/products",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "products"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products"
+              ]
             }
           }
         },
@@ -293,8 +387,14 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/products/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "products", "1"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
             }
           }
         },
@@ -304,8 +404,13 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/products?name=think",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "products"],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products"
+              ],
               "query": [
                 {
                   "key": "name",
@@ -321,8 +426,14 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/products/n-plus-one",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "products", "n-plus-one"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "n-plus-one"
+              ]
             }
           }
         },
@@ -332,8 +443,14 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/products/optimized",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "products", "optimized"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "optimized"
+              ]
             }
           }
         },
@@ -349,8 +466,14 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/products/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "products", "1"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
             },
             "body": {
               "mode": "raw",
@@ -364,8 +487,14 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/api/products/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "products", "1"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
             }
           }
         }
@@ -386,12 +515,17 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/shipments",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "shipments"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "shipments"
+              ]
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"referenceNumber\": \"SHIP-2026-001\",\n  \"supplierId\": 1,\n  \"productIds\": [1]\n}"
+              "raw": "{\n  \"referenceNumber\": \"SHIP-OUT-001\",\n  \"warehouseId\": 1,\n  \"productIds\": [\n    1\n  ]\n}"
             }
           }
         },
@@ -401,8 +535,13 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/shipments",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "shipments"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "shipments"
+              ]
             }
           }
         },
@@ -412,8 +551,14 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/api/shipments/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "shipments", "1"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "shipments",
+                "1"
+              ]
             }
           }
         },
@@ -429,12 +574,18 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/shipments/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "shipments", "1"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "shipments",
+                "1"
+              ]
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"referenceNumber\": \"SHIP-2026-001-UPD\",\n  \"supplierId\": 1,\n  \"productIds\": [1]\n}"
+              "raw": "{\n  \"referenceNumber\": \"SHIP-OUT-001-UPD\",\n  \"warehouseId\": 1,\n  \"productIds\": [\n    1\n  ]\n}"
             }
           }
         },
@@ -444,8 +595,14 @@
             "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/api/shipments/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "shipments", "1"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "shipments",
+                "1"
+              ]
             }
           }
         }
@@ -466,12 +623,18 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/demo/without-transaction",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "demo", "without-transaction"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "without-transaction"
+              ]
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"supplierName\": \"Bulk Supplier\",\n  \"supplierEmail\": \"bulk@example.com\",\n  \"warehouseName\": \"Bulk Warehouse\",\n  \"warehouseAddress\": \"Failure street 1\",\n  \"productName\": \"Stress Product\",\n  \"productSku\": \"SKU-BULK-1\",\n  \"quantity\": 5,\n  \"categoryIds\": [1, 2]\n}"
+              "raw": "{\n  \"supplierName\": \"Bulk Supplier\",\n  \"contactEmail\": \"bulk@example.com\",\n  \"warehouseName\": \"Bulk Warehouse\",\n  \"warehouseAddress\": \"Failure street 1\",\n  \"productName\": \"Stress Product\",\n  \"sku\": \"SKU-BULK-1\",\n  \"quantity\": 5,\n  \"categoryIds\": [\n    1,\n    2\n  ]\n}"
             }
           }
         },
@@ -487,12 +650,18 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/api/demo/with-transaction",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "demo", "with-transaction"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "with-transaction"
+              ]
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"supplierName\": \"Bulk Supplier\",\n  \"supplierEmail\": \"bulk@example.com\",\n  \"warehouseName\": \"Bulk Warehouse\",\n  \"warehouseAddress\": \"Failure street 1\",\n  \"productName\": \"Stress Product\",\n  \"productSku\": \"SKU-BULK-2\",\n  \"quantity\": 5,\n  \"categoryIds\": [1, 2]\n}"
+              "raw": "{\n  \"supplierName\": \"Bulk Supplier\",\n  \"contactEmail\": \"bulk@example.com\",\n  \"warehouseName\": \"Bulk Warehouse\",\n  \"warehouseAddress\": \"Failure street 1\",\n  \"productName\": \"Stress Product\",\n  \"sku\": \"SKU-BULK-2\",\n  \"quantity\": 5,\n  \"categoryIds\": [\n    1,\n    2\n  ]\n}"
             }
           }
         }

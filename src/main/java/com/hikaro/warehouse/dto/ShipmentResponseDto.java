@@ -5,8 +5,8 @@ import java.util.List;
 public record ShipmentResponseDto(
         Long id,
         String referenceNumber,
-        Long supplierId,
-        String supplierName,
+        Long warehouseId,
+        String warehouseName,
         List<Long> productIds
 ) {
 }

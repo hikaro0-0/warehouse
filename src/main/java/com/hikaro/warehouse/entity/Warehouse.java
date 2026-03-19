@@ -33,6 +33,13 @@ public class Warehouse {
     )
     private Set<Product> products = new LinkedHashSet<>();
 
+    @OneToMany(
+            mappedBy = "warehouse",
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
+    )
+    private Set<Shipment> shipments = new LinkedHashSet<>();
+
     public Warehouse() {
     }
 
@@ -72,5 +79,13 @@ public class Warehouse {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    public Set<Shipment> getShipments() {
+        return shipments;
+    }
+
+    public void setShipments(Set<Shipment> shipments) {
+        this.shipments = shipments;
     }
 }

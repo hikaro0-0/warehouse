@@ -10,11 +10,11 @@ import static org.mockito.Mockito.when;
 import com.hikaro.warehouse.dto.ShipmentRequestDto;
 import com.hikaro.warehouse.entity.Product;
 import com.hikaro.warehouse.entity.Shipment;
-import com.hikaro.warehouse.entity.Supplier;
+import com.hikaro.warehouse.entity.Warehouse;
 import com.hikaro.warehouse.exception.ResourceNotFoundException;
 import com.hikaro.warehouse.repository.ProductRepository;
 import com.hikaro.warehouse.repository.ShipmentRepository;
-import com.hikaro.warehouse.repository.SupplierRepository;
+import com.hikaro.warehouse.repository.WarehouseRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -31,7 +31,7 @@ class ShipmentServiceTest {
     private ShipmentRepository shipmentRepository;
 
     @Mock
-    private SupplierRepository supplierRepository;
+    private WarehouseRepository warehouseRepository;
 
     @Mock
     private ProductRepository productRepository;
@@ -42,13 +42,15 @@ class ShipmentServiceTest {
     @Test
     void shouldHandleShipmentCrudOperations() {
         Shipment shipment = new Shipment(10L, "REF-1");
-        Supplier supplier = new Supplier(3L, "ACME", "acme@example.com");
+        Warehouse warehouse = new Warehouse(3L, "Main", "Street 1");
         Product product = new Product(7L, "SKU-7", "Keyboard", 5);
+        shipment.setWarehouse(warehouse);
+        shipment.setProducts(Set.of(product));
         ShipmentRequestDto request = new ShipmentRequestDto("REF-2", 3L, List.of(7L));
 
         when(shipmentRepository.findAll()).thenReturn(List.of(shipment));
         when(shipmentRepository.findById(10L)).thenReturn(Optional.of(shipment));
-        when(supplierRepository.findById(3L)).thenReturn(Optional.of(supplier));
+        when(warehouseRepository.findById(3L)).thenReturn(Optional.of(warehouse));
         when(productRepository.findAllById(List.of(7L))).thenReturn(List.of(product));
         when(shipmentRepository.save(any(Shipment.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -57,7 +59,7 @@ class ShipmentServiceTest {
 
         Shipment created = shipmentService.create(request);
         assertEquals("REF-2", created.getReferenceNumber());
-        assertSame(supplier, created.getSupplier());
+        assertSame(warehouse, created.getWarehouse());
         assertEquals(Set.of(product), created.getProducts());
 
         Shipment updated = shipmentService.update(10L, request);
@@ -81,25 +83,25 @@ class ShipmentServiceTest {
     }
 
     @Test
-    void shouldThrowWhenSupplierMissingDuringCreate() {
+    void shouldThrowWhenWarehouseMissingDuringCreate() {
         ShipmentRequestDto request = new ShipmentRequestDto("REF-9", 2L, List.of(1L));
-        when(supplierRepository.findById(2L)).thenReturn(Optional.empty());
+        when(warehouseRepository.findById(2L)).thenReturn(Optional.empty());
 
         ResourceNotFoundException exception = assertThrows(
                 ResourceNotFoundException.class,
                 () -> shipmentService.create(request)
         );
 
-        assertEquals("Supplier with id 2 not found", exception.getMessage());
+        assertEquals("Warehouse with id 2 not found", exception.getMessage());
     }
 
     @Test
     void shouldThrowWhenAnyProductMissingDuringCreate() {
-        Supplier supplier = new Supplier(2L, "ACME", "acme@example.com");
+        Warehouse warehouse = new Warehouse(2L, "Main", "Street 1");
         Product product = new Product(1L, "SKU-1", "Mouse", 2);
         ShipmentRequestDto request = new ShipmentRequestDto("REF-9", 2L, List.of(1L, 5L));
 
-        when(supplierRepository.findById(2L)).thenReturn(Optional.of(supplier));
+        when(warehouseRepository.findById(2L)).thenReturn(Optional.of(warehouse));
         when(productRepository.findAllById(List.of(1L, 5L))).thenReturn(List.of(product));
 
         ResourceNotFoundException exception = assertThrows(

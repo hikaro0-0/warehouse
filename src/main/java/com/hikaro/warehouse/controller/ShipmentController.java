@@ -61,8 +61,8 @@ public class ShipmentController {
         return new ShipmentResponseDto(
                 shipment.getId(),
                 shipment.getReferenceNumber(),
-                shipment.getSupplier().getId(),
-                shipment.getSupplier().getName(),
+                shipment.getWarehouse().getId(),
+                shipment.getWarehouse().getName(),
                 shipment.getProducts()
                         .stream()
                         .map(Product::getId)

@@ -90,13 +90,13 @@ class SupportClassesTest {
         supplier.setName("ACME");
         supplier.setContactEmail("acme@example.com");
         supplier.setProducts(new LinkedHashSet<>());
-        supplier.setShipments(new LinkedHashSet<>());
 
         Warehouse warehouse = new Warehouse();
         warehouse.setId(4L);
         warehouse.setName("Main");
         warehouse.setAddress("Street 1");
         warehouse.setProducts(new LinkedHashSet<>());
+        warehouse.setShipments(new LinkedHashSet<>());
 
         Product product = new Product();
         product.setId(5L);
@@ -110,9 +110,9 @@ class SupportClassesTest {
 
         category.setProducts(new LinkedHashSet<>(List.of(product)));
         supplier.setProducts(new LinkedHashSet<>(List.of(product)));
-        supplier.setShipments(new LinkedHashSet<>(List.of(shipment)));
         warehouse.setProducts(new LinkedHashSet<>(List.of(product)));
-        shipment.setSupplier(supplier);
+        warehouse.setShipments(new LinkedHashSet<>(List.of(shipment)));
+        shipment.setWarehouse(warehouse);
         shipment.setProducts(new LinkedHashSet<>(List.of(product)));
 
         assertEquals(1L, category.getId());
@@ -121,15 +121,15 @@ class SupportClassesTest {
         assertEquals(1, category.getProducts().size());
         assertEquals(2L, shipment.getId());
         assertEquals("REF-1", shipment.getReferenceNumber());
-        assertEquals(supplier, shipment.getSupplier());
+        assertEquals(warehouse, shipment.getWarehouse());
         assertEquals(1, shipment.getProducts().size());
         assertEquals("ACME", supplier.getName());
         assertEquals("acme@example.com", supplier.getContactEmail());
         assertEquals(1, supplier.getProducts().size());
-        assertEquals(1, supplier.getShipments().size());
         assertEquals("Main", warehouse.getName());
         assertEquals("Street 1", warehouse.getAddress());
         assertEquals(1, warehouse.getProducts().size());
+        assertEquals(1, warehouse.getShipments().size());
         assertEquals("SKU-5", product.getSku());
         assertEquals("Monitor", product.getName());
         assertEquals(7, product.getQuantity());
@@ -148,7 +148,7 @@ class SupportClassesTest {
         WarehouseRequestDto warehouseRequest = new WarehouseRequestDto("Warehouse", "Street");
         WarehouseResponseDto warehouseResponse = new WarehouseResponseDto(3L, "Warehouse", "Street");
         ShipmentRequestDto shipmentRequest = new ShipmentRequestDto("REF", 2L, List.of(1L, 2L));
-        ShipmentResponseDto shipmentResponse = new ShipmentResponseDto(4L, "REF", 2L, "Supplier", List.of(1L, 2L));
+        ShipmentResponseDto shipmentResponse = new ShipmentResponseDto(4L, "REF", 2L, "Warehouse", List.of(1L, 2L));
 
         assertEquals("Category", categoryRequest.name());
         assertEquals(1L, categoryResponse.id());

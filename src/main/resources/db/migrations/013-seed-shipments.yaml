@@ -8,10 +8,10 @@ databaseChangeLog:
             columns:
               - column: { name: id, valueNumeric: 1 }
               - column: { name: reference_number, value: SHIP-001 }
-              - column: { name: supplier_id, valueNumeric: 1 }
+              - column: { name: warehouse_id, valueNumeric: 1 }
         - insert:
             tableName: shipments
             columns:
               - column: { name: id, valueNumeric: 2 }
               - column: { name: reference_number, value: SHIP-002 }
-              - column: { name: supplier_id, valueNumeric: 2 }
+              - column: { name: warehouse_id, valueNumeric: 2 }

@@ -26,8 +26,8 @@ public class Shipment {
     private String referenceNumber;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "supplier_id", nullable = false)
-    private Supplier supplier;
+    @JoinColumn(name = "warehouse_id", nullable = false)
+    private Warehouse warehouse;
 
     @ManyToMany
     @JoinTable(
@@ -61,12 +61,12 @@ public class Shipment {
         this.referenceNumber = referenceNumber;
     }
 
-    public Supplier getSupplier() {
-        return supplier;
+    public Warehouse getWarehouse() {
+        return warehouse;
     }
 
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
     }
 
     public Set<Product> getProducts() {

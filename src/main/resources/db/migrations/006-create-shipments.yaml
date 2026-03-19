@@ -22,13 +22,13 @@ databaseChangeLog:
                     unique: true
                     uniqueConstraintName: uk_shipments_reference_number
               - column:
-                  name: supplier_id
+                  name: warehouse_id
                   type: BIGINT
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
             baseTableName: shipments
-            baseColumnNames: supplier_id
-            constraintName: fk_shipments_supplier
-            referencedTableName: suppliers
+            baseColumnNames: warehouse_id
+            constraintName: fk_shipments_warehouse
+            referencedTableName: warehouses
             referencedColumnNames: id
