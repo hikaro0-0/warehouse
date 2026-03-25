@@ -101,14 +101,9 @@ public class ProductService {
             String categoryName,
             Pageable pageable
     ) {
-        String nameFilter = normalizeName(name);
-        String categoryFilter = normalizeName(categoryName);
-        if (nameFilter == null && categoryFilter == null) {
-            return productRepository.findAllWithDetails(pageable);
-        }
         return productRepository.findAllWithDetailsByNameAndCategoryJpql(
-                toLikePattern(nameFilter),
-                toLikePattern(categoryFilter),
+                toLikePattern(requireFilter(name, "name")),
+                toLikePattern(requireFilter(categoryName, "categoryName")),
                 pageable
         );
     }
@@ -208,6 +203,14 @@ public class ProductService {
 
     private String normalizeName(String name) {
         return isBlank(name) ? null : name;
+    }
+
+    private String requireFilter(String value, String fieldName) {
+        String normalizedValue = normalizeName(value);
+        if (normalizedValue == null) {
+            throw new IllegalArgumentException(fieldName + " must not be blank");
+        }
+        return normalizedValue;
     }
 
     private String toLikePattern(String value) {

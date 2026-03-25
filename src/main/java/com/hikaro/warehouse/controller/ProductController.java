@@ -2,19 +2,10 @@ package com.hikaro.warehouse.controller;
 
 import com.hikaro.warehouse.dto.ProductRequestDto;
 import com.hikaro.warehouse.dto.ProductResponseDto;
-import com.hikaro.warehouse.exception.ApiErrorResponse;
 import com.hikaro.warehouse.index.ProductQueryIndex;
 import com.hikaro.warehouse.index.ProductQueryIndexKey;
 import com.hikaro.warehouse.mapper.ProductMapper;
 import com.hikaro.warehouse.service.ProductService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import java.util.function.Supplier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/products")
-@Tag(name = "Products", description = "Product catalog and search endpoints")
 public class ProductController {
 
     private final ProductService productService;
@@ -50,13 +40,6 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Get product by id")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Product found",
-                    content = @Content(schema = @Schema(implementation = ProductResponseDto.class))),
-            @ApiResponse(responseCode = "404", description = "Product not found",
-                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public ProductResponseDto getById(@PathVariable Long id) {
         ProductQueryIndexKey key = ProductQueryIndexKey.byId(id);
         return productQueryIndex.getProduct(key)
@@ -68,10 +51,7 @@ public class ProductController {
     }
 
     @GetMapping
-    @Operation(summary = "Get paged products, optionally filtered by name")
-    @ApiResponse(responseCode = "200", description = "Products fetched successfully")
     public Page<ProductResponseDto> findByName(
-            @Parameter(description = "Optional product name filter", example = "Mon")
             @RequestParam(required = false) String name,
             Pageable pageable
     ) {
@@ -82,10 +62,7 @@ public class ProductController {
     }
 
     @GetMapping("/n-plus-one")
-    @Operation(summary = "Demonstrate N+1 query behavior")
-    @ApiResponse(responseCode = "200", description = "Products fetched successfully")
     public Page<ProductResponseDto> demoNplusOne(
-            @Parameter(description = "Optional product name filter", example = "Mon")
             @RequestParam(required = false) String name,
             Pageable pageable
     ) {
@@ -96,10 +73,7 @@ public class ProductController {
     }
 
     @GetMapping("/optimized")
-    @Operation(summary = "Get products using optimized query strategy")
-    @ApiResponse(responseCode = "200", description = "Products fetched successfully")
     public Page<ProductResponseDto> findWithEntityGraph(
-            @Parameter(description = "Optional product name filter", example = "Mon")
             @RequestParam(required = false) String name,
             Pageable pageable
     ) {
@@ -110,13 +84,9 @@ public class ProductController {
     }
 
     @GetMapping("/search/jpql")
-    @Operation(summary = "Search products by name and category using JPQL")
-    @ApiResponse(responseCode = "200", description = "Products fetched successfully")
     public Page<ProductResponseDto> findByNameAndCategoryWithJpql(
-            @Parameter(description = "Optional product name filter", example = "Mon")
-            @RequestParam(required = false) String name,
-            @Parameter(description = "Optional category name filter", example = "Displays")
-            @RequestParam(required = false) String categoryName,
+            @RequestParam String name,
+            @RequestParam String categoryName,
             Pageable pageable
     ) {
         return getCachedPage(
@@ -127,12 +97,8 @@ public class ProductController {
     }
 
     @GetMapping("/search/native")
-    @Operation(summary = "Search products by name and category using native SQL")
-    @ApiResponse(responseCode = "200", description = "Products fetched successfully")
     public Page<ProductResponseDto> findByNameAndCategoryWithNativeQuery(
-            @Parameter(description = "Optional product name filter", example = "Mon")
             @RequestParam(required = false) String name,
-            @Parameter(description = "Optional category name filter", example = "Displays")
             @RequestParam(required = false) String categoryName,
             Pageable pageable
     ) {
@@ -145,30 +111,14 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Create product")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Product created",
-                    content = @Content(schema = @Schema(implementation = ProductResponseDto.class))),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
-                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
-    public ProductResponseDto create(@Valid @RequestBody ProductRequestDto request) {
+    public ProductResponseDto create(@RequestBody ProductRequestDto request) {
         return productMapper.toResponseDto(productService.create(request));
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Update product")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Product updated",
-                    content = @Content(schema = @Schema(implementation = ProductResponseDto.class))),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
-                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Product not found",
-                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public ProductResponseDto update(
             @PathVariable Long id,
-            @Valid @RequestBody ProductRequestDto request
+            @RequestBody ProductRequestDto request
     ) {
         return productMapper.toResponseDto(
                 productService.update(id, request)
@@ -177,12 +127,6 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "Delete product")
-    @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Product deleted"),
-            @ApiResponse(responseCode = "404", description = "Product not found",
-                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public void delete(@PathVariable Long id) {
         productService.delete(id);
     }

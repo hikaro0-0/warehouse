@@ -32,22 +32,16 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             value = """
                     select distinct p
                     from Product p
-                    left join p.categories c
-                    where (:namePattern is null or lower(p.name) like :namePattern)
-                        and (
-                            :categoryPattern is null
-                            or lower(c.name) like :categoryPattern
-                        )
+                    join p.categories c
+                    where lower(p.name) like :namePattern
+                      and lower(c.name) like :categoryPattern
                     """,
             countQuery = """
                     select count(distinct p)
                     from Product p
-                    left join p.categories c
-                    where (:namePattern is null or lower(p.name) like :namePattern)
-                        and (
-                            :categoryPattern is null
-                            or lower(c.name) like :categoryPattern
-                        )
+                    join p.categories c
+                    where lower(p.name) like :namePattern
+                      and lower(c.name) like :categoryPattern
                     """
     )
     Page<Product> findAllWithDetailsByNameAndCategoryJpql(
