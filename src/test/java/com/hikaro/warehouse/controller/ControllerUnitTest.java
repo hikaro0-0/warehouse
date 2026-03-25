@@ -24,6 +24,7 @@ import com.hikaro.warehouse.entity.Product;
 import com.hikaro.warehouse.entity.Shipment;
 import com.hikaro.warehouse.entity.Supplier;
 import com.hikaro.warehouse.entity.Warehouse;
+import com.hikaro.warehouse.index.ProductQueryIndex;
 import com.hikaro.warehouse.mapper.ProductMapper;
 import com.hikaro.warehouse.service.CategoryService;
 import com.hikaro.warehouse.service.DemoService;
@@ -33,11 +34,16 @@ import com.hikaro.warehouse.service.SupplierService;
 import com.hikaro.warehouse.service.WarehouseService;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @ExtendWith(MockitoExtension.class)
 class ControllerUnitTest {
@@ -59,6 +65,9 @@ class ControllerUnitTest {
 
     @Mock
     private ProductMapper productMapper;
+
+    @Mock
+    private ProductQueryIndex productQueryIndex;
 
     @Mock
     private DemoService demoService;
@@ -177,19 +186,27 @@ class ControllerUnitTest {
         ProductResponseDto response = new ProductResponseDto(
                 1L, "SKU-1", "Monitor", 5, 1L, "Main", 2L, "ACME", List.of("Displays")
         );
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Product> productsPage = new PageImpl<>(List.of(product), pageable, 1);
 
+        when(productQueryIndex.getProduct(org.mockito.ArgumentMatchers.any())).thenReturn(Optional.empty());
+        when(productQueryIndex.getProductPage(org.mockito.ArgumentMatchers.any())).thenReturn(Optional.empty());
         when(productService.getById(1L)).thenReturn(product);
-        when(productService.findByName("Mon")).thenReturn(List.of(product));
-        when(productService.demoNplusOne(null)).thenReturn(List.of(product));
-        when(productService.findByNameWithEntityGraph("Mon")).thenReturn(List.of(product));
+        when(productService.findByName("Mon", pageable)).thenReturn(productsPage);
+        when(productService.demoNplusOne(null, pageable)).thenReturn(productsPage);
+        when(productService.findByNameWithEntityGraph("Mon", pageable)).thenReturn(productsPage);
+        when(productService.findByNameAndCategoryWithJpql("Mon", "Premium", pageable)).thenReturn(productsPage);
+        when(productService.findByNameAndCategoryWithNativeQuery("Mon", "Premium", pageable)).thenReturn(productsPage);
         when(productService.create(request)).thenReturn(product);
         when(productService.update(1L, request)).thenReturn(product);
         when(productMapper.toResponseDto(product)).thenReturn(response);
 
         assertEquals(response, productController.getById(1L));
-        assertEquals(List.of(response), productController.findByName("Mon"));
-        assertEquals(List.of(response), productController.demoNplusOne(null));
-        assertEquals(List.of(response), productController.findWithEntityGraph("Mon"));
+        assertEquals(List.of(response), productController.findByName("Mon", pageable).getContent());
+        assertEquals(List.of(response), productController.demoNplusOne(null, pageable).getContent());
+        assertEquals(List.of(response), productController.findWithEntityGraph("Mon", pageable).getContent());
+        assertEquals(List.of(response), productController.findByNameAndCategoryWithJpql("Mon", "Premium", pageable).getContent());
+        assertEquals(List.of(response), productController.findByNameAndCategoryWithNativeQuery("Mon", "Premium", pageable).getContent());
         assertEquals(response, productController.create(request));
         assertEquals(response, productController.update(1L, request));
 

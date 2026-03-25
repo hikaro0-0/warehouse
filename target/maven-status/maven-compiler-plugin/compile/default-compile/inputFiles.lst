@@ -25,6 +25,8 @@
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/entity/Warehouse.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/exception/ApiExceptionHandler.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/exception/ResourceNotFoundException.java
+/home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/index/ProductQueryIndex.java
+/home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/index/ProductQueryIndexKey.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/mapper/ProductMapper.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/repository/CategoryRepository.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/repository/ProductRepository.java

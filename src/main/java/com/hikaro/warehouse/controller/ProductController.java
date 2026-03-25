@@ -2,9 +2,13 @@ package com.hikaro.warehouse.controller;
 
 import com.hikaro.warehouse.dto.ProductRequestDto;
 import com.hikaro.warehouse.dto.ProductResponseDto;
+import com.hikaro.warehouse.index.ProductQueryIndex;
+import com.hikaro.warehouse.index.ProductQueryIndexKey;
 import com.hikaro.warehouse.mapper.ProductMapper;
 import com.hikaro.warehouse.service.ProductService;
-import java.util.List;
+import java.util.function.Supplier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,41 +27,86 @@ public class ProductController {
 
     private final ProductService productService;
     private final ProductMapper productMapper;
+    private final ProductQueryIndex productQueryIndex;
 
-    public ProductController(ProductService productService, ProductMapper productMapper) {
+    public ProductController(
+            ProductService productService,
+            ProductMapper productMapper,
+            ProductQueryIndex productQueryIndex
+    ) {
         this.productService = productService;
         this.productMapper = productMapper;
+        this.productQueryIndex = productQueryIndex;
     }
 
     @GetMapping("/{id}")
     public ProductResponseDto getById(@PathVariable Long id) {
-        return productMapper.toResponseDto(productService.getById(id));
+        ProductQueryIndexKey key = ProductQueryIndexKey.byId(id);
+        return productQueryIndex.getProduct(key)
+                .orElseGet(() -> {
+                    ProductResponseDto response = productMapper.toResponseDto(productService.getById(id));
+                    productQueryIndex.put(key, response);
+                    return response;
+                });
     }
 
     @GetMapping
-    public List<ProductResponseDto> findByName(@RequestParam(required = false) String name) {
-        return productService.findByName(name)
-                .stream()
-                .map(productMapper::toResponseDto)
-                .toList();
+    public Page<ProductResponseDto> findByName(
+            @RequestParam(required = false) String name,
+            Pageable pageable
+    ) {
+        return getCachedPage(
+                ProductQueryIndexKey.byQuery("BY_NAME", name, null, pageable),
+                () -> productService.findByName(name, pageable).map(productMapper::toResponseDto)
+        );
     }
 
     @GetMapping("/n-plus-one")
-    public List<ProductResponseDto> demoNplusOne(@RequestParam(required = false) String name) {
-        return productService.demoNplusOne(name)
-                .stream()
-                .map(productMapper::toResponseDto)
-                .toList();
+    public Page<ProductResponseDto> demoNplusOne(
+            @RequestParam(required = false) String name,
+            Pageable pageable
+    ) {
+        return getCachedPage(
+                ProductQueryIndexKey.byQuery("N_PLUS_ONE", name, null, pageable),
+                () -> productService.demoNplusOne(name, pageable).map(productMapper::toResponseDto)
+        );
     }
 
     @GetMapping("/optimized")
-    public List<ProductResponseDto> findWithEntityGraph(
-            @RequestParam(required = false) String name
+    public Page<ProductResponseDto> findWithEntityGraph(
+            @RequestParam(required = false) String name,
+            Pageable pageable
     ) {
-        return productService.findByNameWithEntityGraph(name)
-                .stream()
-                .map(productMapper::toResponseDto)
-                .toList();
+        return getCachedPage(
+                ProductQueryIndexKey.byQuery("OPTIMIZED", name, null, pageable),
+                () -> productService.findByNameWithEntityGraph(name, pageable).map(productMapper::toResponseDto)
+        );
+    }
+
+    @GetMapping("/search/jpql")
+    public Page<ProductResponseDto> findByNameAndCategoryWithJpql(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String categoryName,
+            Pageable pageable
+    ) {
+        return getCachedPage(
+                ProductQueryIndexKey.byQuery("SEARCH_JPQL", name, categoryName, pageable),
+                () -> productService.findByNameAndCategoryWithJpql(name, categoryName, pageable)
+                        .map(productMapper::toResponseDto)
+        );
+    }
+
+    @GetMapping("/search/native")
+    public Page<ProductResponseDto> findByNameAndCategoryWithNativeQuery(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String categoryName,
+            Pageable pageable
+    ) {
+        return getCachedPage(
+                ProductQueryIndexKey.byQuery("SEARCH_NATIVE", name, categoryName, pageable),
+                () -> productService.findByNameAndCategoryWithNativeQuery(name, categoryName, pageable)
+                        .map(productMapper::toResponseDto)
+        );
     }
 
     @PostMapping
@@ -80,5 +129,17 @@ public class ProductController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         productService.delete(id);
+    }
+
+    private Page<ProductResponseDto> getCachedPage(
+            ProductQueryIndexKey key,
+            Supplier<Page<ProductResponseDto>> loader
+    ) {
+        return productQueryIndex.getProductPage(key)
+                .orElseGet(() -> {
+                    Page<ProductResponseDto> loadedPage = loader.get();
+                    productQueryIndex.put(key, loadedPage);
+                    return loadedPage;
+                });
     }
 }

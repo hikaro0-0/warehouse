@@ -361,22 +361,36 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"sku\": \"LAP-001\",\n  \"name\": \"Lenovo ThinkPad E14\",\n  \"quantity\": 15,\n  \"warehouseId\": 1,\n  \"supplierId\": 1,\n  \"categoryIds\": [1]\n}"
+              "raw": "{\n  \"sku\": \"SKU-777\",\n  \"name\": \"Docking Station\",\n  \"quantity\": 18,\n  \"warehouseId\": 1,\n  \"supplierId\": 1,\n  \"categoryIds\": [1, 3]\n}"
             }
           }
         },
         {
-          "name": "Get All Products",
+          "name": "Get All Products Paged",
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{baseUrl}}/api/products",
+              "raw": "{{baseUrl}}/api/products?page=0&size=2&sort=id,asc",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
                 "products"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "2"
+                },
+                {
+                  "key": "sort",
+                  "value": "id,asc"
+                }
               ]
             }
           }
@@ -403,7 +417,7 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{baseUrl}}/api/products?name=think",
+              "raw": "{{baseUrl}}/api/products?name=Monitor&page=0&size=10&sort=id,asc",
               "host": [
                 "{{baseUrl}}"
               ],
@@ -414,7 +428,99 @@
               "query": [
                 {
                   "key": "name",
-                  "value": "think"
+                  "value": "Monitor"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                },
+                {
+                  "key": "sort",
+                  "value": "id,asc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Find Products By Name And Category (JPQL)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/products/search/jpql?name=top&categoryName=Premium&page=0&size=10&sort=id,asc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "search",
+                "jpql"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "top"
+                },
+                {
+                  "key": "categoryName",
+                  "value": "Premium"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                },
+                {
+                  "key": "sort",
+                  "value": "id,asc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Find Products By Name And Category (Native)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/products/search/native?name=mon&categoryName=Premium&page=0&size=10&sort=id,asc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "search",
+                "native"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "mon"
+                },
+                {
+                  "key": "categoryName",
+                  "value": "Premium"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                },
+                {
+                  "key": "sort",
+                  "value": "id,asc"
                 }
               ]
             }
@@ -425,7 +531,7 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{baseUrl}}/api/products/n-plus-one",
+              "raw": "{{baseUrl}}/api/products/n-plus-one?page=0&size=10&sort=id,asc",
               "host": [
                 "{{baseUrl}}"
               ],
@@ -433,6 +539,20 @@
                 "api",
                 "products",
                 "n-plus-one"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                },
+                {
+                  "key": "sort",
+                  "value": "id,asc"
+                }
               ]
             }
           }
@@ -442,7 +562,7 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{baseUrl}}/api/products/optimized",
+              "raw": "{{baseUrl}}/api/products/optimized?page=0&size=10&sort=id,asc",
               "host": [
                 "{{baseUrl}}"
               ],
@@ -450,6 +570,149 @@
                 "api",
                 "products",
                 "optimized"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                },
+                {
+                  "key": "sort",
+                  "value": "id,asc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cache Warmup By Name",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/products?name=Monitor&page=0&size=10&sort=id,asc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Monitor"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                },
+                {
+                  "key": "sort",
+                  "value": "id,asc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Invalidate Index By Update Product 4",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "4"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"SKU-103\",\n  \"name\": \"Display\",\n  \"quantity\": 15,\n  \"warehouseId\": 2,\n  \"supplierId\": 1,\n  \"categoryIds\": [1, 3]\n}"
+            }
+          }
+        },
+        {
+          "name": "Verify Cache Invalidated For Monitor",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/products?name=Monitor&page=0&size=10&sort=id,asc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Monitor"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                },
+                {
+                  "key": "sort",
+                  "value": "id,asc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Verify Cache Invalidated For Display",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/products?name=Display&page=0&size=10&sort=id,asc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Display"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                },
+                {
+                  "key": "sort",
+                  "value": "id,asc"
+                }
               ]
             }
           }
@@ -477,7 +740,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"sku\": \"LAP-001\",\n  \"name\": \"Lenovo ThinkPad E14 Gen 2\",\n  \"quantity\": 20,\n  \"warehouseId\": 1,\n  \"supplierId\": 1,\n  \"categoryIds\": [1]\n}"
+              "raw": "{\n  \"sku\": \"SKU-100\",\n  \"name\": \"Laptop Pro\",\n  \"quantity\": 12,\n  \"warehouseId\": 1,\n  \"supplierId\": 1,\n  \"categoryIds\": [1, 3]\n}"
             }
           }
         },
@@ -634,7 +897,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"supplierName\": \"Bulk Supplier\",\n  \"contactEmail\": \"bulk@example.com\",\n  \"warehouseName\": \"Bulk Warehouse\",\n  \"warehouseAddress\": \"Failure street 1\",\n  \"productName\": \"Stress Product\",\n  \"sku\": \"SKU-BULK-1\",\n  \"quantity\": 5,\n  \"categoryIds\": [\n    1,\n    2\n  ]\n}"
+              "raw": "{\n  \"supplierName\": \"Bulk Supplier SKU-NON-TX\",\n  \"contactEmail\": \"non-tx@example.com\",\n  \"warehouseName\": \"Bulk Warehouse SKU-NON-TX\",\n  \"warehouseAddress\": \"Failure street 1\",\n  \"productName\": \"Stress Product SKU-NON-TX\",\n  \"sku\": \"SKU-NON-TX\",\n  \"quantity\": 5,\n  \"categoryIds\": [\n    1,\n    2\n  ]\n}"
             }
           }
         },
@@ -661,7 +924,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"supplierName\": \"Bulk Supplier\",\n  \"contactEmail\": \"bulk@example.com\",\n  \"warehouseName\": \"Bulk Warehouse\",\n  \"warehouseAddress\": \"Failure street 1\",\n  \"productName\": \"Stress Product\",\n  \"sku\": \"SKU-BULK-2\",\n  \"quantity\": 5,\n  \"categoryIds\": [\n    1,\n    2\n  ]\n}"
+              "raw": "{\n  \"supplierName\": \"Bulk Supplier SKU-TX\",\n  \"contactEmail\": \"tx@example.com\",\n  \"warehouseName\": \"Bulk Warehouse SKU-TX\",\n  \"warehouseAddress\": \"Failure street 1\",\n  \"productName\": \"Stress Product SKU-TX\",\n  \"sku\": \"SKU-TX\",\n  \"quantity\": 5,\n  \"categoryIds\": [\n    1,\n    2\n  ]\n}"
             }
           }
         }

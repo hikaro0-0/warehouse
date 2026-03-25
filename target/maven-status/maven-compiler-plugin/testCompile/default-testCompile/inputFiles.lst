@@ -1,5 +1,6 @@
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/WarehouseApplicationTests.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/controller/ControllerUnitTest.java
+/home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/index/ProductQueryIndexKeyTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/CrudServicesTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/ShipmentServiceTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/support/SupportClassesTest.java

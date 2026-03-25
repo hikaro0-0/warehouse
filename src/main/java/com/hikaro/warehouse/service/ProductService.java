@@ -6,6 +6,7 @@ import com.hikaro.warehouse.entity.Product;
 import com.hikaro.warehouse.entity.Supplier;
 import com.hikaro.warehouse.entity.Warehouse;
 import com.hikaro.warehouse.exception.ResourceNotFoundException;
+import com.hikaro.warehouse.index.ProductQueryIndex;
 import com.hikaro.warehouse.repository.CategoryRepository;
 import com.hikaro.warehouse.repository.ProductRepository;
 import com.hikaro.warehouse.repository.SupplierRepository;
@@ -13,7 +14,10 @@ import com.hikaro.warehouse.repository.WarehouseRepository;
 import jakarta.persistence.EntityManager;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,24 +32,27 @@ public class ProductService {
     private final SupplierRepository supplierRepository;
     private final CategoryRepository categoryRepository;
     private final EntityManager entityManager;
+    private final ProductQueryIndex productQueryIndex;
 
     public ProductService(
             ProductRepository productRepository,
             WarehouseRepository warehouseRepository,
             SupplierRepository supplierRepository,
             CategoryRepository categoryRepository,
-            EntityManager entityManager
+            EntityManager entityManager,
+            ProductQueryIndex productQueryIndex
     ) {
         this.productRepository = productRepository;
         this.warehouseRepository = warehouseRepository;
         this.supplierRepository = supplierRepository;
         this.categoryRepository = categoryRepository;
         this.entityManager = entityManager;
+        this.productQueryIndex = productQueryIndex;
     }
 
     @Transactional(readOnly = true)
     public Product getById(Long id) {
-        return productRepository.findAllWithDetails()
+        return productRepository.findAllWithDetails(Pageable.unpaged())
                 .stream()
                 .filter(product -> product.getId().equals(id))
                 .findFirst()
@@ -57,41 +64,81 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public List<Product> findByName(String name) {
+    public Page<Product> findByName(String name, Pageable pageable) {
         String filter = normalizeName(name);
         if (filter == null) {
-            return productRepository.findAllWithDetails();
+            return productRepository.findAllWithDetails(pageable);
         }
-        return productRepository.findAllWithDetailsByName(filter);
+        return productRepository.findAllWithDetailsByName(toLikePattern(filter), pageable);
     }
 
     @Transactional(readOnly = true)
-    public List<Product> demoNplusOne(String name) {
+    public Page<Product> demoNplusOne(String name, Pageable pageable) {
         entityManager.clear();
-        List<Product> products;
+        Page<Product> products;
         if (isBlank(name)) {
-            products = productRepository.findAll();
+            products = productRepository.findAll(pageable);
         } else {
-            products = productRepository.findByNameContainingIgnoreCase(name);
+            products = productRepository.findByNameContainingIgnoreCase(name, pageable);
         }
-        initializeAssociations(products);
+        initializeAssociations(products.getContent());
         return products;
     }
 
     @Transactional(readOnly = true)
-    public List<Product> findByNameWithEntityGraph(String name) {
+    public Page<Product> findByNameWithEntityGraph(String name, Pageable pageable) {
         entityManager.clear();
         String filter = normalizeName(name);
         if (filter == null) {
-            return productRepository.findAllWithDetails();
+            return productRepository.findAllWithDetails(pageable);
         }
-        return productRepository.findAllWithDetailsByName(filter);
+        return productRepository.findAllWithDetailsByName(toLikePattern(filter), pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Product> findByNameAndCategoryWithJpql(
+            String name,
+            String categoryName,
+            Pageable pageable
+    ) {
+        String nameFilter = normalizeName(name);
+        String categoryFilter = normalizeName(categoryName);
+        if (nameFilter == null && categoryFilter == null) {
+            return productRepository.findAllWithDetails(pageable);
+        }
+        return productRepository.findAllWithDetailsByNameAndCategoryJpql(
+                toLikePattern(nameFilter),
+                toLikePattern(categoryFilter),
+                pageable
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Product> findByNameAndCategoryWithNativeQuery(
+            String name,
+            String categoryName,
+            Pageable pageable
+    ) {
+        String nameFilter = normalizeName(name);
+        String categoryFilter = normalizeName(categoryName);
+        if (nameFilter == null && categoryFilter == null) {
+            return productRepository.findAllWithDetails(pageable);
+        }
+        Page<Product> products = productRepository.findAllWithDetailsByNameAndCategoryNative(
+                toLikePattern(nameFilter),
+                toLikePattern(categoryFilter),
+                pageable
+        );
+        initializeAssociations(products.getContent());
+        return products;
     }
 
     public Product create(ProductRequestDto request) {
         Product product = new Product();
         applyRequest(product, request);
-        return productRepository.save(product);
+        Product savedProduct = productRepository.save(product);
+        productQueryIndex.invalidate();
+        return savedProduct;
     }
 
     public Product update(Long id, ProductRequestDto request) {
@@ -102,7 +149,9 @@ public class ProductService {
                         )
                 );
         applyRequest(product, request);
-        return productRepository.save(product);
+        Product savedProduct = productRepository.save(product);
+        productQueryIndex.invalidate();
+        return savedProduct;
     }
 
     public void delete(Long id) {
@@ -113,6 +162,7 @@ public class ProductService {
                         )
                 );
         productRepository.delete(product);
+        productQueryIndex.invalidate();
     }
 
     private void applyRequest(Product product, ProductRequestDto request) {
@@ -155,6 +205,13 @@ public class ProductService {
 
     private String normalizeName(String name) {
         return isBlank(name) ? null : name;
+    }
+
+    private String toLikePattern(String value) {
+        if (value == null) {
+            return null;
+        }
+        return "%" + value.toLowerCase(Locale.ROOT) + "%";
     }
 
     private void initializeAssociations(List<Product> products) {

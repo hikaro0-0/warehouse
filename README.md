@@ -47,7 +47,7 @@
 Основная сущность:
 
 - `GET /api/products/{id}`
-- `GET /api/products?name=lap`
+- `GET /api/products?name=lap&page=0&size=10&sort=id,asc`
 - `POST /api/products`
 - `PUT /api/products/{id}`
 - `DELETE /api/products/{id}`
@@ -62,7 +62,9 @@
 N+1:
 
 - проблемный endpoint: `GET /api/products/n-plus-one`
-- оптимизированный endpoint: `GET /api/products/optimized`
+- оптимизированный endpoint: `GET /api/products/optimized?page=0&size=10`
+- JPQL по вложенной сущности: `GET /api/products/search/jpql?name=top&categoryName=Premium&page=0&size=10`
+- native SQL по вложенной сущности: `GET /api/products/search/native?name=mon&categoryName=Premium&page=0&size=10`
 
 Транзакции:
 

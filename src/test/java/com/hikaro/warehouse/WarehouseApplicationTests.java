@@ -19,6 +19,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,11 +58,11 @@ class WarehouseApplicationTests {
 
     @Test
     void shouldReturnNPlusOneDemoWithoutLazyInitializationFailure() {
-        List<ProductResponseDto> response = productController.demoNplusOne(null);
+        Page<ProductResponseDto> response = productController.demoNplusOne(null, PageRequest.of(0, 10));
 
         Assertions.assertFalse(response.isEmpty());
-        Assertions.assertNotNull(response.getFirst().warehouseName());
-        Assertions.assertNotNull(response.getFirst().supplierName());
+        Assertions.assertNotNull(response.getContent().getFirst().warehouseName());
+        Assertions.assertNotNull(response.getContent().getFirst().supplierName());
     }
 
     @Test
@@ -69,16 +71,51 @@ class WarehouseApplicationTests {
         Statistics statistics = entityManagerFactory.unwrap(SessionFactory.class).getStatistics();
 
         statistics.clear();
-        List<Product> plainProducts = productService.demoNplusOne(null);
+        List<Product> plainProducts = productService.demoNplusOne(null, PageRequest.of(0, 10)).getContent();
         plainProducts.forEach(product -> product.getCategories().size());
         long nPlusOneStatements = statistics.getPrepareStatementCount();
 
         statistics.clear();
-        List<Product> optimizedProducts = productService.findByNameWithEntityGraph(null);
+        List<Product> optimizedProducts = productService.findByNameWithEntityGraph(null, PageRequest.of(0, 10)).getContent();
         optimizedProducts.forEach(product -> product.getCategories().size());
         long optimizedStatements = statistics.getPrepareStatementCount();
 
         Assertions.assertTrue(nPlusOneStatements > optimizedStatements);
+    }
+
+    @Test
+    void shouldReturnPagedProducts() {
+        Page<Product> products = productService.findByName(null, PageRequest.of(0, 2));
+
+        Assertions.assertEquals(2, products.getSize());
+        Assertions.assertEquals(4, products.getTotalElements());
+        Assertions.assertEquals(2, products.getNumberOfElements());
+    }
+
+    @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    void shouldInvalidateIndexAfterProductUpdate() {
+        PageRequest pageable = PageRequest.of(0, 10);
+        Page<ProductResponseDto> cachedResponse = productController.findByName("Monitor", pageable);
+
+        Assertions.assertEquals(1, cachedResponse.getTotalElements());
+        Assertions.assertEquals("Monitor", cachedResponse.getContent().getFirst().name());
+
+        productService.update(4L, new ProductRequestDto(
+                "SKU-103",
+                "Display",
+                15,
+                2L,
+                1L,
+                List.of(1L, 3L)
+        ));
+
+        Page<ProductResponseDto> monitorResponse = productController.findByName("Monitor", pageable);
+        Page<ProductResponseDto> displayResponse = productController.findByName("Display", pageable);
+
+        Assertions.assertEquals(0, monitorResponse.getTotalElements());
+        Assertions.assertEquals(1, displayResponse.getTotalElements());
+        Assertions.assertEquals("Display", displayResponse.getContent().getFirst().name());
     }
 
     @Test
@@ -151,6 +188,30 @@ class WarehouseApplicationTests {
 
         productService.delete(createdProduct.getId());
         Assertions.assertFalse(productRepository.findById(createdProduct.getId()).isPresent());
+    }
+
+    @Test
+    void shouldFilterProductsByNestedCategoryUsingJpql() {
+        Page<Product> products = productService.findByNameAndCategoryWithJpql(
+                "top",
+                "Premium",
+                PageRequest.of(0, 10)
+        );
+
+        Assertions.assertEquals(1, products.getTotalElements());
+        Assertions.assertEquals("Laptop", products.getContent().getFirst().getName());
+    }
+
+    @Test
+    void shouldFilterProductsByNestedCategoryUsingNativeQuery() {
+        Page<Product> products = productService.findByNameAndCategoryWithNativeQuery(
+                "mon",
+                "Premium",
+                PageRequest.of(0, 10)
+        );
+
+        Assertions.assertEquals(1, products.getTotalElements());
+        Assertions.assertEquals("Monitor", products.getContent().getFirst().getName());
     }
 
     private BulkOperationRequestDto buildBulkRequest(String sku, String email) {
