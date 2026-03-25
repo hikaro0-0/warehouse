@@ -1,7 +1,15 @@
 package com.hikaro.warehouse.controller;
 
 import com.hikaro.warehouse.dto.BulkOperationRequestDto;
+import com.hikaro.warehouse.exception.ApiErrorResponse;
 import com.hikaro.warehouse.service.DemoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/demo")
+@Tag(name = "Transactions Demo", description = "Endpoints demonstrating transactional and non-transactional bulk operations")
 public class DemoController {
 
     private final DemoService demoService;
@@ -21,16 +30,32 @@ public class DemoController {
 
     @PostMapping("/without-transaction")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Run bulk save without transaction")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Operation completed"),
+            @ApiResponse(responseCode = "400", description = "Validation failed",
+                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Intentional failure after partial save",
+                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+    })
     public void withoutTransaction(
-            @RequestBody BulkOperationRequestDto request
+            @Valid @RequestBody BulkOperationRequestDto request
     ) {
         demoService.saveGraphWithoutTransaction(request);
     }
 
     @PostMapping("/with-transaction")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Run bulk save with transaction")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Operation completed"),
+            @ApiResponse(responseCode = "400", description = "Validation failed",
+                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Intentional failure with transaction rollback",
+                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+    })
     public void withTransaction(
-            @RequestBody BulkOperationRequestDto request
+            @Valid @RequestBody BulkOperationRequestDto request
     ) {
         demoService.saveGraphWithTransaction(request);
     }

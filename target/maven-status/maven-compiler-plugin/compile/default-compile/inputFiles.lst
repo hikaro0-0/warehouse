@@ -1,4 +1,6 @@
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/WarehouseApplication.java
+/home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/aop/ServiceExecutionTimeLoggingAspect.java
+/home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/config/OpenApiConfig.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/controller/CategoryController.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/controller/DemoController.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/controller/HomeController.java
@@ -23,7 +25,9 @@
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/entity/Shipment.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/entity/Supplier.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/entity/Warehouse.java
+/home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/exception/ApiErrorResponse.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/exception/ApiExceptionHandler.java
+/home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/exception/ApiValidationError.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/exception/ResourceNotFoundException.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/index/ProductQueryIndex.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/index/ProductQueryIndexKey.java

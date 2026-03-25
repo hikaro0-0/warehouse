@@ -2,4 +2,3 @@ com/hikaro/warehouse/service/CrudServicesTest.class
 com/hikaro/warehouse/service/ShipmentServiceTest.class
 com/hikaro/warehouse/WarehouseApplicationTests.class
 com/hikaro/warehouse/controller/ControllerUnitTest.class
-com/hikaro/warehouse/support/SupportClassesTest.class

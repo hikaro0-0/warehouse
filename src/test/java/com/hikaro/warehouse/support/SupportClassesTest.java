@@ -17,16 +17,17 @@ import com.hikaro.warehouse.entity.Product;
 import com.hikaro.warehouse.entity.Shipment;
 import com.hikaro.warehouse.entity.Supplier;
 import com.hikaro.warehouse.entity.Warehouse;
+import com.hikaro.warehouse.exception.ApiErrorResponse;
 import com.hikaro.warehouse.exception.ApiExceptionHandler;
 import com.hikaro.warehouse.exception.ResourceNotFoundException;
 import com.hikaro.warehouse.mapper.ProductMapper;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 class SupportClassesTest {
 
@@ -51,21 +52,26 @@ class SupportClassesTest {
     @Test
     void shouldBuildErrorResponses() {
         ApiExceptionHandler handler = new ApiExceptionHandler();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setRequestURI("/api/test");
 
-        ResponseEntity<Map<String, Object>> notFound = handler.handleNotFound(
-                new ResourceNotFoundException("missing")
+        ResponseEntity<ApiErrorResponse> notFound = handler.handleNotFound(
+                new ResourceNotFoundException("missing"),
+                request
         );
-        ResponseEntity<Map<String, Object>> badRequest = handler.handleBadRequest(
-                new DataIntegrityViolationException("bad data")
+        ResponseEntity<ApiErrorResponse> badRequest = handler.handleBadRequest(
+                new DataIntegrityViolationException("bad data"),
+                request
         );
 
         assertEquals(HttpStatus.NOT_FOUND, notFound.getStatusCode());
-        assertEquals("missing", notFound.getBody().get("message"));
-        assertNotNull(notFound.getBody().get("timestamp"));
+        assertEquals("missing", notFound.getBody().message());
+        assertNotNull(notFound.getBody().timestamp());
+        assertEquals("/api/test", notFound.getBody().path());
 
         assertEquals(HttpStatus.BAD_REQUEST, badRequest.getStatusCode());
-        assertEquals("bad data", badRequest.getBody().get("message"));
-        assertEquals(400, badRequest.getBody().get("status"));
+        assertEquals("bad data", badRequest.getBody().message());
+        assertEquals(400, badRequest.getBody().status());
     }
 
     @Test
