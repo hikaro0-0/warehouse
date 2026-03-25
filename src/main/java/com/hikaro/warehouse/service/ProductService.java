@@ -133,14 +133,16 @@ public class ProductService {
         return products;
     }
 
+    @Transactional
     public Product create(ProductRequestDto request) {
         Product product = new Product();
         applyRequest(product, request);
         Product savedProduct = productRepository.save(product);
         productQueryIndex.invalidate();
-        return savedProduct;
+        return getById(savedProduct.getId());
     }
 
+    @Transactional
     public Product update(Long id, ProductRequestDto request) {
         Product product = productRepository.findById(id)
                 .orElseThrow(
@@ -151,9 +153,10 @@ public class ProductService {
         applyRequest(product, request);
         Product savedProduct = productRepository.save(product);
         productQueryIndex.invalidate();
-        return savedProduct;
+        return getById(savedProduct.getId());
     }
 
+    @Transactional
     public void delete(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(
