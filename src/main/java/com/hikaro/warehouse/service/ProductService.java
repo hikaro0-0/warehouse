@@ -15,7 +15,9 @@ import jakarta.persistence.EntityManager;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -65,22 +67,17 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public Page<Product> findByName(String name, Pageable pageable) {
-        String filter = normalizeName(name);
-        if (filter == null) {
-            return productRepository.findAllWithDetails(pageable);
-        }
-        return productRepository.findAllWithDetailsByName(toLikePattern(filter), pageable);
+        return Optional.ofNullable(normalizeName(name))
+                .map(filter -> productRepository.findAllWithDetailsByName(toLikePattern(filter), pageable))
+                .orElseGet(() -> productRepository.findAllWithDetails(pageable));
     }
 
     @Transactional(readOnly = true)
     public Page<Product> demoNplusOne(String name, Pageable pageable) {
         entityManager.clear();
-        Page<Product> products;
-        if (isBlank(name)) {
-            products = productRepository.findAll(pageable);
-        } else {
-            products = productRepository.findByNameContainingIgnoreCase(name, pageable);
-        }
+        Page<Product> products = Optional.ofNullable(normalizeName(name))
+                .map(filter -> productRepository.findByNameContainingIgnoreCase(filter, pageable))
+                .orElseGet(() -> productRepository.findAll(pageable));
         initializeAssociations(products.getContent());
         return products;
     }
@@ -88,11 +85,9 @@ public class ProductService {
     @Transactional(readOnly = true)
     public Page<Product> findByNameWithEntityGraph(String name, Pageable pageable) {
         entityManager.clear();
-        String filter = normalizeName(name);
-        if (filter == null) {
-            return productRepository.findAllWithDetails(pageable);
-        }
-        return productRepository.findAllWithDetailsByName(toLikePattern(filter), pageable);
+        return Optional.ofNullable(normalizeName(name))
+                .map(filter -> productRepository.findAllWithDetailsByName(toLikePattern(filter), pageable))
+                .orElseGet(() -> productRepository.findAllWithDetails(pageable));
     }
 
     @Transactional(readOnly = true)
@@ -130,11 +125,23 @@ public class ProductService {
 
     @Transactional
     public Product create(ProductRequestDto request) {
-        Product product = new Product();
-        applyRequest(product, request);
-        Product savedProduct = productRepository.save(product);
+        Product savedProduct = productRepository.save(buildProduct(request));
         productQueryIndex.invalidate();
         return getById(savedProduct.getId());
+    }
+
+    @Transactional
+    public List<Product> createBulk(List<ProductRequestDto> requests) {
+        List<Product> savedProducts = productRepository.saveAll(
+                requests.stream()
+                        .map(this::buildProduct)
+                        .toList()
+        );
+        productQueryIndex.invalidate();
+        return savedProducts.stream()
+                .map(Product::getId)
+                .map(this::getById)
+                .toList();
     }
 
     @Transactional
@@ -163,23 +170,15 @@ public class ProductService {
         productQueryIndex.invalidate();
     }
 
+    private Product buildProduct(ProductRequestDto request) {
+        Product product = new Product();
+        applyRequest(product, request);
+        return product;
+    }
+
     private void applyRequest(Product product, ProductRequestDto request) {
-        Warehouse warehouse = warehouseRepository.findById(request.warehouseId())
-                .orElseThrow(
-                        () -> new ResourceNotFoundException(
-                                "Warehouse with id "
-                                        + request.warehouseId()
-                                        + NOT_FOUND_SUFFIX
-                        )
-                );
-        Supplier supplier = supplierRepository.findById(request.supplierId())
-                .orElseThrow(
-                        () -> new ResourceNotFoundException(
-                                "Supplier with id "
-                                        + request.supplierId()
-                                        + NOT_FOUND_SUFFIX
-                        )
-                );
+        Warehouse warehouse = findWarehouse(request.warehouseId());
+        Supplier supplier = findSupplier(request.supplierId());
         Set<Category> categories = loadCategories(request.categoryIds());
 
         product.setSku(request.sku());
@@ -190,27 +189,49 @@ public class ProductService {
         product.setCategories(categories);
     }
 
+    private Warehouse findWarehouse(Long warehouseId) {
+        return warehouseRepository.findById(warehouseId)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException(
+                                "Warehouse with id " + warehouseId + NOT_FOUND_SUFFIX
+                        )
+                );
+    }
+
+    private Supplier findSupplier(Long supplierId) {
+        return supplierRepository.findById(supplierId)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException(
+                                "Supplier with id " + supplierId + NOT_FOUND_SUFFIX
+                        )
+                );
+    }
+
     private Set<Category> loadCategories(List<Long> categoryIds) {
-        if (categoryIds == null || categoryIds.isEmpty()) {
+        List<Long> requestedCategoryIds = Optional.ofNullable(categoryIds).orElseGet(List::of);
+        if (requestedCategoryIds.isEmpty()) {
             return new LinkedHashSet<>();
         }
-        Set<Category> categories = new LinkedHashSet<>(categoryRepository.findAllById(categoryIds));
-        if (categories.size() != categoryIds.size()) {
+
+        Set<Category> categories = categoryRepository.findAllById(requestedCategoryIds)
+                .stream()
+                .collect(Collectors.toCollection(LinkedHashSet::new));
+        if (categories.size() != requestedCategoryIds.size()) {
             throw new ResourceNotFoundException("One or more categories not found");
         }
         return categories;
     }
 
     private String normalizeName(String name) {
-        return isBlank(name) ? null : name;
+        return Optional.ofNullable(name)
+                .map(String::trim)
+                .filter(value -> !value.isBlank())
+                .orElse(null);
     }
 
     private String requireFilter(String value, String fieldName) {
-        String normalizedValue = normalizeName(value);
-        if (normalizedValue == null) {
-            throw new IllegalArgumentException(fieldName + " must not be blank");
-        }
-        return normalizedValue;
+        return Optional.ofNullable(normalizeName(value))
+                .orElseThrow(() -> new IllegalArgumentException(fieldName + " must not be blank"));
     }
 
     private String toLikePattern(String value) {
@@ -226,9 +247,5 @@ public class ProductService {
             product.getSupplier().getName();
             product.getCategories().size();
         });
-    }
-
-    private boolean isBlank(String value) {
-        return value == null || value.isBlank();
     }
 }

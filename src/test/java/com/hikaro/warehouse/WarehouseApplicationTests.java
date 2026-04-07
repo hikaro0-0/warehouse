@@ -162,6 +162,32 @@ class WarehouseApplicationTests {
 
     @Test
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    void shouldPersistBulkProductsWithoutOuterTransaction() {
+        long productsBefore = productRepository.count();
+
+        Assertions.assertThrows(
+                IllegalStateException.class,
+                () -> demoService.saveProductsBulkWithoutTransaction(buildProductBulkRequests("NO-TX"))
+        );
+
+        Assertions.assertEquals(productsBefore + 2, productRepository.count());
+    }
+
+    @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    void shouldRollbackBulkProductsWithOuterTransaction() {
+        long productsBefore = productRepository.count();
+
+        Assertions.assertThrows(
+                IllegalStateException.class,
+                () -> demoService.saveProductsBulkWithTransaction(buildProductBulkRequests("TX"))
+        );
+
+        Assertions.assertEquals(productsBefore, productRepository.count());
+    }
+
+    @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void shouldSupportProductCrudOperations() {
         Product createdProduct = productService.create(new ProductRequestDto(
                 "SKU-777",
@@ -188,6 +214,20 @@ class WarehouseApplicationTests {
 
         productService.delete(createdProduct.getId());
         Assertions.assertFalse(productRepository.findById(createdProduct.getId()).isPresent());
+    }
+
+    @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    void shouldCreateProductsInBulk() {
+        List<ProductRequestDto> requests = buildProductBulkRequests("PLAIN");
+
+        List<Product> createdProducts = productService.createBulk(requests);
+
+        Assertions.assertEquals(2, createdProducts.size());
+        Assertions.assertEquals(
+                List.of("Keyboard PLAIN", "Mouse PLAIN"),
+                createdProducts.stream().map(Product::getName).sorted().toList()
+        );
     }
 
     @Test
@@ -224,6 +264,27 @@ class WarehouseApplicationTests {
                 sku,
                 5,
                 List.of(1L, 2L)
+        );
+    }
+
+    private List<ProductRequestDto> buildProductBulkRequests(String suffix) {
+        return List.of(
+                new ProductRequestDto(
+                        "SKU-" + suffix + "-1",
+                        "Mouse " + suffix,
+                        5,
+                        1L,
+                        1L,
+                        List.of(1L, 3L)
+                ),
+                new ProductRequestDto(
+                        "SKU-" + suffix + "-2",
+                        "Keyboard " + suffix,
+                        7,
+                        2L,
+                        2L,
+                        List.of(2L)
+                )
         );
     }
 }

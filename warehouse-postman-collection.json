@@ -973,6 +973,55 @@
           ]
         },
         {
+          "name": "Bulk Create Products",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/bulk",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "bulk"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"sku\": \"SKU-BULK-POSTMAN-1\",\n    \"name\": \"Mouse POSTMAN\",\n    \"quantity\": 5,\n    \"warehouseId\": 1,\n    \"supplierId\": 1,\n    \"categoryIds\": [1, 3]\n  },\n  {\n    \"sku\": \"SKU-BULK-POSTMAN-2\",\n    \"name\": \"Keyboard POSTMAN\",\n    \"quantity\": 7,\n    \"warehouseId\": 2,\n    \"supplierId\": 2,\n    \"categoryIds\": [2]\n  }\n]"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "pm.test(\"Response is JSON array\", function () {",
+                  "    pm.response.to.be.json;",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.be.an(\"array\");",
+                  "    pm.expect(body.length).to.eql(2);",
+                  "});",
+                  "pm.test(\"Bulk response contains product ids\", function () {",
+                  "    pm.response.json().forEach(item => pm.expect(item).to.have.property(\"id\"));",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
           "name": "Get All Products Paged",
           "request": {
             "method": "GET",
@@ -2193,6 +2242,153 @@
                   "    const body = pm.response.json();",
                   "    const actualFields = body.errors.map(error => error.field).sort();",
                   "    pm.expect(actualFields).to.eql([\"categoryIds[1]\", \"contactEmail\", \"productName\", \"quantity\", \"sku\", \"supplierName\", \"warehouseAddress\", \"warehouseName\"]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Bulk Products Without Transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/products/without-transaction",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "products",
+                "without-transaction"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"sku\": \"SKU-NO-TX-POSTMAN-1\",\n    \"name\": \"Mouse NO-TX\",\n    \"quantity\": 5,\n    \"warehouseId\": 1,\n    \"supplierId\": 1,\n    \"categoryIds\": [1, 3]\n  },\n  {\n    \"sku\": \"SKU-NO-TX-POSTMAN-2\",\n    \"name\": \"Keyboard NO-TX\",\n    \"quantity\": 7,\n    \"warehouseId\": 2,\n    \"supplierId\": 2,\n    \"categoryIds\": [2]\n  }\n]"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 500\", function () {",
+                  "    pm.response.to.have.status(500);",
+                  "});",
+                  "pm.test(\"Bulk demo without transaction returns unified error\", function () {",
+                  "    pm.response.to.be.json;",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.status).to.eql(500);",
+                  "    pm.expect(body.path).to.eql(\"/api/demo/products/without-transaction\");",
+                  "    pm.expect(body.message).to.eql(\"Intentional failure after bulk product save without transaction\");",
+                  "    pm.expect(body.errors).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Bulk Products With Transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/products/with-transaction",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "products",
+                "with-transaction"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"sku\": \"SKU-TX-POSTMAN-1\",\n    \"name\": \"Mouse TX\",\n    \"quantity\": 5,\n    \"warehouseId\": 1,\n    \"supplierId\": 1,\n    \"categoryIds\": [1, 3]\n  },\n  {\n    \"sku\": \"SKU-TX-POSTMAN-2\",\n    \"name\": \"Keyboard TX\",\n    \"quantity\": 7,\n    \"warehouseId\": 2,\n    \"supplierId\": 2,\n    \"categoryIds\": [2]\n  }\n]"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 500\", function () {",
+                  "    pm.response.to.have.status(500);",
+                  "});",
+                  "pm.test(\"Bulk demo with transaction returns unified error\", function () {",
+                  "    pm.response.to.be.json;",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.status).to.eql(500);",
+                  "    pm.expect(body.path).to.eql(\"/api/demo/products/with-transaction\");",
+                  "    pm.expect(body.message).to.eql(\"Intentional failure after bulk product save with transaction\");",
+                  "    pm.expect(body.errors).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Bulk Products Validation Error",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/products/with-transaction",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "products",
+                "with-transaction"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"sku\": \"\",\n    \"name\": \"\",\n    \"quantity\": -1,\n    \"warehouseId\": null,\n    \"supplierId\": null,\n    \"categoryIds\": [1, null]\n  }\n]"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Bulk validation error has unified format\", function () {",
+                  "    pm.response.to.be.json;",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.status).to.eql(400);",
+                  "    pm.expect(body.path).to.eql(\"/api/demo/products/with-transaction\");",
+                  "    pm.expect(body.message).to.eql(\"Validation failed\");",
+                  "    pm.expect(body.errors).to.be.an(\"array\");",
                   "});"
                 ]
               }

@@ -1,6 +1,7 @@
 package com.hikaro.warehouse.service;
 
 import com.hikaro.warehouse.dto.BulkOperationRequestDto;
+import com.hikaro.warehouse.dto.ProductRequestDto;
 import com.hikaro.warehouse.entity.Category;
 import com.hikaro.warehouse.entity.Product;
 import com.hikaro.warehouse.entity.Supplier;
@@ -23,18 +24,21 @@ public class DemoService {
     private final WarehouseRepository warehouseRepository;
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final ProductService productService;
 
     public DemoService(
             SupplierRepository supplierRepository,
             WarehouseRepository warehouseRepository,
             ProductRepository productRepository,
             com.hikaro.warehouse.repository.ShipmentRepository shipmentRepository,
-            CategoryRepository categoryRepository
+            CategoryRepository categoryRepository,
+            ProductService productService
     ) {
         this.supplierRepository = supplierRepository;
         this.warehouseRepository = warehouseRepository;
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
+        this.productService = productService;
     }
 
     public void saveGraphWithoutTransaction(BulkOperationRequestDto request) {
@@ -44,6 +48,21 @@ public class DemoService {
     @Transactional
     public void saveGraphWithTransaction(BulkOperationRequestDto request) {
         saveRelatedEntities(request);
+    }
+
+    public void saveProductsBulkWithoutTransaction(List<ProductRequestDto> requests) {
+        productService.createBulk(requests);
+        throw new IllegalStateException(
+                "Intentional failure after bulk product save without transaction"
+        );
+    }
+
+    @Transactional
+    public void saveProductsBulkWithTransaction(List<ProductRequestDto> requests) {
+        productService.createBulk(requests);
+        throw new IllegalStateException(
+                "Intentional failure after bulk product save with transaction"
+        );
     }
 
     private void saveRelatedEntities(BulkOperationRequestDto request) {

@@ -4,5 +4,7 @@
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/exception/ApiExceptionHandlerTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/index/ProductQueryIndexKeyTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/CrudServicesTest.java
+/home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/DemoServiceTest.java
+/home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/ProductServiceTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/ShipmentServiceTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/support/SupportClassesTest.java

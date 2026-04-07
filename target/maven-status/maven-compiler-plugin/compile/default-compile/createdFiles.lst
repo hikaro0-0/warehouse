@@ -2,6 +2,7 @@ com/hikaro/warehouse/dto/WarehouseResponseDto.class
 com/hikaro/warehouse/repository/SupplierRepository.class
 com/hikaro/warehouse/entity/Warehouse.class
 com/hikaro/warehouse/dto/ShipmentResponseDto.class
+com/hikaro/warehouse/index/ProductQueryIndexKey.class
 com/hikaro/warehouse/exception/ResourceNotFoundException.class
 com/hikaro/warehouse/mapper/ProductMapper.class
 com/hikaro/warehouse/repository/ShipmentRepository.class
