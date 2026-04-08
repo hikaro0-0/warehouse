@@ -4,6 +4,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ApiExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ApiExceptionHandler.class);
+    private static final Pattern DUPLICATE_KEY_PATTERN = Pattern.compile("Key \\((.+)\\)=\\((.+)\\) already exists");
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiErrorResponse> handleNotFound(
@@ -35,7 +38,13 @@ public class ApiExceptionHandler {
             Exception ex,
             HttpServletRequest request
     ) {
-        return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request.getRequestURI(), List.of(), ex);
+        return buildResponse(
+                HttpStatus.BAD_REQUEST,
+                resolveBadRequestMessage(ex),
+                request.getRequestURI(),
+                List.of(),
+                ex
+        );
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -145,11 +154,7 @@ public class ApiExceptionHandler {
             Exception ex
     ) {
         if (status.is4xxClientError()) {
-            if (ex == null) {
-                log.warn("Client error {} on path {}: {}", status.value(), path, message);
-                return;
-            }
-            log.warn("Client error {} on path {}: {}", status.value(), path, message, ex);
+            log.warn("Client error {} on path {}: {}", status.value(), path, message);
             return;
         }
 
@@ -158,5 +163,34 @@ public class ApiExceptionHandler {
             return;
         }
         log.error("Server error {} on path {}: {}", status.value(), path, message, ex);
+    }
+
+    private String resolveBadRequestMessage(Exception ex) {
+        if (!(ex instanceof DataIntegrityViolationException dataIntegrityViolationException)) {
+            return ex.getMessage();
+        }
+
+        String duplicateKeyMessage = extractDuplicateKeyMessage(dataIntegrityViolationException);
+        if (duplicateKeyMessage != null) {
+            return duplicateKeyMessage;
+        }
+
+        Throwable mostSpecificCause = dataIntegrityViolationException.getMostSpecificCause();
+        return mostSpecificCause != null ? mostSpecificCause.getMessage() : ex.getMessage();
+    }
+
+    private String extractDuplicateKeyMessage(Throwable throwable) {
+        Throwable current = throwable;
+        while (current != null) {
+            String message = current.getMessage();
+            if (message != null) {
+                Matcher matcher = DUPLICATE_KEY_PATTERN.matcher(message);
+                if (matcher.find()) {
+                    return "Value '" + matcher.group(2) + "' for field '" + matcher.group(1) + "' already exists";
+                }
+            }
+            current = current.getCause();
+        }
+        return null;
     }
 }

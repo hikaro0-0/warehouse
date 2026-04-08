@@ -75,6 +75,26 @@ class SupportClassesTest {
     }
 
     @Test
+    
+    void shouldHumanizeDuplicateKeyViolationMessage() {
+        ApiExceptionHandler handler = new ApiExceptionHandler();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setRequestURI("/api/products");
+
+        ResponseEntity<ApiErrorResponse> badRequest = handler.handleBadRequest(
+                new DataIntegrityViolationException(
+                        "could not execute statement",
+                        new RuntimeException("ERROR: duplicate key value violates unique constraint. Details: Key (sku)=(SKU-1001) already exists.")
+                ),
+                request
+        );
+
+        assertEquals(HttpStatus.BAD_REQUEST, badRequest.getStatusCode());
+        assertEquals("Value 'SKU-1001' for field 'sku' already exists", badRequest.getBody().message());
+        assertEquals("/api/products", badRequest.getBody().path());
+    }
+
+    
     void shouldExposeExceptionMessage() {
         ResourceNotFoundException exception = new ResourceNotFoundException("not here");
         assertEquals("not here", exception.getMessage());
