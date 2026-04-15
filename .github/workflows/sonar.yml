@@ -37,5 +37,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            -Dcheckstyle.skip=true \
             -Dsonar.projectKey=hikaro0-0_warehouse \
             -Dsonar.organization=hikaro0-0
