@@ -126,11 +126,11 @@ class WarehouseApplicationTests {
         long productsBefore = productRepository.count();
         long shipmentsBefore = shipmentRepository.count();
 
+        BulkOperationRequestDto request = buildBulkRequest("SKU-NON-TX", "non-tx@example.com");
+
         Assertions.assertThrows(
                 IllegalStateException.class,
-                () -> demoService.saveGraphWithoutTransaction(
-                        buildBulkRequest("SKU-NON-TX", "non-tx@example.com")
-                )
+                () -> demoService.saveGraphWithoutTransaction(request)
         );
 
         Assertions.assertEquals(suppliersBefore + 1, supplierRepository.count());
@@ -165,9 +165,11 @@ class WarehouseApplicationTests {
     void shouldPersistBulkProductsWithoutOuterTransaction() {
         long productsBefore = productRepository.count();
 
+        List<ProductRequestDto> requests = buildProductBulkRequests("NO-TX");
+
         Assertions.assertThrows(
                 IllegalStateException.class,
-                () -> demoService.saveProductsBulkWithoutTransaction(buildProductBulkRequests("NO-TX"))
+                () -> demoService.saveProductsBulkWithoutTransaction(requests)
         );
 
         Assertions.assertEquals(productsBefore + 2, productRepository.count());
@@ -178,9 +180,11 @@ class WarehouseApplicationTests {
     void shouldRollbackBulkProductsWithOuterTransaction() {
         long productsBefore = productRepository.count();
 
+        List<ProductRequestDto> requests = buildProductBulkRequests("TX");
+
         Assertions.assertThrows(
                 IllegalStateException.class,
-                () -> demoService.saveProductsBulkWithTransaction(buildProductBulkRequests("TX"))
+                () -> demoService.saveProductsBulkWithTransaction(requests)
         );
 
         Assertions.assertEquals(productsBefore, productRepository.count());

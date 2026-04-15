@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -46,12 +45,10 @@ public class SupplierController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get supplier by id")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Supplier found",
-                    content = @Content(schema = @Schema(implementation = SupplierResponseDto.class))),
-            @ApiResponse(responseCode = "404", description = "Supplier not found",
+    @ApiResponse(responseCode = "200", description = "Supplier found",
+                    content = @Content(schema = @Schema(implementation = SupplierResponseDto.class)))
+    @ApiResponse(responseCode = "404", description = "Supplier not found",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public SupplierResponseDto getById(@PathVariable Long id) {
         return toResponseDto(supplierService.getById(id));
     }
@@ -59,26 +56,22 @@ public class SupplierController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create supplier")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Supplier created",
-                    content = @Content(schema = @Schema(implementation = SupplierResponseDto.class))),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
+    @ApiResponse(responseCode = "201", description = "Supplier created",
+                    content = @Content(schema = @Schema(implementation = SupplierResponseDto.class)))
+    @ApiResponse(responseCode = "400", description = "Validation failed",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public SupplierResponseDto create(@Valid @RequestBody SupplierRequestDto request) {
         return toResponseDto(supplierService.create(toEntity(request)));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update supplier")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Supplier updated",
-                    content = @Content(schema = @Schema(implementation = SupplierResponseDto.class))),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
-                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Supplier not found",
+    @ApiResponse(responseCode = "200", description = "Supplier updated",
+                    content = @Content(schema = @Schema(implementation = SupplierResponseDto.class)))
+    @ApiResponse(responseCode = "400", description = "Validation failed",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
+    @ApiResponse(responseCode = "404", description = "Supplier not found",
+                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
     public SupplierResponseDto update(
             @PathVariable Long id,
             @Valid @RequestBody SupplierRequestDto request
@@ -89,11 +82,9 @@ public class SupplierController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete supplier")
-    @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Supplier deleted"),
-            @ApiResponse(responseCode = "404", description = "Supplier not found",
+    @ApiResponse(responseCode = "204", description = "Supplier deleted")
+    @ApiResponse(responseCode = "404", description = "Supplier not found",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public void delete(@PathVariable Long id) {
         supplierService.delete(id);
     }

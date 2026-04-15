@@ -40,12 +40,7 @@ public class ShipmentService {
 
     @Transactional(readOnly = true)
     public Shipment getById(Long id) {
-        Shipment shipment = shipmentRepository.findById(id)
-                .orElseThrow(
-                        () -> new ResourceNotFoundException(
-                                "Shipment with id " + id + " not found"
-                        )
-                );
+        Shipment shipment = findByIdOrThrow(id);
         initializeAssociations(List.of(shipment));
         return shipment;
     }
@@ -59,14 +54,24 @@ public class ShipmentService {
 
     @Transactional
     public Shipment update(Long id, ShipmentRequestDto request) {
-        Shipment shipment = getById(id);
+        Shipment shipment = findByIdOrThrow(id);
         applyRequest(shipment, request);
         return shipmentRepository.save(shipment);
     }
 
+    @Transactional
     public void delete(Long id) {
-        Shipment shipment = getById(id);
+        Shipment shipment = findByIdOrThrow(id);
         shipmentRepository.delete(shipment);
+    }
+
+    private Shipment findByIdOrThrow(Long id) {
+        return shipmentRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException(
+                                "Shipment with id " + id + " not found"
+                        )
+                );
     }
 
     private void applyRequest(Shipment shipment, ShipmentRequestDto request) {
@@ -93,7 +98,7 @@ public class ShipmentService {
     private void initializeAssociations(List<Shipment> shipments) {
         shipments.forEach(shipment -> {
             shipment.getWarehouse().getName();
-            shipment.getProducts().size();
+            shipment.getProducts().forEach(product -> product.getName());
         });
     }
 }

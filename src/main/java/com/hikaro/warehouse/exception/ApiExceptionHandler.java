@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -55,7 +56,7 @@ public class ApiExceptionHandler {
         List<ApiValidationError> errors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .sorted(Comparator.comparing(fieldError -> fieldError.getField()))
+                .sorted(Comparator.comparing(FieldError::getField))
                 .map(fieldError -> new ApiValidationError(
                         fieldError.getField(),
                         fieldError.getDefaultMessage(),
@@ -73,7 +74,7 @@ public class ApiExceptionHandler {
         List<ApiValidationError> errors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .sorted(Comparator.comparing(fieldError -> fieldError.getField()))
+                .sorted(Comparator.comparing(FieldError::getField))
                 .map(fieldError -> new ApiValidationError(
                         fieldError.getField(),
                         fieldError.getDefaultMessage(),
@@ -108,23 +109,6 @@ public class ApiExceptionHandler {
             HttpServletRequest request
     ) {
         return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected server error", request.getRequestURI(), List.of(), ex);
-    }
-
-    private ResponseEntity<ApiErrorResponse> buildResponse(
-            HttpStatusCode status,
-            String message,
-            String path
-    ) {
-        return buildResponse(status, message, path, List.of(), null);
-    }
-
-    private ResponseEntity<ApiErrorResponse> buildResponse(
-            HttpStatusCode status,
-            String message,
-            String path,
-            List<ApiValidationError> errors
-    ) {
-        return buildResponse(status, message, path, errors, null);
     }
 
     private ResponseEntity<ApiErrorResponse> buildResponse(
@@ -176,7 +160,8 @@ public class ApiExceptionHandler {
         }
 
         Throwable mostSpecificCause = dataIntegrityViolationException.getMostSpecificCause();
-        return mostSpecificCause != null ? mostSpecificCause.getMessage() : ex.getMessage();
+        String message = mostSpecificCause.getMessage();
+        return message != null ? message : ex.getMessage();
     }
 
     private String extractDuplicateKeyMessage(Throwable throwable) {

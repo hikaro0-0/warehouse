@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -47,12 +46,10 @@ public class ShipmentController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get shipment by id")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Shipment found",
-                    content = @Content(schema = @Schema(implementation = ShipmentResponseDto.class))),
-            @ApiResponse(responseCode = "404", description = "Shipment not found",
+    @ApiResponse(responseCode = "200", description = "Shipment found",
+                    content = @Content(schema = @Schema(implementation = ShipmentResponseDto.class)))
+    @ApiResponse(responseCode = "404", description = "Shipment not found",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public ShipmentResponseDto getById(@PathVariable Long id) {
         return toResponseDto(shipmentService.getById(id));
     }
@@ -60,26 +57,22 @@ public class ShipmentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create shipment")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Shipment created",
-                    content = @Content(schema = @Schema(implementation = ShipmentResponseDto.class))),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
+    @ApiResponse(responseCode = "201", description = "Shipment created",
+                    content = @Content(schema = @Schema(implementation = ShipmentResponseDto.class)))
+    @ApiResponse(responseCode = "400", description = "Validation failed",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public ShipmentResponseDto create(@Valid @RequestBody ShipmentRequestDto request) {
         return toResponseDto(shipmentService.create(request));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update shipment")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Shipment updated",
-                    content = @Content(schema = @Schema(implementation = ShipmentResponseDto.class))),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
-                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Shipment not found",
+    @ApiResponse(responseCode = "200", description = "Shipment updated",
+                    content = @Content(schema = @Schema(implementation = ShipmentResponseDto.class)))
+    @ApiResponse(responseCode = "400", description = "Validation failed",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
+    @ApiResponse(responseCode = "404", description = "Shipment not found",
+                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
     public ShipmentResponseDto update(
             @PathVariable Long id,
             @Valid @RequestBody ShipmentRequestDto request
@@ -90,11 +83,9 @@ public class ShipmentController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete shipment")
-    @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Shipment deleted"),
-            @ApiResponse(responseCode = "404", description = "Shipment not found",
+    @ApiResponse(responseCode = "204", description = "Shipment deleted")
+    @ApiResponse(responseCode = "404", description = "Shipment not found",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public void delete(@PathVariable Long id) {
         shipmentService.delete(id);
     }

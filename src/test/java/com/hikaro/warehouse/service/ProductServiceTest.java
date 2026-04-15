@@ -95,9 +95,11 @@ class ProductServiceTest {
         ProductRequestDto request = new ProductRequestDto("SKU-9", "Dock", 2, 99L, 2L, List.of(3L));
         when(warehouseRepository.findById(99L)).thenReturn(Optional.empty());
 
+        List<ProductRequestDto> requests = List.of(request);
+
         ResourceNotFoundException exception = assertThrows(
                 ResourceNotFoundException.class,
-                () -> productService.createBulk(List.of(request))
+                () -> productService.createBulk(requests)
         );
 
         assertEquals("Warehouse with id 99 not found", exception.getMessage());
@@ -113,9 +115,11 @@ class ProductServiceTest {
         when(supplierRepository.findById(2L)).thenReturn(Optional.of(supplier));
         when(categoryRepository.findAllById(List.of(3L, 4L))).thenReturn(List.of(new Category(3L, "Peripherals", "Peripherals")));
 
+        List<ProductRequestDto> requests = List.of(request);
+
         ResourceNotFoundException exception = assertThrows(
                 ResourceNotFoundException.class,
-                () -> productService.createBulk(List.of(request))
+                () -> productService.createBulk(requests)
         );
 
         assertEquals("One or more categories not found", exception.getMessage());

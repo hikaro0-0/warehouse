@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -53,12 +52,10 @@ public class ProductController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get product by id")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Product found",
-                    content = @Content(schema = @Schema(implementation = ProductResponseDto.class))),
-            @ApiResponse(responseCode = "404", description = "Product not found",
+    @ApiResponse(responseCode = "200", description = "Product found",
+                    content = @Content(schema = @Schema(implementation = ProductResponseDto.class)))
+    @ApiResponse(responseCode = "404", description = "Product not found",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public ProductResponseDto getById(@PathVariable Long id) {
         ProductQueryIndexKey key = ProductQueryIndexKey.byId(id);
         return productQueryIndex.getProduct(key)
@@ -138,12 +135,10 @@ public class ProductController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create product")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Product created",
-                    content = @Content(schema = @Schema(implementation = ProductResponseDto.class))),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
+    @ApiResponse(responseCode = "201", description = "Product created",
+                    content = @Content(schema = @Schema(implementation = ProductResponseDto.class)))
+    @ApiResponse(responseCode = "400", description = "Validation failed",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public ProductResponseDto create(@Valid @RequestBody ProductRequestDto request) {
         return productMapper.toResponseDto(productService.create(request));
     }
@@ -151,12 +146,10 @@ public class ProductController {
     @PostMapping("/bulk")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Bulk create products")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Products created",
-                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = ProductResponseDto.class)))),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
+    @ApiResponse(responseCode = "201", description = "Products created",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = ProductResponseDto.class))))
+    @ApiResponse(responseCode = "400", description = "Validation failed",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public List<ProductResponseDto> createBulk(
             @RequestBody @NotEmpty(message = "Product list must not be empty") List<@Valid ProductRequestDto> requests
     ) {
@@ -167,14 +160,12 @@ public class ProductController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update product")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Product updated",
-                    content = @Content(schema = @Schema(implementation = ProductResponseDto.class))),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
-                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Product not found",
+    @ApiResponse(responseCode = "200", description = "Product updated",
+                    content = @Content(schema = @Schema(implementation = ProductResponseDto.class)))
+    @ApiResponse(responseCode = "400", description = "Validation failed",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
+    @ApiResponse(responseCode = "404", description = "Product not found",
+                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
     public ProductResponseDto update(
             @PathVariable Long id,
             @Valid @RequestBody ProductRequestDto request
@@ -187,11 +178,9 @@ public class ProductController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete product")
-    @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Product deleted"),
-            @ApiResponse(responseCode = "404", description = "Product not found",
+    @ApiResponse(responseCode = "204", description = "Product deleted")
+    @ApiResponse(responseCode = "404", description = "Product not found",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public void delete(@PathVariable Long id) {
         productService.delete(id);
     }

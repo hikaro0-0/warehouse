@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -46,12 +45,10 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get category by id")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Category found",
-                    content = @Content(schema = @Schema(implementation = CategoryResponseDto.class))),
-            @ApiResponse(responseCode = "404", description = "Category not found",
+    @ApiResponse(responseCode = "200", description = "Category found",
+                    content = @Content(schema = @Schema(implementation = CategoryResponseDto.class)))
+    @ApiResponse(responseCode = "404", description = "Category not found",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public CategoryResponseDto getById(@PathVariable Long id) {
         return toResponseDto(categoryService.getById(id));
     }
@@ -59,26 +56,22 @@ public class CategoryController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create category")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Category created",
-                    content = @Content(schema = @Schema(implementation = CategoryResponseDto.class))),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
+    @ApiResponse(responseCode = "201", description = "Category created",
+                    content = @Content(schema = @Schema(implementation = CategoryResponseDto.class)))
+    @ApiResponse(responseCode = "400", description = "Validation failed",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public CategoryResponseDto create(@Valid @RequestBody CategoryRequestDto request) {
         return toResponseDto(categoryService.create(toEntity(request)));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update category")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Category updated",
-                    content = @Content(schema = @Schema(implementation = CategoryResponseDto.class))),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
-                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Category not found",
+    @ApiResponse(responseCode = "200", description = "Category updated",
+                    content = @Content(schema = @Schema(implementation = CategoryResponseDto.class)))
+    @ApiResponse(responseCode = "400", description = "Validation failed",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
+    @ApiResponse(responseCode = "404", description = "Category not found",
+                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
     public CategoryResponseDto update(
             @PathVariable Long id,
             @Valid @RequestBody CategoryRequestDto request
@@ -89,11 +82,9 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete category")
-    @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Category deleted"),
-            @ApiResponse(responseCode = "404", description = "Category not found",
+    @ApiResponse(responseCode = "204", description = "Category deleted")
+    @ApiResponse(responseCode = "404", description = "Category not found",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public void delete(@PathVariable Long id) {
         categoryService.delete(id);
     }

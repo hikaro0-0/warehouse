@@ -30,7 +30,6 @@ public class DemoService {
             SupplierRepository supplierRepository,
             WarehouseRepository warehouseRepository,
             ProductRepository productRepository,
-            com.hikaro.warehouse.repository.ShipmentRepository shipmentRepository,
             CategoryRepository categoryRepository,
             ProductService productService
     ) {

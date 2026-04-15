@@ -5,11 +5,9 @@ import com.hikaro.warehouse.dto.ProductRequestDto;
 import com.hikaro.warehouse.exception.ApiErrorResponse;
 import com.hikaro.warehouse.service.DemoService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -35,13 +33,11 @@ public class DemoController {
     @PostMapping("/without-transaction")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Run bulk save without transaction")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Operation completed"),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
-                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Intentional failure after partial save",
+    @ApiResponse(responseCode = "200", description = "Operation completed")
+    @ApiResponse(responseCode = "400", description = "Validation failed",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
+    @ApiResponse(responseCode = "500", description = "Intentional failure after partial save",
+                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
     public void withoutTransaction(
             @Valid @RequestBody BulkOperationRequestDto request
     ) {
@@ -51,13 +47,11 @@ public class DemoController {
     @PostMapping("/with-transaction")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Run bulk save with transaction")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Operation completed"),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
-                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Intentional failure with transaction rollback",
+    @ApiResponse(responseCode = "200", description = "Operation completed")
+    @ApiResponse(responseCode = "400", description = "Validation failed",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
+    @ApiResponse(responseCode = "500", description = "Intentional failure with transaction rollback",
+                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
     public void withTransaction(
             @Valid @RequestBody BulkOperationRequestDto request
     ) {
@@ -67,13 +61,11 @@ public class DemoController {
     @PostMapping("/products/without-transaction")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Run product bulk save without transaction")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Operation completed"),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
-                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Intentional failure after partial bulk product save",
+    @ApiResponse(responseCode = "200", description = "Operation completed")
+    @ApiResponse(responseCode = "400", description = "Validation failed",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
+    @ApiResponse(responseCode = "500", description = "Intentional failure after partial bulk product save",
+                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
     public void bulkProductsWithoutTransaction(
             @Valid @RequestBody @NotEmpty(message = "Product list must not be empty")
             List<@Valid ProductRequestDto> requests
@@ -84,13 +76,11 @@ public class DemoController {
     @PostMapping("/products/with-transaction")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Run product bulk save with transaction")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Operation completed"),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
-                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Intentional failure with bulk rollback",
+    @ApiResponse(responseCode = "200", description = "Operation completed")
+    @ApiResponse(responseCode = "400", description = "Validation failed",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
+    @ApiResponse(responseCode = "500", description = "Intentional failure with bulk rollback",
+                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
     public void bulkProductsWithTransaction(
             @Valid @RequestBody @NotEmpty(message = "Product list must not be empty")
             List<@Valid ProductRequestDto> requests

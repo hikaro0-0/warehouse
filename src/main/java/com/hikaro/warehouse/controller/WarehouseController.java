@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -46,12 +45,10 @@ public class WarehouseController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get warehouse by id")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Warehouse found",
-                    content = @Content(schema = @Schema(implementation = WarehouseResponseDto.class))),
-            @ApiResponse(responseCode = "404", description = "Warehouse not found",
+    @ApiResponse(responseCode = "200", description = "Warehouse found",
+                    content = @Content(schema = @Schema(implementation = WarehouseResponseDto.class)))
+    @ApiResponse(responseCode = "404", description = "Warehouse not found",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public WarehouseResponseDto getById(@PathVariable Long id) {
         return toResponseDto(warehouseService.getById(id));
     }
@@ -59,26 +56,22 @@ public class WarehouseController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create warehouse")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Warehouse created",
-                    content = @Content(schema = @Schema(implementation = WarehouseResponseDto.class))),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
+    @ApiResponse(responseCode = "201", description = "Warehouse created",
+                    content = @Content(schema = @Schema(implementation = WarehouseResponseDto.class)))
+    @ApiResponse(responseCode = "400", description = "Validation failed",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public WarehouseResponseDto create(@Valid @RequestBody WarehouseRequestDto request) {
         return toResponseDto(warehouseService.create(toEntity(request)));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update warehouse")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Warehouse updated",
-                    content = @Content(schema = @Schema(implementation = WarehouseResponseDto.class))),
-            @ApiResponse(responseCode = "400", description = "Validation failed",
-                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Warehouse not found",
+    @ApiResponse(responseCode = "200", description = "Warehouse updated",
+                    content = @Content(schema = @Schema(implementation = WarehouseResponseDto.class)))
+    @ApiResponse(responseCode = "400", description = "Validation failed",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
+    @ApiResponse(responseCode = "404", description = "Warehouse not found",
+                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
     public WarehouseResponseDto update(
             @PathVariable Long id,
             @Valid @RequestBody WarehouseRequestDto request
@@ -89,11 +82,9 @@ public class WarehouseController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete warehouse")
-    @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Warehouse deleted"),
-            @ApiResponse(responseCode = "404", description = "Warehouse not found",
+    @ApiResponse(responseCode = "204", description = "Warehouse deleted")
+    @ApiResponse(responseCode = "404", description = "Warehouse not found",
                     content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
     public void delete(@PathVariable Long id) {
         warehouseService.delete(id);
     }

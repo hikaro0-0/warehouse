@@ -54,15 +54,7 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public Product getById(Long id) {
-        return productRepository.findAllWithDetails(Pageable.unpaged())
-                .stream()
-                .filter(product -> product.getId().equals(id))
-                .findFirst()
-                .orElseThrow(
-                        () -> new ResourceNotFoundException(
-                                PRODUCT_WITH_ID_PREFIX + id + NOT_FOUND_SUFFIX
-                        )
-                );
+        return findByIdWithDetails(id);
     }
 
     @Transactional(readOnly = true)
@@ -127,7 +119,7 @@ public class ProductService {
     public Product create(ProductRequestDto request) {
         Product savedProduct = productRepository.save(buildProduct(request));
         productQueryIndex.invalidate();
-        return getById(savedProduct.getId());
+        return findByIdWithDetails(savedProduct.getId());
     }
 
     @Transactional
@@ -140,7 +132,7 @@ public class ProductService {
         productQueryIndex.invalidate();
         return savedProducts.stream()
                 .map(Product::getId)
-                .map(this::getById)
+                .map(this::findByIdWithDetails)
                 .toList();
     }
 
@@ -155,7 +147,7 @@ public class ProductService {
         applyRequest(product, request);
         Product savedProduct = productRepository.save(product);
         productQueryIndex.invalidate();
-        return getById(savedProduct.getId());
+        return findByIdWithDetails(savedProduct.getId());
     }
 
     @Transactional
@@ -168,6 +160,18 @@ public class ProductService {
                 );
         productRepository.delete(product);
         productQueryIndex.invalidate();
+    }
+
+    private Product findByIdWithDetails(Long id) {
+        return productRepository.findAllWithDetails(Pageable.unpaged())
+                .stream()
+                .filter(product -> product.getId().equals(id))
+                .findFirst()
+                .orElseThrow(
+                        () -> new ResourceNotFoundException(
+                                PRODUCT_WITH_ID_PREFIX + id + NOT_FOUND_SUFFIX
+                        )
+                );
     }
 
     private Product buildProduct(ProductRequestDto request) {
@@ -245,7 +249,7 @@ public class ProductService {
         products.forEach(product -> {
             product.getWarehouse().getName();
             product.getSupplier().getName();
-            product.getCategories().size();
+            product.getCategories().forEach(category -> category.getName());
         });
     }
 }
