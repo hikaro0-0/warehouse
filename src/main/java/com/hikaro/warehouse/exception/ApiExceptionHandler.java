@@ -142,10 +142,6 @@ public class ApiExceptionHandler {
             return;
         }
 
-        if (ex == null) {
-            log.error("Server error {} on path {}: {}", status.value(), path, message);
-            return;
-        }
         log.error("Server error {} on path {}: {}", status.value(), path, message, ex);
     }
 

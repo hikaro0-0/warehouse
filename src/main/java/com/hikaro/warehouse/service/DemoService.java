@@ -41,12 +41,12 @@ public class DemoService {
     }
 
     public void saveGraphWithoutTransaction(BulkOperationRequestDto request) {
-        saveRelatedEntities(request);
+        throw saveRelatedEntities(request);
     }
 
     @Transactional
     public void saveGraphWithTransaction(BulkOperationRequestDto request) {
-        saveRelatedEntities(request);
+        throw saveRelatedEntities(request);
     }
 
     public void saveProductsBulkWithoutTransaction(List<ProductRequestDto> requests) {
@@ -64,7 +64,7 @@ public class DemoService {
         );
     }
 
-    private void saveRelatedEntities(BulkOperationRequestDto request) {
+    private IllegalStateException saveRelatedEntities(BulkOperationRequestDto request) {
         Supplier supplier = supplierRepository.save(
                 new Supplier(null, request.supplierName(), request.contactEmail())
         );
@@ -83,7 +83,7 @@ public class DemoService {
         product.setCategories(loadCategories(request.categoryIds()));
         productRepository.save(product);
 
-        throw new IllegalStateException(
+        return new IllegalStateException(
                 "Intentional failure after saving supplier, warehouse and product"
         );
     }

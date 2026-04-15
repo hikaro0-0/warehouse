@@ -22,6 +22,7 @@ import jakarta.persistence.EntityManager;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -77,11 +78,11 @@ class ProductServiceTest {
             Product first = new Product(11L, "SKU-1", "Mouse", 4);
             first.setWarehouse(warehouse);
             first.setSupplier(supplier);
-            first.setCategories(java.util.Set.of(category));
+            first.setCategories(Set.of(category));
             Product second = new Product(12L, "SKU-2", "Keyboard", 8);
             second.setWarehouse(warehouse);
             second.setSupplier(supplier);
-            second.setCategories(java.util.Set.of(category));
+            second.setCategories(Set.of(category));
             return new PageImpl<>(List.of(first, second));
         });
 
@@ -122,6 +123,27 @@ class ProductServiceTest {
     }
 
     @Test
+    void shouldUseNameFilterForDemoNPlusOneSearch() {
+        Warehouse warehouse = new Warehouse(1L, "Main", "Street 1");
+        Supplier supplier = new Supplier(2L, "ACME", "acme@example.com");
+        Category category = new Category(3L, "Peripherals", "Peripherals");
+        Product product = new Product(11L, "SKU-1", "Mouse", 4);
+        product.setWarehouse(warehouse);
+        product.setSupplier(supplier);
+        product.setCategories(Set.of(category));
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Product> products = new PageImpl<>(List.of(product), pageable, 1);
+
+        when(productRepository.findByNameContainingIgnoreCase("Mouse", pageable)).thenReturn(products);
+
+        Page<Product> result = productService.demoNplusOne(" Mouse ", pageable);
+
+        assertSame(products, result);
+        verify(productRepository).findByNameContainingIgnoreCase("Mouse", pageable);
+        verify(entityManager).clear();
+    }
+
+    @Test
     void shouldReturnAllProductsWhenSearchFiltersAreBlank() {
         Warehouse warehouse = new Warehouse(1L, "Main", "Street 1");
         Supplier supplier = new Supplier(2L, "ACME", "acme@example.com");
@@ -129,7 +151,7 @@ class ProductServiceTest {
         Product product = new Product(11L, "SKU-1", "Mouse", 4);
         product.setWarehouse(warehouse);
         product.setSupplier(supplier);
-        product.setCategories(java.util.Set.of(category));
+        product.setCategories(Set.of(category));
         Pageable pageable = PageRequest.of(0, 10);
         Page<Product> products = new PageImpl<>(List.of(product), pageable, 1);
 
@@ -142,6 +164,27 @@ class ProductServiceTest {
     }
 
     @Test
+    void shouldUseNameFilterForEntityGraphSearch() {
+        Warehouse warehouse = new Warehouse(1L, "Main", "Street 1");
+        Supplier supplier = new Supplier(2L, "ACME", "acme@example.com");
+        Category category = new Category(3L, "Peripherals", "Peripherals");
+        Product product = new Product(11L, "SKU-1", "Mouse", 4);
+        product.setWarehouse(warehouse);
+        product.setSupplier(supplier);
+        product.setCategories(Set.of(category));
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Product> products = new PageImpl<>(List.of(product), pageable, 1);
+
+        when(productRepository.findAllWithDetailsByName("%mouse%", pageable)).thenReturn(products);
+
+        Page<Product> result = productService.findByNameWithEntityGraph(" Mouse ", pageable);
+
+        assertSame(products, result);
+        verify(productRepository).findAllWithDetailsByName("%mouse%", pageable);
+        verify(entityManager).clear();
+    }
+
+    @Test
     void shouldSearchProductsUsingCategoryOnlyFilter() {
         Warehouse warehouse = new Warehouse(1L, "Main", "Street 1");
         Supplier supplier = new Supplier(2L, "ACME", "acme@example.com");
@@ -149,7 +192,7 @@ class ProductServiceTest {
         Product product = new Product(11L, "SKU-1", "Mouse", 4);
         product.setWarehouse(warehouse);
         product.setSupplier(supplier);
-        product.setCategories(java.util.Set.of(category));
+        product.setCategories(Set.of(category));
         Pageable pageable = PageRequest.of(0, 10);
         Page<Product> products = new PageImpl<>(List.of(product), pageable, 1);
 
@@ -164,9 +207,11 @@ class ProductServiceTest {
 
     @Test
     void shouldRejectBlankNameForJpqlSearch() {
+        Pageable pageable = PageRequest.of(0, 10);
+
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> productService.findByNameAndCategoryWithJpql("   ", "Premium", PageRequest.of(0, 10))
+                () -> productService.findByNameAndCategoryWithJpql("   ", "Premium", pageable)
         );
 
         assertEquals("name must not be blank", exception.getMessage());
@@ -174,12 +219,51 @@ class ProductServiceTest {
 
     @Test
     void shouldRejectBlankCategoryForJpqlSearch() {
+        Pageable pageable = PageRequest.of(0, 10);
+
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> productService.findByNameAndCategoryWithJpql("Monitor", "   ", PageRequest.of(0, 10))
+                () -> productService.findByNameAndCategoryWithJpql("Monitor", "   ", pageable)
         );
 
         assertEquals("categoryName must not be blank", exception.getMessage());
+    }
+
+    @Test
+    void shouldThrowWhenDetailedProductLookupMissesRequestedId() {
+        when(productRepository.findAllWithDetails(Pageable.unpaged())).thenReturn(Page.empty());
+
+        ResourceNotFoundException exception = assertThrows(
+                ResourceNotFoundException.class,
+                () -> productService.getById(99L)
+        );
+
+        assertEquals("Product with id 99 not found", exception.getMessage());
+    }
+
+    @Test
+    void shouldThrowWhenUpdatingMissingProduct() {
+        ProductRequestDto request = new ProductRequestDto("SKU-1", "Mouse", 4, 1L, 2L, List.of(3L));
+        when(productRepository.findById(88L)).thenReturn(Optional.empty());
+
+        ResourceNotFoundException exception = assertThrows(
+                ResourceNotFoundException.class,
+                () -> productService.update(88L, request)
+        );
+
+        assertEquals("Product with id 88 not found", exception.getMessage());
+    }
+
+    @Test
+    void shouldThrowWhenDeletingMissingProduct() {
+        when(productRepository.findById(77L)).thenReturn(Optional.empty());
+
+        ResourceNotFoundException exception = assertThrows(
+                ResourceNotFoundException.class,
+                () -> productService.delete(77L)
+        );
+
+        assertEquals("Product with id 77 not found", exception.getMessage());
     }
 
     @Test
@@ -187,14 +271,28 @@ class ProductServiceTest {
         ProductRequestDto request = new ProductRequestDto("SKU-9", "Dock", 2, 99L, 2L, List.of(3L));
         when(warehouseRepository.findById(99L)).thenReturn(Optional.empty());
 
-        List<ProductRequestDto> requests = List.of(request);
-
         ResourceNotFoundException exception = assertThrows(
                 ResourceNotFoundException.class,
-                () -> productService.createBulk(requests)
+                () -> productService.createBulk(List.of(request))
         );
 
         assertEquals("Warehouse with id 99 not found", exception.getMessage());
+    }
+
+    @Test
+    void shouldThrowWhenSupplierMissingDuringBulkCreate() {
+        Warehouse warehouse = new Warehouse(1L, "Main", "Street 1");
+        ProductRequestDto request = new ProductRequestDto("SKU-9", "Dock", 2, 1L, 99L, List.of(3L));
+
+        when(warehouseRepository.findById(1L)).thenReturn(Optional.of(warehouse));
+        when(supplierRepository.findById(99L)).thenReturn(Optional.empty());
+
+        ResourceNotFoundException exception = assertThrows(
+                ResourceNotFoundException.class,
+                () -> productService.createBulk(List.of(request))
+        );
+
+        assertEquals("Supplier with id 99 not found", exception.getMessage());
     }
 
     @Test
@@ -207,11 +305,9 @@ class ProductServiceTest {
         when(supplierRepository.findById(2L)).thenReturn(Optional.of(supplier));
         when(categoryRepository.findAllById(List.of(3L, 4L))).thenReturn(List.of(new Category(3L, "Peripherals", "Peripherals")));
 
-        List<ProductRequestDto> requests = List.of(request);
-
         ResourceNotFoundException exception = assertThrows(
                 ResourceNotFoundException.class,
-                () -> productService.createBulk(requests)
+                () -> productService.createBulk(List.of(request))
         );
 
         assertEquals("One or more categories not found", exception.getMessage());

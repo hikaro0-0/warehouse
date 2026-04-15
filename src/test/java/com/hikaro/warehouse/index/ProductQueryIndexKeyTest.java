@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 class ProductQueryIndexKeyTest {
 
@@ -34,10 +35,45 @@ class ProductQueryIndexKeyTest {
                 "premium",
                 PageRequest.of(1, 10)
         );
+        ProductQueryIndexKey differentPageSize = ProductQueryIndexKey.byQuery(
+                "SEARCH_JPQL",
+                "monitor",
+                "premium",
+                PageRequest.of(0, 20)
+        );
+        ProductQueryIndexKey differentQueryType = ProductQueryIndexKey.byQuery(
+                "SEARCH_NATIVE",
+                "monitor",
+                "premium",
+                PageRequest.of(0, 10)
+        );
+        ProductQueryIndexKey differentName = ProductQueryIndexKey.byQuery(
+                "SEARCH_JPQL",
+                "keyboard",
+                "premium",
+                PageRequest.of(0, 10)
+        );
+        ProductQueryIndexKey differentCategory = ProductQueryIndexKey.byQuery(
+                "SEARCH_JPQL",
+                "monitor",
+                "budget",
+                PageRequest.of(0, 10)
+        );
+        ProductQueryIndexKey differentSort = ProductQueryIndexKey.byQuery(
+                "SEARCH_JPQL",
+                "monitor",
+                "premium",
+                PageRequest.of(0, 10, Sort.by("name"))
+        );
 
         assertEquals(first, second);
         assertEquals(first.hashCode(), second.hashCode());
         assertNotEquals(first, differentPage);
+        assertNotEquals(first, differentPageSize);
+        assertNotEquals(first, differentQueryType);
+        assertNotEquals(first, differentName);
+        assertNotEquals(first, differentCategory);
+        assertNotEquals(first, differentSort);
     }
 
     @Test
@@ -50,8 +86,8 @@ class ProductQueryIndexKeyTest {
         assertEquals(first, second);
         assertEquals(first.hashCode(), second.hashCode());
         assertNotEquals(first, different);
-        assertNotEquals(first, null);
-        assertNotEquals(first, "BY_ID");
+        assertNotEquals(null, first);
+        assertNotEquals("BY_ID", first);
     }
 
     @Test

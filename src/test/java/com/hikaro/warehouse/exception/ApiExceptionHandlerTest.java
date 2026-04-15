@@ -126,6 +126,38 @@ class ApiExceptionHandlerTest {
     }
 
     @Test
+    void shouldFallbackToExceptionMessageWhenMostSpecificCauseMessageIsNull() {
+        ApiExceptionHandler handler = new ApiExceptionHandler();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setRequestURI("/api/products");
+
+        ResponseEntity<ApiErrorResponse> response = handler.handleBadRequest(
+                new DataIntegrityViolationException("wrapper", new RuntimeException((String) null)),
+                request
+        );
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("wrapper", response.getBody().message());
+    }
+
+    @Test
+    void shouldSkipNullMessagesWhenSearchingDuplicateKeyCause() {
+        ApiExceptionHandler handler = new ApiExceptionHandler();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setRequestURI("/api/products");
+        RuntimeException duplicateCause = new RuntimeException("ERROR: duplicate key value violates unique constraint. Detail: Key (sku)=(SKU-2000) already exists.");
+        RuntimeException nullMessageCause = new RuntimeException((String) null, duplicateCause);
+
+        ResponseEntity<ApiErrorResponse> response = handler.handleBadRequest(
+                new DataIntegrityViolationException("wrapper", nullMessageCause),
+                request
+        );
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Value 'SKU-2000' for field 'sku' already exists", response.getBody().message());
+    }
+
+    @Test
     void shouldReturnValidationErrorsForBindException() {
         ApiExceptionHandler handler = new ApiExceptionHandler();
         MockHttpServletRequest request = new MockHttpServletRequest();
