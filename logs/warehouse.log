@@ -1,99 +1,93 @@
-2026-04-08 15:34:52.986 INFO  [main] c.h.warehouse.WarehouseApplication - Starting WarehouseApplication using Java 25.0.2 with PID 1954 (/home/hikaro/java/warehouse/target/classes started by hikaro in /home/hikaro/java/warehouse)
-2026-04-08 15:34:52.988 DEBUG [main] c.h.warehouse.WarehouseApplication - Running with Spring Boot v4.0.3, Spring v7.0.5
-2026-04-08 15:34:52.989 INFO  [main] c.h.warehouse.WarehouseApplication - No active profile set, falling back to 1 default profile: "default"
-2026-04-08 15:34:53.895 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-04-08 15:34:53.954 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 50 ms. Found 5 JPA repository interfaces.
-2026-04-08 15:34:54.589 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-04-08 15:34:54.602 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2026-04-08 15:34:54.605 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-04-08 15:34:54.605 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-04-08 15:34:54.655 INFO  [main] o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1609 ms
-2026-04-08 15:34:54.809 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-04-08 15:34:54.896 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3c9e19de
-2026-04-08 15:34:54.897 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-04-08 15:34:55.380 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
-2026-04-08 15:34:55.524 INFO  [main] liquibase.ui - Database is up to date, no changesets to execute
-2026-04-08 15:34:55.527 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
-2026-04-08 15:34:55.545 INFO  [main] liquibase.util - UPDATE SUMMARY
-2026-04-08 15:34:55.545 INFO  [main] liquibase.util - Run:                          0
-2026-04-08 15:34:55.545 INFO  [main] liquibase.util - Previously run:              15
-2026-04-08 15:34:55.545 INFO  [main] liquibase.util - Filtered out:                 0
-2026-04-08 15:34:55.545 INFO  [main] liquibase.util - -------------------------------
-2026-04-08 15:34:55.546 INFO  [main] liquibase.util - Total change sets:           15
-2026-04-08 15:34:55.546 INFO  [main] liquibase.util - Update summary generated
-2026-04-08 15:34:55.547 INFO  [main] liquibase.command - Command execution complete
-2026-04-08 15:34:56.865 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-04-08 15:34:57.865 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-04-08 15:34:57.962 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-04-08 15:34:59.405 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2026-04-08 15:34:59.425 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-04-08 15:34:59.435 INFO  [main] c.h.warehouse.WarehouseApplication - Started WarehouseApplication in 7.18 seconds (process running for 7.682)
-2026-04-08 15:34:59.439 WARN  [main] o.s.c.events.SpringDocAppInitializer - SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
-2026-04-08 15:34:59.439 WARN  [main] o.s.c.events.SpringDocAppInitializer - SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
-2026-04-08 15:35:30.469 INFO  [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-04-08 15:35:30.470 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-04-08 15:35:30.472 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
-2026-04-08 15:35:31.797 INFO  [http-nio-8080-exec-4] o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 933 ms
-2026-04-08 15:41:28.195 INFO  [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-04-08 15:41:28.200 INFO  [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-04-08 15:41:28.206 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-04-08 15:41:28.211 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-04-08 15:41:28.216 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2026-04-08 15:42:13.329 INFO  [main] c.h.warehouse.WarehouseApplication - Starting WarehouseApplication using Java 25.0.2 with PID 4654 (/home/hikaro/java/warehouse/target/classes started by hikaro in /home/hikaro/java/warehouse)
-2026-04-08 15:42:13.331 DEBUG [main] c.h.warehouse.WarehouseApplication - Running with Spring Boot v4.0.3, Spring v7.0.5
-2026-04-08 15:42:13.331 INFO  [main] c.h.warehouse.WarehouseApplication - No active profile set, falling back to 1 default profile: "default"
-2026-04-08 15:42:14.006 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-04-08 15:42:14.063 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 49 ms. Found 5 JPA repository interfaces.
-2026-04-08 15:42:14.616 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-04-08 15:42:14.627 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2026-04-08 15:42:14.629 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-04-08 15:42:14.630 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-04-08 15:42:14.672 INFO  [main] o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1304 ms
-2026-04-08 15:42:14.807 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-04-08 15:42:14.879 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@57f0bfc3
-2026-04-08 15:42:14.880 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-04-08 15:42:15.284 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
-2026-04-08 15:42:15.430 INFO  [main] liquibase.ui - Database is up to date, no changesets to execute
-2026-04-08 15:42:15.432 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
-2026-04-08 15:42:15.444 INFO  [main] liquibase.util - UPDATE SUMMARY
-2026-04-08 15:42:15.444 INFO  [main] liquibase.util - Run:                          0
-2026-04-08 15:42:15.444 INFO  [main] liquibase.util - Previously run:              15
-2026-04-08 15:42:15.444 INFO  [main] liquibase.util - Filtered out:                 0
-2026-04-08 15:42:15.445 INFO  [main] liquibase.util - -------------------------------
-2026-04-08 15:42:15.445 INFO  [main] liquibase.util - Total change sets:           15
-2026-04-08 15:42:15.445 INFO  [main] liquibase.util - Update summary generated
-2026-04-08 15:42:15.446 INFO  [main] liquibase.command - Command execution complete
-2026-04-08 15:42:21.854 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-04-08 15:42:22.838 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-04-08 15:42:22.933 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-04-08 15:42:24.221 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2026-04-08 15:42:24.233 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-04-08 15:42:24.239 INFO  [main] c.h.warehouse.WarehouseApplication - Started WarehouseApplication in 11.36 seconds (process running for 11.656)
-2026-04-08 15:42:24.242 WARN  [main] o.s.c.events.SpringDocAppInitializer - SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
-2026-04-08 15:42:24.242 WARN  [main] o.s.c.events.SpringDocAppInitializer - SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
-2026-04-08 15:43:24.879 INFO  [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-04-08 15:43:24.880 INFO  [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-04-08 15:43:24.881 INFO  [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2026-04-08 15:43:25.268 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.create executed in 208 ms
-2026-04-08 15:43:34.495 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.create executed in 24 ms
-2026-04-08 15:43:34.501 WARN  [http-nio-8080-exec-4] c.h.w.exception.ApiExceptionHandler - Client error 400 on path /api/products: could not execute statement [ERROR: duplicate key value violates unique constraint "uk_products_sku"
-  Подробности: Key (sku)=(SKU-1001) already exists.] [/* insert for com.hikaro.warehouse.entity.Product */insert into public.products (name,quantity,sku,supplier_id,warehouse_id) values (?,?,?,?,?)]; SQL [/* insert for com.hikaro.warehouse.entity.Product */insert into public.products (name,quantity,sku,supplier_id,warehouse_id) values (?,?,?,?,?)]; constraint [uk_products_sku]
-org.springframework.dao.DataIntegrityViolationException: could not execute statement [ERROR: duplicate key value violates unique constraint "uk_products_sku"
-  Подробности: Key (sku)=(SKU-1001) already exists.] [/* insert for com.hikaro.warehouse.entity.Product */insert into public.products (name,quantity,sku,supplier_id,warehouse_id) values (?,?,?,?,?)]; SQL [/* insert for com.hikaro.warehouse.entity.Product */insert into public.products (name,quantity,sku,supplier_id,warehouse_id) values (?,?,?,?,?)]; constraint [uk_products_sku]
-	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:169)
-	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:131)
-	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.translateExceptionIfPossible(HibernateExceptionTranslator.java:105)
-	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:223)
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:576)
-	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
-	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:346)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:157)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:166)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:222)
-	at jdk.proxy2/jdk.proxy2.$Proxy172.save(Unknown Source)
-	at com.hikaro.warehouse.service.ProductService.create(ProductService.java:128)
+2026-04-15 01:01:35.795 INFO  [main] c.h.warehouse.WarehouseApplication - Starting WarehouseApplication using Java 25.0.2 with PID 10660 (/home/hikaro/java/warehouse/target/classes started by hikaro in /home/hikaro/java/warehouse)
+2026-04-15 01:01:35.799 DEBUG [main] c.h.warehouse.WarehouseApplication - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-15 01:01:35.799 INFO  [main] c.h.warehouse.WarehouseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-15 01:01:36.540 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-15 01:01:36.590 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 42 ms. Found 5 JPA repository interfaces.
+2026-04-15 01:01:37.151 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-04-15 01:01:37.163 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-04-15 01:01:37.165 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-15 01:01:37.165 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-15 01:01:37.209 INFO  [main] o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1370 ms
+2026-04-15 01:01:37.361 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-15 01:01:37.438 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3d8d52be
+2026-04-15 01:01:37.439 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-15 01:01:37.856 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2026-04-15 01:01:37.980 INFO  [main] liquibase.ui - Database is up to date, no changesets to execute
+2026-04-15 01:01:37.982 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2026-04-15 01:01:37.994 INFO  [main] liquibase.util - UPDATE SUMMARY
+2026-04-15 01:01:37.994 INFO  [main] liquibase.util - Run:                          0
+2026-04-15 01:01:37.994 INFO  [main] liquibase.util - Previously run:              15
+2026-04-15 01:01:37.994 INFO  [main] liquibase.util - Filtered out:                 0
+2026-04-15 01:01:37.994 INFO  [main] liquibase.util - -------------------------------
+2026-04-15 01:01:37.994 INFO  [main] liquibase.util - Total change sets:           15
+2026-04-15 01:01:37.995 INFO  [main] liquibase.util - Update summary generated
+2026-04-15 01:01:37.996 INFO  [main] liquibase.command - Command execution complete
+2026-04-15 01:01:40.806 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-15 01:01:41.821 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-15 01:01:41.919 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-15 01:01:43.308 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-04-15 01:01:43.321 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-04-15 01:01:43.328 INFO  [main] c.h.warehouse.WarehouseApplication - Started WarehouseApplication in 8.129 seconds (process running for 8.608)
+2026-04-15 01:01:43.331 WARN  [main] o.s.c.events.SpringDocAppInitializer - SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-04-15 01:01:43.332 WARN  [main] o.s.c.events.SpringDocAppInitializer - SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-04-15 01:02:09.582 INFO  [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-15 01:02:09.583 INFO  [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-15 01:02:09.585 INFO  [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-04-15 01:02:09.733 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.getById executed in 109 ms
+2026-04-15 01:02:13.477 INFO  [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-15 01:02:13.482 INFO  [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-15 01:02:13.489 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-15 01:02:13.493 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-15 01:02:13.496 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-15 01:32:17.029 INFO  [main] c.h.warehouse.WarehouseApplication - Starting WarehouseApplication using Java 25.0.2 with PID 9941 (/home/hikaro/java/warehouse/target/classes started by hikaro in /home/hikaro/java/warehouse)
+2026-04-15 01:32:17.031 DEBUG [main] c.h.warehouse.WarehouseApplication - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-15 01:32:17.032 INFO  [main] c.h.warehouse.WarehouseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-15 01:32:17.705 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-15 01:32:17.756 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 44 ms. Found 5 JPA repository interfaces.
+2026-04-15 01:32:18.279 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-04-15 01:32:18.291 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-04-15 01:32:18.293 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-15 01:32:18.293 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-15 01:32:18.332 INFO  [main] o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1261 ms
+2026-04-15 01:32:18.460 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-15 01:32:18.530 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2299d903
+2026-04-15 01:32:18.532 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-15 01:32:18.954 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2026-04-15 01:32:19.086 INFO  [main] liquibase.ui - Database is up to date, no changesets to execute
+2026-04-15 01:32:19.087 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2026-04-15 01:32:19.098 INFO  [main] liquibase.util - UPDATE SUMMARY
+2026-04-15 01:32:19.099 INFO  [main] liquibase.util - Run:                          0
+2026-04-15 01:32:19.099 INFO  [main] liquibase.util - Previously run:              15
+2026-04-15 01:32:19.099 INFO  [main] liquibase.util - Filtered out:                 0
+2026-04-15 01:32:19.099 INFO  [main] liquibase.util - -------------------------------
+2026-04-15 01:32:19.099 INFO  [main] liquibase.util - Total change sets:           15
+2026-04-15 01:32:19.100 INFO  [main] liquibase.util - Update summary generated
+2026-04-15 01:32:19.101 INFO  [main] liquibase.command - Command execution complete
+2026-04-15 01:32:20.446 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-15 01:32:21.434 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-15 01:32:21.566 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-15 01:32:22.865 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-04-15 01:32:22.878 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-04-15 01:32:22.884 INFO  [main] c.h.warehouse.WarehouseApplication - Started WarehouseApplication in 6.419 seconds (process running for 6.711)
+2026-04-15 01:32:22.887 WARN  [main] o.s.c.events.SpringDocAppInitializer - SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-04-15 01:32:22.887 WARN  [main] o.s.c.events.SpringDocAppInitializer - SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-04-15 01:33:04.606 INFO  [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-15 01:33:04.606 INFO  [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-15 01:33:04.608 INFO  [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-04-15 01:33:04.782 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 120 ms
+2026-04-15 01:33:04.867 WARN  [http-nio-8080-exec-2] o.s.d.w.c.SpringDataJackson3Configuration$PageModule$WarningLoggingModifier - Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2026-04-15 01:33:47.150 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 18 ms
+2026-04-15 01:35:03.474 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.createBulk executed in 105 ms
+2026-04-15 01:35:03.477 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DemoService.saveProductsBulkWithoutTransaction executed in 109 ms
+2026-04-15 01:35:03.480 WARN  [http-nio-8080-exec-5] c.h.w.exception.ApiExceptionHandler - Client error 400 on path /api/demo/products/without-transaction: Value 'SKU-NO-TX-POSTMAN-1' for field 'sku' already exists
+2026-04-15 01:35:56.540 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.createBulk executed in 98 ms
+2026-04-15 01:35:56.541 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DemoService.saveProductsBulkWithTransaction executed in 99 ms
+2026-04-15 01:35:56.543 ERROR [http-nio-8080-exec-9] c.h.w.exception.ApiExceptionHandler - Server error 500 on path /api/demo/products/with-transaction: Intentional failure after bulk product save with transaction
+java.lang.IllegalStateException: Intentional failure after bulk product save with transaction
+	at com.hikaro.warehouse.service.DemoService.saveProductsBulkWithTransaction(DemoService.java:63)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
@@ -114,8 +108,8 @@ org.springframework.dao.DataIntegrityViolationException: could not execute state
 	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:96)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719)
-	at com.hikaro.warehouse.service.ProductService$$SpringCGLIB$$0.create(<generated>)
-	at com.hikaro.warehouse.controller.ProductController.create(ProductController.java:148)
+	at com.hikaro.warehouse.service.DemoService$$SpringCGLIB$$0.saveProductsBulkWithTransaction(<generated>)
+	at com.hikaro.warehouse.controller.DemoController.bulkProductsWithTransaction(DemoController.java:98)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:252)
@@ -159,119 +153,187 @@ org.springframework.dao.DataIntegrityViolationException: could not execute state
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:480)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57)
 	at java.base/java.lang.Thread.run(Thread.java:1474)
-Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement [ERROR: duplicate key value violates unique constraint "uk_products_sku"
-  Подробности: Key (sku)=(SKU-1001) already exists.] [/* insert for com.hikaro.warehouse.entity.Product */insert into public.products (name,quantity,sku,supplier_id,warehouse_id) values (?,?,?,?,?)]
-	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:73)
-	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:34)
-	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:115)
-	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:184)
-	at org.hibernate.id.insert.GetGeneratedKeysDelegate.performMutation(GetGeneratedKeysDelegate.java:103)
-	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:45)
-	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:66)
-	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:55)
-	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.doStaticInserts(InsertCoordinatorStandard.java:180)
-	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.coordinateInsert(InsertCoordinatorStandard.java:120)
-	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.insert(InsertCoordinatorStandard.java:84)
-	at org.hibernate.action.internal.EntityIdentityInsertAction.execute(EntityIdentityInsertAction.java:85)
-	at org.hibernate.engine.spi.ActionQueue.execute(ActionQueue.java:667)
-	at org.hibernate.engine.spi.ActionQueue.addResolvedEntityInsertAction(ActionQueue.java:291)
-	at org.hibernate.engine.spi.ActionQueue.addInsertAction(ActionQueue.java:270)
-	at org.hibernate.engine.spi.ActionQueue.addAction(ActionQueue.java:322)
-	at org.hibernate.event.internal.AbstractSaveEventListener.addInsertAction(AbstractSaveEventListener.java:371)
-	at org.hibernate.event.internal.AbstractSaveEventListener.performSaveOrReplicate(AbstractSaveEventListener.java:285)
-	at org.hibernate.event.internal.AbstractSaveEventListener.performSave(AbstractSaveEventListener.java:215)
-	at org.hibernate.event.internal.AbstractSaveEventListener.saveWithGeneratedId(AbstractSaveEventListener.java:133)
-	at org.hibernate.event.internal.DefaultPersistEventListener.entityIsTransient(DefaultPersistEventListener.java:145)
-	at org.hibernate.event.internal.DefaultPersistEventListener.persist(DefaultPersistEventListener.java:89)
-	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:73)
-	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:49)
-	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138)
-	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:689)
-	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:672)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityHandlerInvocationHandler.invokeMethod(SharedEntityManagerCreator.java:240)
-	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:386)
-	at jdk.proxy2/jdk.proxy2.$Proxy151.persist(Unknown Source)
-	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:664)
+2026-04-15 01:36:07.623 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 8 ms
+2026-04-15 01:38:00.665 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 28 ms
+2026-04-15 01:39:07.245 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 12 ms
+2026-04-15 01:39:24.390 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.createBulk executed in 43 ms
+2026-04-15 01:39:24.391 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DemoService.saveProductsBulkWithTransaction executed in 44 ms
+2026-04-15 01:39:24.396 ERROR [http-nio-8080-exec-8] c.h.w.exception.ApiExceptionHandler - Server error 500 on path /api/demo/products/with-transaction: Intentional failure after bulk product save with transaction
+java.lang.IllegalStateException: Intentional failure after bulk product save with transaction
+	at com.hikaro.warehouse.service.DemoService.saveProductsBulkWithTransaction(DemoService.java:63)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
-	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:278)
-	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:169)
-	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
-	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:545)
-	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:290)
-	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:690)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:171)
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:146)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:82)
+	at com.hikaro.warehouse.aop.ServiceExecutionTimeLoggingAspect.logExecutionTime(ServiceExecutionTimeLoggingAspect.java:20)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:648)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:630)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
 	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133)
 	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371)
 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:135)
-	... 71 common frames omitted
-Caused by: org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "uk_products_sku"
-  Подробности: Key (sku)=(SKU-1001) already exists.
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2875)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2560)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:429)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:526)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:436)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196)
-	at org.postgresql.jdbc.PgPreparedStatement.executeUpdate(PgPreparedStatement.java:157)
-	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61)
-	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java)
-	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:181)
-	... 120 common frames omitted
-2026-04-08 15:44:25.675 INFO  [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-04-08 15:44:25.679 INFO  [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-04-08 15:44:25.686 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-04-08 15:44:25.691 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-04-08 15:44:25.696 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2026-04-08 15:52:17.404 INFO  [main] c.h.warehouse.WarehouseApplication - Starting WarehouseApplication using Java 25.0.2 with PID 9192 (/home/hikaro/java/warehouse/target/classes started by hikaro in /home/hikaro/java/warehouse)
-2026-04-08 15:52:17.406 DEBUG [main] c.h.warehouse.WarehouseApplication - Running with Spring Boot v4.0.3, Spring v7.0.5
-2026-04-08 15:52:17.406 INFO  [main] c.h.warehouse.WarehouseApplication - No active profile set, falling back to 1 default profile: "default"
-2026-04-08 15:52:18.192 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-04-08 15:52:18.246 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 46 ms. Found 5 JPA repository interfaces.
-2026-04-08 15:52:18.837 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-04-08 15:52:18.855 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2026-04-08 15:52:18.858 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-04-08 15:52:18.858 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
-2026-04-08 15:52:18.909 INFO  [main] o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1461 ms
-2026-04-08 15:52:19.063 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-04-08 15:52:19.142 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5922cff3
-2026-04-08 15:52:19.143 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-04-08 15:52:19.660 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
-2026-04-08 15:52:19.797 INFO  [main] liquibase.ui - Database is up to date, no changesets to execute
-2026-04-08 15:52:19.799 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
-2026-04-08 15:52:19.812 INFO  [main] liquibase.util - UPDATE SUMMARY
-2026-04-08 15:52:19.812 INFO  [main] liquibase.util - Run:                          0
-2026-04-08 15:52:19.812 INFO  [main] liquibase.util - Previously run:              15
-2026-04-08 15:52:19.812 INFO  [main] liquibase.util - Filtered out:                 0
-2026-04-08 15:52:19.812 INFO  [main] liquibase.util - -------------------------------
-2026-04-08 15:52:19.812 INFO  [main] liquibase.util - Total change sets:           15
-2026-04-08 15:52:19.813 INFO  [main] liquibase.util - Update summary generated
-2026-04-08 15:52:19.814 INFO  [main] liquibase.command - Command execution complete
-2026-04-08 15:52:21.175 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-04-08 15:52:22.225 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-04-08 15:52:22.326 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-04-08 15:52:23.732 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2026-04-08 15:52:23.744 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-04-08 15:52:23.751 INFO  [main] c.h.warehouse.WarehouseApplication - Started WarehouseApplication in 6.861 seconds (process running for 7.264)
-2026-04-08 15:52:23.753 WARN  [main] o.s.c.events.SpringDocAppInitializer - SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
-2026-04-08 15:52:23.754 WARN  [main] o.s.c.events.SpringDocAppInitializer - SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
-2026-04-08 15:52:32.328 INFO  [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-04-08 15:52:32.328 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-04-08 15:52:32.330 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
-2026-04-08 15:52:32.644 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.create executed in 150 ms
-2026-04-08 15:52:32.654 WARN  [http-nio-8080-exec-1] c.h.w.exception.ApiExceptionHandler - Client error 400 on path /api/products: Value 'SKU-1001' for field 'sku' already exists
-2026-04-08 15:53:29.610 INFO  [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-04-08 15:53:29.614 INFO  [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-04-08 15:53:29.620 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-04-08 15:53:29.623 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-04-08 15:53:29.630 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719)
+	at com.hikaro.warehouse.service.DemoService$$SpringCGLIB$$0.saveProductsBulkWithTransaction(<generated>)
+	at com.hikaro.warehouse.controller.DemoController.bulkProductsWithTransaction(DemoController.java:98)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:252)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:184)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:934)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:853)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:86)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1000)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:649)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:128)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:492)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1779)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:946)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:480)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-04-15 01:39:29.578 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 11 ms
+2026-04-15 01:39:52.506 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.createBulk executed in 31 ms
+2026-04-15 01:39:52.511 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DemoService.saveProductsBulkWithoutTransaction executed in 37 ms
+2026-04-15 01:39:52.512 ERROR [http-nio-8080-exec-1] c.h.w.exception.ApiExceptionHandler - Server error 500 on path /api/demo/products/without-transaction: Intentional failure after bulk product save without transaction
+java.lang.IllegalStateException: Intentional failure after bulk product save without transaction
+	at com.hikaro.warehouse.service.DemoService.saveProductsBulkWithoutTransaction(DemoService.java:55)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:82)
+	at com.hikaro.warehouse.aop.ServiceExecutionTimeLoggingAspect.logExecutionTime(ServiceExecutionTimeLoggingAspect.java:20)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:648)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:630)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719)
+	at com.hikaro.warehouse.service.DemoService$$SpringCGLIB$$0.saveProductsBulkWithoutTransaction(<generated>)
+	at com.hikaro.warehouse.controller.DemoController.bulkProductsWithoutTransaction(DemoController.java:81)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:252)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:184)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:934)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:853)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:86)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1000)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:649)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:128)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:492)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1779)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:946)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:480)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-04-15 01:39:59.753 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 10 ms
+2026-04-15 01:40:08.951 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 8 ms
+2026-04-15 01:40:28.040 INFO  [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-15 01:40:28.044 INFO  [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-15 01:40:28.053 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-15 01:40:28.060 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-15 01:40:28.064 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-15 14:51:03.125 INFO  [main] c.h.warehouse.WarehouseApplication - Starting WarehouseApplication using Java 25.0.2 with PID 17701 (/home/hikaro/java/warehouse/target/classes started by hikaro in /home/hikaro/java/warehouse)
+2026-04-15 14:51:03.127 DEBUG [main] c.h.warehouse.WarehouseApplication - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-04-15 14:51:03.127 INFO  [main] c.h.warehouse.WarehouseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-15 14:51:03.844 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-15 14:51:03.897 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 45 ms. Found 5 JPA repository interfaces.
+2026-04-15 14:51:04.450 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-04-15 14:51:04.462 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-04-15 14:51:04.464 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-15 14:51:04.464 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-15 14:51:04.502 INFO  [main] o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1332 ms
+2026-04-15 14:51:04.644 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-15 14:51:04.747 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5922cff3
+2026-04-15 14:51:04.748 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-15 14:51:05.206 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2026-04-15 14:51:05.327 INFO  [main] liquibase.ui - Database is up to date, no changesets to execute
+2026-04-15 14:51:05.328 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2026-04-15 14:51:05.340 INFO  [main] liquibase.util - UPDATE SUMMARY
+2026-04-15 14:51:05.340 INFO  [main] liquibase.util - Run:                          0
+2026-04-15 14:51:05.340 INFO  [main] liquibase.util - Previously run:              15
+2026-04-15 14:51:05.340 INFO  [main] liquibase.util - Filtered out:                 0
+2026-04-15 14:51:05.340 INFO  [main] liquibase.util - -------------------------------
+2026-04-15 14:51:05.340 INFO  [main] liquibase.util - Total change sets:           15
+2026-04-15 14:51:05.341 INFO  [main] liquibase.util - Update summary generated
+2026-04-15 14:51:05.342 INFO  [main] liquibase.command - Command execution complete
+2026-04-15 14:51:22.204 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-15 14:51:23.289 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-15 14:51:23.386 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-15 14:51:24.753 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-04-15 14:51:24.765 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-04-15 14:51:24.772 INFO  [main] c.h.warehouse.WarehouseApplication - Started WarehouseApplication in 22.249 seconds (process running for 22.663)
+2026-04-15 14:51:24.774 WARN  [main] o.s.c.events.SpringDocAppInitializer - SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-04-15 14:51:24.774 WARN  [main] o.s.c.events.SpringDocAppInitializer - SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-04-15 14:52:21.671 INFO  [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-15 14:52:21.675 INFO  [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-15 14:52:21.684 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-15 14:52:21.688 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-15 14:52:21.691 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
