@@ -10,6 +10,7 @@ import com.hikaro.warehouse.dto.ShipmentRequestDto;
 import com.hikaro.warehouse.dto.ShipmentResponseDto;
 import com.hikaro.warehouse.dto.SupplierRequestDto;
 import com.hikaro.warehouse.dto.SupplierResponseDto;
+import com.hikaro.warehouse.dto.TransactionDemoResponseDto;
 import com.hikaro.warehouse.dto.WarehouseRequestDto;
 import com.hikaro.warehouse.dto.WarehouseResponseDto;
 import com.hikaro.warehouse.entity.Category;
@@ -75,7 +76,6 @@ class SupportClassesTest {
     }
 
     @Test
-    
     void shouldHumanizeDuplicateKeyViolationMessage() {
         ApiExceptionHandler handler = new ApiExceptionHandler();
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -94,7 +94,7 @@ class SupportClassesTest {
         assertEquals("/api/products", badRequest.getBody().path());
     }
 
-    
+    @Test
     void shouldExposeExceptionMessage() {
         ResourceNotFoundException exception = new ResourceNotFoundException("not here");
         assertEquals("not here", exception.getMessage());
@@ -175,6 +175,14 @@ class SupportClassesTest {
         WarehouseResponseDto warehouseResponse = new WarehouseResponseDto(3L, "Warehouse", "Street");
         ShipmentRequestDto shipmentRequest = new ShipmentRequestDto("REF", 2L, List.of(1L, 2L));
         ShipmentResponseDto shipmentResponse = new ShipmentResponseDto(4L, "REF", 2L, "Warehouse", List.of(1L, 2L));
+        TransactionDemoResponseDto transactionDemoResponse = new TransactionDemoResponseDto(
+                "with-transaction",
+                "Transaction demo completed",
+                1,
+                1,
+                1,
+                0
+        );
 
         assertEquals("Category", categoryRequest.name());
         assertEquals(1L, categoryResponse.id());
@@ -184,5 +192,9 @@ class SupportClassesTest {
         assertEquals("Street", warehouseResponse.address());
         assertEquals("REF", shipmentRequest.referenceNumber());
         assertEquals(List.of(1L, 2L), shipmentResponse.productIds());
+        assertEquals("with-transaction", transactionDemoResponse.mode());
+        assertEquals("Transaction demo completed", transactionDemoResponse.message());
+        assertEquals(1L, transactionDemoResponse.products());
+        assertEquals(0L, transactionDemoResponse.shipments());
     }
 }

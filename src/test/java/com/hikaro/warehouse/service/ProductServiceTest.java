@@ -19,6 +19,7 @@ import com.hikaro.warehouse.repository.ProductRepository;
 import com.hikaro.warehouse.repository.SupplierRepository;
 import com.hikaro.warehouse.repository.WarehouseRepository;
 import jakarta.persistence.EntityManager;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -93,6 +94,34 @@ class ProductServiceTest {
     }
 
     @Test
+    void shouldCreateProductsInBulkWithoutCategories() {
+        Warehouse warehouse = new Warehouse(1L, "Main", "Street 1");
+        Supplier supplier = new Supplier(2L, "ACME", "acme@example.com");
+        ProductRequestDto request = new ProductRequestDto("SKU-3", "Headset", 6, 1L, 2L, null);
+
+        when(warehouseRepository.findById(1L)).thenReturn(Optional.of(warehouse));
+        when(supplierRepository.findById(2L)).thenReturn(Optional.of(supplier));
+        when(productRepository.saveAll(anyList())).thenAnswer(invocation -> {
+            List<Product> products = invocation.getArgument(0);
+            products.getFirst().setId(13L);
+            return products;
+        });
+        when(productRepository.findAllWithDetails(Pageable.unpaged())).thenAnswer(invocation -> {
+            Product product = new Product(13L, "SKU-3", "Headset", 6);
+            product.setWarehouse(warehouse);
+            product.setSupplier(supplier);
+            product.setCategories(new LinkedHashSet<>());
+            return new PageImpl<>(List.of(product));
+        });
+
+        List<Product> products = productService.createBulk(List.of(request));
+
+        assertEquals(1, products.size());
+        assertEquals(0, products.getFirst().getCategories().size());
+        verify(productQueryIndex).invalidate();
+    }
+
+    @Test
     void shouldReturnAllProductsWhenSearchFiltersAreBlank() {
         Warehouse warehouse = new Warehouse(1L, "Main", "Street 1");
         Supplier supplier = new Supplier(2L, "ACME", "acme@example.com");
@@ -131,6 +160,26 @@ class ProductServiceTest {
 
         assertSame(products, result);
         verify(productRepository).findAllWithDetailsByNameAndCategory(null, "%peripherals%", pageable);
+    }
+
+    @Test
+    void shouldRejectBlankNameForJpqlSearch() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> productService.findByNameAndCategoryWithJpql("   ", "Premium", PageRequest.of(0, 10))
+        );
+
+        assertEquals("name must not be blank", exception.getMessage());
+    }
+
+    @Test
+    void shouldRejectBlankCategoryForJpqlSearch() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> productService.findByNameAndCategoryWithJpql("Monitor", "   ", PageRequest.of(0, 10))
+        );
+
+        assertEquals("categoryName must not be blank", exception.getMessage());
     }
 
     @Test

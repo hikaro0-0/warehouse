@@ -2,12 +2,17 @@ package com.hikaro.warehouse.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.hikaro.warehouse.dto.BulkOperationRequestDto;
 import com.hikaro.warehouse.dto.ProductRequestDto;
+import com.hikaro.warehouse.entity.Category;
 import com.hikaro.warehouse.entity.Product;
+import com.hikaro.warehouse.entity.Supplier;
+import com.hikaro.warehouse.entity.Warehouse;
+import com.hikaro.warehouse.exception.ResourceNotFoundException;
 import com.hikaro.warehouse.repository.CategoryRepository;
 import com.hikaro.warehouse.repository.ProductRepository;
 import com.hikaro.warehouse.repository.ShipmentRepository;
@@ -95,5 +100,87 @@ class DemoServiceTest {
         );
 
         assertEquals("Intentional failure after saving supplier, warehouse and product", exception.getMessage());
+    }
+
+    @Test
+    void shouldHandleNullCategoryIdsDuringGraphSave() {
+        BulkOperationRequestDto request = new BulkOperationRequestDto(
+                "Supplier",
+                "mail@example.com",
+                "Warehouse",
+                "Street 1",
+                "Product",
+                "SKU-10",
+                5,
+                null
+        );
+
+        when(supplierRepository.save(any(Supplier.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(warehouseRepository.save(any(Warehouse.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(productRepository.save(any(Product.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        IllegalStateException exception = assertThrows(
+                IllegalStateException.class,
+                () -> demoService.saveGraphWithoutTransaction(request)
+        );
+
+        assertEquals("Intentional failure after saving supplier, warehouse and product", exception.getMessage());
+    }
+
+    @Test
+    void shouldSaveGraphWithCategoriesBeforeIntentionalTransactionalFailure() {
+        BulkOperationRequestDto request = new BulkOperationRequestDto(
+                "Supplier",
+                "mail@example.com",
+                "Warehouse",
+                "Street 1",
+                "Product",
+                "SKU-11",
+                5,
+                List.of(3L)
+        );
+        Category category = new Category(3L, "Peripherals", "Peripherals");
+
+        when(supplierRepository.save(any(Supplier.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(warehouseRepository.save(any(Warehouse.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(categoryRepository.findAllById(List.of(3L))).thenReturn(List.of(category));
+        when(productRepository.save(any(Product.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        IllegalStateException exception = assertThrows(
+                IllegalStateException.class,
+                () -> demoService.saveGraphWithTransaction(request)
+        );
+
+        assertEquals("Intentional failure after saving supplier, warehouse and product", exception.getMessage());
+        verify(supplierRepository).save(any(Supplier.class));
+        verify(warehouseRepository).save(any(Warehouse.class));
+        verify(categoryRepository).findAllById(List.of(3L));
+        verify(productRepository).save(any(Product.class));
+    }
+
+    @Test
+    void shouldThrowWhenSomeCategoriesAreMissingDuringGraphSave() {
+        BulkOperationRequestDto request = new BulkOperationRequestDto(
+                "Supplier",
+                "mail@example.com",
+                "Warehouse",
+                "Street 1",
+                "Product",
+                "SKU-12",
+                5,
+                List.of(3L, 4L)
+        );
+
+        when(supplierRepository.save(any(Supplier.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(warehouseRepository.save(any(Warehouse.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(categoryRepository.findAllById(List.of(3L, 4L))).thenReturn(List.of(new Category(3L, "Peripherals", "Peripherals")));
+
+        ResourceNotFoundException exception = assertThrows(
+                ResourceNotFoundException.class,
+                () -> demoService.saveGraphWithoutTransaction(request)
+        );
+
+        assertEquals("One or more categories not found", exception.getMessage());
+        verify(categoryRepository).findAllById(List.of(3L, 4L));
     }
 }

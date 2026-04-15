@@ -198,6 +198,7 @@ class ControllerUnitTest {
         when(productService.findByNameAndCategoryWithJpql("Mon", "Premium", pageable)).thenReturn(productsPage);
         when(productService.findByNameAndCategoryWithNativeQuery("Mon", "Premium", pageable)).thenReturn(productsPage);
         when(productService.create(request)).thenReturn(product);
+        when(productService.createBulk(List.of(request))).thenReturn(List.of(product));
         when(productService.update(1L, request)).thenReturn(product);
         when(productMapper.toResponseDto(product)).thenReturn(response);
 
@@ -208,6 +209,7 @@ class ControllerUnitTest {
         assertEquals(List.of(response), productController.findByNameAndCategoryWithJpql("Mon", "Premium", pageable).getContent());
         assertEquals(List.of(response), productController.findByNameAndCategoryWithNativeQuery("Mon", "Premium", pageable).getContent());
         assertEquals(response, productController.create(request));
+        assertEquals(List.of(response), productController.createBulk(List.of(request)));
         assertEquals(response, productController.update(1L, request));
 
         productController.delete(1L);
@@ -215,13 +217,25 @@ class ControllerUnitTest {
     }
 
     @Test
-    void demoControllerShouldPropagateFailuresForScenarioScreenshots() {
+    void demoControllerShouldDelegateAllDemoEndpoints() {
         BulkOperationRequestDto request = new BulkOperationRequestDto(
                 "Supplier", "mail@example.com", "Warehouse", "Street", "Product", "SKU", 3, List.of(1L, 2L)
         );
+        List<ProductRequestDto> productRequests = List.of(
+                new ProductRequestDto("SKU-1", "Mouse", 3, 1L, 2L, List.of(1L, 2L))
+        );
 
-        assertDoesNotThrow(() -> { demoController.withoutTransaction(request); });
+        assertDoesNotThrow(() -> demoController.withoutTransaction(request));
         verify(demoService).saveGraphWithoutTransaction(request);
+
+        assertDoesNotThrow(() -> demoController.withTransaction(request));
+        verify(demoService).saveGraphWithTransaction(request);
+
+        assertDoesNotThrow(() -> demoController.bulkProductsWithoutTransaction(productRequests));
+        verify(demoService).saveProductsBulkWithoutTransaction(productRequests);
+
+        assertDoesNotThrow(() -> demoController.bulkProductsWithTransaction(productRequests));
+        verify(demoService).saveProductsBulkWithTransaction(productRequests);
 
         doThrow(new IllegalStateException("boom")).when(demoService).saveGraphWithTransaction(request);
         IllegalStateException exception = assertThrows(
