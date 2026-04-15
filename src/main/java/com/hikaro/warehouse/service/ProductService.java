@@ -249,7 +249,7 @@ public class ProductService {
         products.forEach(product -> {
             product.getWarehouse().getName();
             product.getSupplier().getName();
-            product.getCategories().forEach(category -> category.getName());
+            product.getCategories().forEach(Category::getName);
         });
     }
 }

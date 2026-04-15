@@ -98,7 +98,7 @@ public class ShipmentService {
     private void initializeAssociations(List<Shipment> shipments) {
         shipments.forEach(shipment -> {
             shipment.getWarehouse().getName();
-            shipment.getProducts().forEach(product -> product.getName());
+            shipment.getProducts().forEach(Product::getName);
         });
     }
 }
