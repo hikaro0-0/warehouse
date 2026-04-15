@@ -106,7 +106,7 @@ public class ProductService {
         if (nameFilter == null && categoryFilter == null) {
             return productRepository.findAllWithDetails(pageable);
         }
-        Page<Product> products = productRepository.findAllWithDetailsByNameAndCategoryNative(
+        Page<Product> products = productRepository.findAllWithDetailsByNameAndCategory(
                 toLikePattern(nameFilter),
                 toLikePattern(categoryFilter),
                 pageable

@@ -1,5 +1,6 @@
 package com.hikaro.warehouse.exception;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -10,6 +11,7 @@ import com.hikaro.warehouse.controller.CategoryController;
 import com.hikaro.warehouse.service.CategoryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -49,6 +51,23 @@ class ApiExceptionHandlerTest {
                 .andExpect(jsonPath("$.errors.length()").value(2))
                 .andExpect(jsonPath("$.errors[0].field").value("description"))
                 .andExpect(jsonPath("$.errors[1].field").value("name"));
+    }
+
+    @Test
+    void shouldReturnSafeDuplicateKeyMessageForIntegrityViolations() throws Exception {
+        when(categoryService.create(any()))
+                .thenThrow(new DataIntegrityViolationException(
+                        "ERROR: duplicate key value violates unique constraint \"uk_categories_name\"\nDetail: Key (name)=(Hardware) already exists."
+                ));
+
+        mockMvc.perform(post("/api/categories")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"name":"Hardware","description":"Stock"}
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.message").value("Value 'Hardware' for field 'name' already exists"));
     }
 
     @Test

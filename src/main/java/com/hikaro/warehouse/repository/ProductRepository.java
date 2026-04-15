@@ -50,32 +50,36 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             Pageable pageable
     );
 
+    @EntityGraph(attributePaths = {"warehouse", "supplier", "categories"})
     @Query(
             value = """
-                    select distinct p.*
-                    from products p
-                    left join product_categories pc on pc.product_id = p.id
-                    left join categories c on c.id = pc.category_id
+                    select p
+                    from Product p
                     where (:namePattern is null or lower(p.name) like :namePattern)
-                        and (
-                            :categoryPattern is null
-                            or lower(c.name) like :categoryPattern
-                        )
+                      and (
+                          :categoryPattern is null
+                          or exists (
+                              select 1
+                              from p.categories c
+                              where lower(c.name) like :categoryPattern
+                          )
+                      )
                     """,
             countQuery = """
-                    select count(distinct p.id)
-                    from products p
-                    left join product_categories pc on pc.product_id = p.id
-                    left join categories c on c.id = pc.category_id
+                    select count(p)
+                    from Product p
                     where (:namePattern is null or lower(p.name) like :namePattern)
-                        and (
-                            :categoryPattern is null
-                            or lower(c.name) like :categoryPattern
-                        )
-                    """,
-            nativeQuery = true
+                      and (
+                          :categoryPattern is null
+                          or exists (
+                              select 1
+                              from p.categories c
+                              where lower(c.name) like :categoryPattern
+                          )
+                      )
+                    """
     )
-    Page<Product> findAllWithDetailsByNameAndCategoryNative(
+    Page<Product> findAllWithDetailsByNameAndCategory(
             @Param("namePattern") String namePattern,
             @Param("categoryPattern") String categoryPattern,
             Pageable pageable

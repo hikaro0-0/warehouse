@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ApiExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ApiExceptionHandler.class);
-    private static final Pattern DUPLICATE_KEY_PATTERN = Pattern.compile("Key \\((.+)\\)=\\((.+)\\) already exists");
+    private static final Pattern DUPLICATE_KEY_PATTERN = Pattern.compile("Key \\(([^)\\r\\n]+)\\)=\\(([^)\\r\\n]+)\\) already exists\\.?");
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiErrorResponse> handleNotFound(

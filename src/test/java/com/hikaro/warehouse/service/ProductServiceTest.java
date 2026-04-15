@@ -26,7 +26,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 @ExtendWith(MockitoExtension.class)
@@ -88,6 +90,47 @@ class ProductServiceTest {
         assertEquals(List.of("Mouse", "Keyboard"), products.stream().map(Product::getName).toList());
         assertSame(warehouse, products.getFirst().getWarehouse());
         verify(productQueryIndex).invalidate();
+    }
+
+    @Test
+    void shouldReturnAllProductsWhenSearchFiltersAreBlank() {
+        Warehouse warehouse = new Warehouse(1L, "Main", "Street 1");
+        Supplier supplier = new Supplier(2L, "ACME", "acme@example.com");
+        Category category = new Category(3L, "Peripherals", "Peripherals");
+        Product product = new Product(11L, "SKU-1", "Mouse", 4);
+        product.setWarehouse(warehouse);
+        product.setSupplier(supplier);
+        product.setCategories(java.util.Set.of(category));
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Product> products = new PageImpl<>(List.of(product), pageable, 1);
+
+        when(productRepository.findAllWithDetails(pageable)).thenReturn(products);
+
+        Page<Product> result = productService.findByNameAndCategoryWithNativeQuery("   ", null, pageable);
+
+        assertSame(products, result);
+        verify(productRepository).findAllWithDetails(pageable);
+    }
+
+    @Test
+    void shouldSearchProductsUsingCategoryOnlyFilter() {
+        Warehouse warehouse = new Warehouse(1L, "Main", "Street 1");
+        Supplier supplier = new Supplier(2L, "ACME", "acme@example.com");
+        Category category = new Category(3L, "Peripherals", "Peripherals");
+        Product product = new Product(11L, "SKU-1", "Mouse", 4);
+        product.setWarehouse(warehouse);
+        product.setSupplier(supplier);
+        product.setCategories(java.util.Set.of(category));
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Product> products = new PageImpl<>(List.of(product), pageable, 1);
+
+        when(productRepository.findAllWithDetailsByNameAndCategory(null, "%peripherals%", pageable))
+                .thenReturn(products);
+
+        Page<Product> result = productService.findByNameAndCategoryWithNativeQuery(null, "Peripherals", pageable);
+
+        assertSame(products, result);
+        verify(productRepository).findAllWithDetailsByNameAndCategory(null, "%peripherals%", pageable);
     }
 
     @Test
