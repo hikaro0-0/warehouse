@@ -8,11 +8,16 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.hikaro.warehouse.dto.AsyncTaskStatus;
+import com.hikaro.warehouse.dto.AsyncTaskStatusResponseDto;
+import com.hikaro.warehouse.dto.AsyncTaskSubmissionResponseDto;
 import com.hikaro.warehouse.dto.BulkOperationRequestDto;
 import com.hikaro.warehouse.dto.CategoryRequestDto;
 import com.hikaro.warehouse.dto.CategoryResponseDto;
+import com.hikaro.warehouse.dto.CounterStateResponseDto;
 import com.hikaro.warehouse.dto.ProductRequestDto;
 import com.hikaro.warehouse.dto.ProductResponseDto;
+import com.hikaro.warehouse.dto.RaceConditionDemoResponseDto;
 import com.hikaro.warehouse.dto.ShipmentRequestDto;
 import com.hikaro.warehouse.dto.ShipmentResponseDto;
 import com.hikaro.warehouse.dto.SupplierRequestDto;
@@ -27,6 +32,8 @@ import com.hikaro.warehouse.entity.Warehouse;
 import com.hikaro.warehouse.index.ProductQueryIndex;
 import com.hikaro.warehouse.mapper.ProductMapper;
 import com.hikaro.warehouse.service.CategoryService;
+import com.hikaro.warehouse.service.ConcurrencyDemoService;
+import com.hikaro.warehouse.service.DemoAsyncService;
 import com.hikaro.warehouse.service.DemoService;
 import com.hikaro.warehouse.service.ProductService;
 import com.hikaro.warehouse.service.ShipmentService;
@@ -35,6 +42,7 @@ import com.hikaro.warehouse.service.WarehouseService;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
+import java.time.Instant;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -71,6 +79,12 @@ class ControllerUnitTest {
 
     @Mock
     private DemoService demoService;
+
+    @Mock
+    private DemoAsyncService demoAsyncService;
+
+    @Mock
+    private ConcurrencyDemoService concurrencyDemoService;
 
     @InjectMocks
     private CategoryController categoryController;
@@ -224,6 +238,28 @@ class ControllerUnitTest {
         List<ProductRequestDto> productRequests = List.of(
                 new ProductRequestDto("SKU-1", "Mouse", 3, 1L, 2L, List.of(1L, 2L))
         );
+        AsyncTaskSubmissionResponseDto submission =
+                new AsyncTaskSubmissionResponseDto("task-1", AsyncTaskStatus.PENDING);
+        AsyncTaskStatusResponseDto taskStatus = new AsyncTaskStatusResponseDto(
+                "task-1",
+                AsyncTaskStatus.COMPLETED,
+                Instant.parse("2026-04-21T08:00:00Z"),
+                Instant.parse("2026-04-21T08:00:01Z"),
+                Instant.parse("2026-04-21T08:00:02Z"),
+                null
+        );
+        CounterStateResponseDto counterState = new CounterStateResponseDto(1, 2);
+        RaceConditionDemoResponseDto raceConditionResponse =
+                new RaceConditionDemoResponseDto(64, 2000, 128000, 117000, 128000, 128000, true);
+
+        when(demoAsyncService.startGraphSaveWithTransaction(request)).thenReturn(submission);
+        when(demoAsyncService.getTaskStatus("task-1")).thenReturn(taskStatus);
+        when(concurrencyDemoService.incrementSynchronizedCounter()).thenReturn(counterState);
+        when(concurrencyDemoService.incrementAtomicCounter()).thenReturn(counterState);
+        when(concurrencyDemoService.getCounterState()).thenReturn(counterState);
+        when(concurrencyDemoService.resetCounters()).thenReturn(counterState);
+        when(concurrencyDemoService.runRaceConditionDemo(64, 2000))
+                .thenReturn(raceConditionResponse);
 
         assertDoesNotThrow(() -> demoController.withoutTransaction(request));
         verify(demoService).saveGraphWithoutTransaction(request);
@@ -236,6 +272,30 @@ class ControllerUnitTest {
 
         assertDoesNotThrow(() -> demoController.bulkProductsWithTransaction(productRequests));
         verify(demoService).saveProductsBulkWithTransaction(productRequests);
+
+        assertEquals(submission, demoController.startAsyncWithTransaction(request));
+        verify(demoAsyncService).startGraphSaveWithTransaction(request);
+
+        assertEquals(taskStatus, demoController.getTaskStatus("task-1"));
+        verify(demoAsyncService).getTaskStatus("task-1");
+
+        assertEquals(counterState, demoController.incrementSynchronizedCounter());
+        verify(concurrencyDemoService).incrementSynchronizedCounter();
+
+        assertEquals(counterState, demoController.incrementAtomicCounter());
+        verify(concurrencyDemoService).incrementAtomicCounter();
+
+        assertEquals(counterState, demoController.getCounterState());
+        verify(concurrencyDemoService).getCounterState();
+
+        assertEquals(counterState, demoController.resetCounters());
+        verify(concurrencyDemoService).resetCounters();
+
+        assertEquals(
+                raceConditionResponse,
+                demoController.runRaceConditionDemo(64, 2000)
+        );
+        verify(concurrencyDemoService).runRaceConditionDemo(64, 2000);
 
         doThrow(new IllegalStateException("boom")).when(demoService).saveGraphWithTransaction(request);
         IllegalStateException exception = assertThrows(

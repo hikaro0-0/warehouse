@@ -1,5 +1,6 @@
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/WarehouseApplication.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/aop/ServiceExecutionTimeLoggingAspect.java
+/home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/config/AsyncConfig.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/config/OpenApiConfig.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/controller/CategoryController.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/controller/DemoController.java
@@ -8,11 +9,16 @@
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/controller/ShipmentController.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/controller/SupplierController.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/controller/WarehouseController.java
+/home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/dto/AsyncTaskStatus.java
+/home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/dto/AsyncTaskStatusResponseDto.java
+/home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/dto/AsyncTaskSubmissionResponseDto.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/dto/BulkOperationRequestDto.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/dto/CategoryRequestDto.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/dto/CategoryResponseDto.java
+/home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/dto/CounterStateResponseDto.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/dto/ProductRequestDto.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/dto/ProductResponseDto.java
+/home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/dto/RaceConditionDemoResponseDto.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/dto/ShipmentRequestDto.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/dto/ShipmentResponseDto.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/dto/SupplierRequestDto.java
@@ -37,7 +43,11 @@
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/repository/ShipmentRepository.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/repository/SupplierRepository.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/repository/WarehouseRepository.java
+/home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/service/AsyncTaskService.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/service/CategoryService.java
+/home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/service/ConcurrencyDemoService.java
+/home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/service/DemoAsyncService.java
+/home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/service/DemoAsyncTaskProcessor.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/service/DemoService.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/service/ProductService.java
 /home/hikaro/java/warehouse/src/main/java/com/hikaro/warehouse/service/ShipmentService.java

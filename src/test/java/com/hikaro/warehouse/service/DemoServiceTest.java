@@ -2,6 +2,7 @@ package com.hikaro.warehouse.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -152,6 +153,33 @@ class DemoServiceTest {
         );
 
         assertEquals("Intentional failure after saving supplier, warehouse and product", exception.getMessage());
+        verify(supplierRepository).save(any(Supplier.class));
+        verify(warehouseRepository).save(any(Warehouse.class));
+        verify(categoryRepository).findAllById(List.of(3L));
+        verify(productRepository).save(any(Product.class));
+    }
+
+    @Test
+    void shouldSaveGraphForAsyncTaskWithoutIntentionalFailure() {
+        BulkOperationRequestDto request = new BulkOperationRequestDto(
+                "Supplier",
+                "mail@example.com",
+                "Warehouse",
+                "Street 1",
+                "Product",
+                "SKU-13",
+                5,
+                List.of(3L)
+        );
+        Category category = new Category(3L, "Peripherals", "Peripherals");
+
+        when(supplierRepository.save(any(Supplier.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(warehouseRepository.save(any(Warehouse.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(categoryRepository.findAllById(List.of(3L))).thenReturn(List.of(category));
+        when(productRepository.save(any(Product.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        assertDoesNotThrow(() -> demoService.saveGraphForAsyncTask(request));
+
         verify(supplierRepository).save(any(Supplier.class));
         verify(warehouseRepository).save(any(Warehouse.class));
         verify(categoryRepository).findAllById(List.of(3L));

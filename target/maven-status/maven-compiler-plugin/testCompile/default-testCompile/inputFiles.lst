@@ -3,7 +3,11 @@
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/controller/ControllerUnitTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/exception/ApiExceptionHandlerTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/index/ProductQueryIndexKeyTest.java
+/home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/AsyncTaskServiceTest.java
+/home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/ConcurrencyDemoServiceTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/CrudServicesTest.java
+/home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/DemoAsyncServiceTest.java
+/home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/DemoAsyncTaskProcessorTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/DemoServiceTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/ProductServiceTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/ShipmentServiceTest.java

@@ -41,12 +41,17 @@ public class DemoService {
     }
 
     public void saveGraphWithoutTransaction(BulkOperationRequestDto request) {
-        throw saveRelatedEntities(request);
+        saveRelatedEntities(request, true);
     }
 
     @Transactional
     public void saveGraphWithTransaction(BulkOperationRequestDto request) {
-        throw saveRelatedEntities(request);
+        saveRelatedEntities(request, true);
+    }
+
+    @Transactional
+    public void saveGraphForAsyncTask(BulkOperationRequestDto request) {
+        saveRelatedEntities(request, false);
     }
 
     public void saveProductsBulkWithoutTransaction(List<ProductRequestDto> requests) {
@@ -64,7 +69,10 @@ public class DemoService {
         );
     }
 
-    private IllegalStateException saveRelatedEntities(BulkOperationRequestDto request) {
+    private void saveRelatedEntities(
+            BulkOperationRequestDto request,
+            boolean failAfterSave
+    ) {
         Supplier supplier = supplierRepository.save(
                 new Supplier(null, request.supplierName(), request.contactEmail())
         );
@@ -83,9 +91,11 @@ public class DemoService {
         product.setCategories(loadCategories(request.categoryIds()));
         productRepository.save(product);
 
-        return new IllegalStateException(
-                "Intentional failure after saving supplier, warehouse and product"
-        );
+        if (failAfterSave) {
+            throw new IllegalStateException(
+                    "Intentional failure after saving supplier, warehouse and product"
+            );
+        }
     }
 
     private Set<Category> loadCategories(List<Long> ids) {

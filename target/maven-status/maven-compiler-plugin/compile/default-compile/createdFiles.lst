@@ -3,8 +3,8 @@ com/hikaro/warehouse/repository/SupplierRepository.class
 com/hikaro/warehouse/entity/Warehouse.class
 com/hikaro/warehouse/dto/ShipmentResponseDto.class
 com/hikaro/warehouse/index/ProductQueryIndexKey.class
-com/hikaro/warehouse/mapper/ProductMapper.class
 com/hikaro/warehouse/exception/ResourceNotFoundException.class
+com/hikaro/warehouse/mapper/ProductMapper.class
 com/hikaro/warehouse/repository/ShipmentRepository.class
 com/hikaro/warehouse/exception/ApiValidationError.class
 com/hikaro/warehouse/entity/Shipment.class
@@ -26,8 +26,8 @@ com/hikaro/warehouse/aop/ServiceExecutionTimeLoggingAspect.class
 com/hikaro/warehouse/service/SupplierService.class
 com/hikaro/warehouse/dto/TransactionDemoResponseDto.class
 com/hikaro/warehouse/dto/BulkOperationRequestDto.class
-com/hikaro/warehouse/service/CategoryService.class
 com/hikaro/warehouse/dto/CategoryRequestDto.class
+com/hikaro/warehouse/service/CategoryService.class
 com/hikaro/warehouse/controller/WarehouseController.class
 com/hikaro/warehouse/dto/SupplierRequestDto.class
 com/hikaro/warehouse/exception/ApiErrorResponse.class
@@ -40,6 +40,6 @@ com/hikaro/warehouse/exception/ApiExceptionHandler.class
 com/hikaro/warehouse/controller/CategoryController.class
 com/hikaro/warehouse/service/DemoService.class
 com/hikaro/warehouse/service/ShipmentService.class
-com/hikaro/warehouse/service/WarehouseService.class
 com/hikaro/warehouse/dto/ProductResponseDto.class
+com/hikaro/warehouse/service/WarehouseService.class
 com/hikaro/warehouse/dto/CategoryResponseDto.class

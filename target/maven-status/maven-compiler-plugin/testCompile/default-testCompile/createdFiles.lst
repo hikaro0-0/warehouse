@@ -1,7 +1,7 @@
 com/hikaro/warehouse/exception/ApiExceptionHandlerTest.class
 com/hikaro/warehouse/index/ProductQueryIndexKeyTest.class
-com/hikaro/warehouse/WarehouseApplicationTests.class
 com/hikaro/warehouse/service/ShipmentServiceTest.class
+com/hikaro/warehouse/WarehouseApplicationTests.class
 com/hikaro/warehouse/aop/ServiceExecutionTimeLoggingAspectTest.class
 com/hikaro/warehouse/service/DemoServiceTest.class
 com/hikaro/warehouse/aop/ServiceExecutionTimeLoggingAspectTest$TestService.class

@@ -9,6 +9,10 @@
     {
       "key": "baseUrl",
       "value": "http://localhost:8080"
+    },
+    {
+      "key": "asyncTaskId",
+      "value": ""
     }
   ],
   "item": [
@@ -2388,6 +2392,388 @@
                   "    pm.expect(body.status).to.eql(400);",
                   "    pm.expect(body.path).to.eql(\"/api/demo/products/with-transaction\");",
                   "    pm.expect(body.message).to.eql(\"Validation failed\");",
+                  "    pm.expect(body.errors).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Async With Transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/async/with-transaction",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "async",
+                "with-transaction"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"supplierName\": \"Async Supplier {{$guid}}\",\n  \"contactEmail\": \"async-{{$guid}}@example.com\",\n  \"warehouseName\": \"Async Warehouse {{$guid}}\",\n  \"warehouseAddress\": \"Async street 1\",\n  \"productName\": \"Async Product {{$guid}}\",\n  \"sku\": \"ASYNC-{{$guid}}\",\n  \"quantity\": 5,\n  \"categoryIds\": [\n    1,\n    2\n  ]\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 202\", function () {",
+                  "    pm.response.to.have.status(202);",
+                  "});",
+                  "pm.test(\"Async task submission response is valid\", function () {",
+                  "    pm.response.to.be.json;",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body).to.have.property(\"taskId\");",
+                  "    pm.expect(body).to.have.property(\"status\");",
+                  "    pm.expect(body.status).to.eql(\"PENDING\");",
+                  "    pm.collectionVariables.set(\"asyncTaskId\", body.taskId);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Async Task Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/tasks/{{asyncTaskId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "tasks",
+                "{{asyncTaskId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Async task status response is valid\", function () {",
+                  "    pm.response.to.be.json;",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.taskId).to.eql(pm.collectionVariables.get(\"asyncTaskId\"));",
+                  "    pm.expect(body).to.have.property(\"status\");",
+                  "    pm.expect(body).to.have.property(\"createdAt\");",
+                  "    pm.expect([\"PENDING\", \"RUNNING\", \"COMPLETED\", \"FAILED\"]).to.include(body.status);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Missing Async Task Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/tasks/missing-task-id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "tasks",
+                "missing-task-id"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test(\"Missing async task returns unified error\", function () {",
+                  "    pm.response.to.be.json;",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.status).to.eql(404);",
+                  "    pm.expect(body.path).to.eql(\"/api/demo/tasks/missing-task-id\");",
+                  "    pm.expect(body.message).to.eql(\"Async task with id 'missing-task-id' not found\");",
+                  "    pm.expect(body.errors).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Concurrency Demo",
+      "item": [
+        {
+          "name": "Reset Counters",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/counter/reset",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "counter",
+                "reset"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Counters are reset\", function () {",
+                  "    pm.response.to.be.json;",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.synchronizedCounter).to.eql(0);",
+                  "    pm.expect(body.atomicCounter).to.eql(0);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Increment Synchronized Counter",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/counter/increment/synchronized",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "counter",
+                "increment",
+                "synchronized"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Synchronized counter response is valid\", function () {",
+                  "    pm.response.to.be.json;",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.synchronizedCounter).to.be.a(\"number\");",
+                  "    pm.expect(body.atomicCounter).to.be.a(\"number\");",
+                  "    pm.expect(body.synchronizedCounter).to.be.at.least(1);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Increment Atomic Counter",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/counter/increment/atomic",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "counter",
+                "increment",
+                "atomic"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Atomic counter response is valid\", function () {",
+                  "    pm.response.to.be.json;",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.synchronizedCounter).to.be.a(\"number\");",
+                  "    pm.expect(body.atomicCounter).to.be.a(\"number\");",
+                  "    pm.expect(body.atomicCounter).to.be.at.least(1);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Counter State",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/counter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "counter"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Counter state response is valid\", function () {",
+                  "    pm.response.to.be.json;",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.synchronizedCounter).to.be.a(\"number\");",
+                  "    pm.expect(body.atomicCounter).to.be.a(\"number\");",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Race Condition Demo",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/race-condition?threadCount=64&incrementsPerThread=2000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "race-condition"
+              ],
+              "query": [
+                {
+                  "key": "threadCount",
+                  "value": "64"
+                },
+                {
+                  "key": "incrementsPerThread",
+                  "value": "2000"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Race condition demo response is valid\", function () {",
+                  "    pm.response.to.be.json;",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.threadCount).to.eql(64);",
+                  "    pm.expect(body.incrementsPerThread).to.eql(2000);",
+                  "    pm.expect(body.expectedValue).to.eql(128000);",
+                  "    pm.expect(body.synchronizedCounterValue).to.eql(body.expectedValue);",
+                  "    pm.expect(body.atomicCounterValue).to.eql(body.expectedValue);",
+                  "    pm.expect(body.raceConditionDetected).to.eql(true);",
+                  "    pm.expect(body.unsafeCounterValue).to.be.below(body.expectedValue);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Race Condition Validation Error",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/race-condition?threadCount=10&incrementsPerThread=100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "race-condition"
+              ],
+              "query": [
+                {
+                  "key": "threadCount",
+                  "value": "10"
+                },
+                {
+                  "key": "incrementsPerThread",
+                  "value": "100"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Race condition validation error has unified format\", function () {",
+                  "    pm.response.to.be.json;",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.status).to.eql(400);",
+                  "    pm.expect(body.path).to.eql(\"/api/demo/race-condition\");",
+                  "    pm.expect(body.message).to.eql(\"threadCount must be greater than or equal to 50\");",
                   "    pm.expect(body.errors).to.be.an(\"array\");",
                   "});"
                 ]
