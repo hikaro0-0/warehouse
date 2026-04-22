@@ -71,6 +71,11 @@ N+1:
 - `POST /api/demo/without-transaction`
 - `POST /api/demo/with-transaction`
 
+JMeter:
+
+- `docs/jmeter/all-endpoints.jmx` - CRUD/search/async/counter flow по образцу `FinanceTracker`, без намеренно падающих demo endpoints
+- `docs/jmeter/race-condition.jmx` - отдельный нагрузочный сценарий для `POST /api/demo/race-condition`
+
 ## CascadeType и FetchType
 
 В проекте выбраны следующие настройки:
@@ -103,6 +108,15 @@ docker compose up -d
 cp .env.example .env
 ./mvnw spring-boot:run
 ```
+
+Примеры запуска JMeter:
+
+```bash
+jmeter -n -t docs/jmeter/all-endpoints.jmx -Jhost=localhost -Jport=8080 -Jusers=50 -JrampUpSeconds=2
+jmeter -n -t docs/jmeter/race-condition.jmx -Jhost=localhost -Jport=8080 -JraceUsers=5 -JdemoThreadCount=64 -JdemoIncrementsPerThread=2000
+```
+
+`all-endpoints.jmx` использует уникальные имена на поток и очищает созданные CRUD-сущности в конце сценария. Асинхронный demo flow сохраняет отдельные demo-записи с уникальными именами, как часть проверки `POST /api/demo/async/with-transaction`.
 
 ## Troubleshooting: Liquibase и права на схему
 
