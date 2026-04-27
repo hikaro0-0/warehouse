@@ -11,9 +11,11 @@ import com.hikaro.warehouse.repository.CategoryRepository;
 import com.hikaro.warehouse.repository.ProductRepository;
 import com.hikaro.warehouse.repository.SupplierRepository;
 import com.hikaro.warehouse.repository.WarehouseRepository;
+import java.time.Duration;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +27,9 @@ public class DemoService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final ProductService productService;
+
+    @Value("${app.demo.async-task-running-delay-ms:5000}")
+    private long asyncTaskRunningDelayMs;
 
     public DemoService(
             SupplierRepository supplierRepository,
@@ -52,6 +57,7 @@ public class DemoService {
     @Transactional
     public void saveGraphForAsyncTask(BulkOperationRequestDto request) {
         saveRelatedEntities(request, false);
+        pauseBeforeAsyncTaskCompletion();
     }
 
     public void saveProductsBulkWithoutTransaction(List<ProductRequestDto> requests) {
@@ -107,5 +113,21 @@ public class DemoService {
             throw new ResourceNotFoundException("One or more categories not found");
         }
         return categories;
+    }
+
+    private void pauseBeforeAsyncTaskCompletion() {
+        if (asyncTaskRunningDelayMs <= 0) {
+            return;
+        }
+        try {
+            Thread.sleep(asyncTaskRunningDelayMs);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException(
+                    "Async task delay interrupted after "
+                            + Duration.ofMillis(asyncTaskRunningDelayMs),
+                    ex
+            );
+        }
     }
 }
