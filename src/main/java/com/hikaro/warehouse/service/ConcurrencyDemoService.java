@@ -158,7 +158,6 @@ public class ConcurrencyDemoService {
 
         private void increment() {
             int currentValue = value;
-            // Intentionally widen the race window so lost updates are visible in the demo.
             LockSupport.parkNanos(1L);
             value = currentValue + 1;
         }
