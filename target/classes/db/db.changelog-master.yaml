@@ -29,3 +29,15 @@ databaseChangeLog:
       file: db/migrations/014-seed-shipment-products.yaml
   - include:
       file: db/migrations/015-reset-identity-counters.yaml
+  - include:
+      file: db/migrations/016-add-product-description-and-price.yaml
+  - include:
+      file: db/migrations/017-add-product-created-updated-at.yaml
+  - include:
+      file: db/migrations/018-create-recipients.yaml
+  - include:
+      file: db/migrations/019-create-dispatches.yaml
+  - include:
+      file: db/migrations/020-create-dispatch-items.yaml
+  - include:
+      file: db/migrations/021-add-dispatch-status.yaml

@@ -92,6 +92,8 @@ public class DemoService {
                 request.productName(),
                 request.quantity()
         );
+        product.setDescription(null);
+        product.setPrice(null);
         product.setSupplier(supplier);
         product.setWarehouse(warehouse);
         product.setCategories(loadCategories(request.categoryIds()));

@@ -7,10 +7,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.hikaro.warehouse.entity.Category;
+import com.hikaro.warehouse.entity.Recipient;
+import com.hikaro.warehouse.entity.RecipientType;
 import com.hikaro.warehouse.entity.Supplier;
 import com.hikaro.warehouse.entity.Warehouse;
 import com.hikaro.warehouse.exception.ResourceNotFoundException;
 import com.hikaro.warehouse.repository.CategoryRepository;
+import com.hikaro.warehouse.repository.RecipientRepository;
 import com.hikaro.warehouse.repository.SupplierRepository;
 import com.hikaro.warehouse.repository.WarehouseRepository;
 import java.util.List;
@@ -33,6 +36,9 @@ class CrudServicesTest {
     @Mock
     private WarehouseRepository warehouseRepository;
 
+    @Mock
+    private RecipientRepository recipientRepository;
+
     @InjectMocks
     private CategoryService categoryService;
 
@@ -41,6 +47,9 @@ class CrudServicesTest {
 
     @InjectMocks
     private WarehouseService warehouseService;
+
+    @InjectMocks
+    private RecipientService recipientService;
 
     @Test
     void categoryServiceShouldHandleCrudOperations() {
@@ -145,5 +154,54 @@ class CrudServicesTest {
         );
 
         assertEquals("Warehouse with id 55 not found", exception.getMessage());
+    }
+
+    @Test
+    void recipientServiceShouldHandleCrudOperations() {
+        Recipient existing = new Recipient(
+                1L,
+                "ООО ТехМаркет",
+                RecipientType.COMPANY,
+                "orders@example.com",
+                "Office street"
+        );
+        Recipient updated = new Recipient(
+                null,
+                "Store 24",
+                RecipientType.STORE,
+                "store@example.com",
+                "Retail avenue"
+        );
+
+        when(recipientRepository.findAll()).thenReturn(List.of(existing));
+        when(recipientRepository.findById(1L)).thenReturn(Optional.of(existing));
+        when(recipientRepository.save(existing)).thenReturn(existing);
+        when(recipientRepository.save(updated)).thenReturn(updated);
+
+        assertEquals(List.of(existing), recipientService.findAll());
+        assertSame(existing, recipientService.getById(1L));
+        assertSame(updated, recipientService.create(updated));
+
+        Recipient saved = recipientService.update(1L, updated);
+        assertSame(existing, saved);
+        assertEquals("Store 24", existing.getName());
+        assertEquals(RecipientType.STORE, existing.getType());
+        assertEquals("store@example.com", existing.getContactEmail());
+        assertEquals("Retail avenue", existing.getAddress());
+
+        recipientService.delete(1L);
+        verify(recipientRepository).delete(existing);
+    }
+
+    @Test
+    void recipientServiceShouldThrowWhenRecipientMissing() {
+        when(recipientRepository.findById(88L)).thenReturn(Optional.empty());
+
+        ResourceNotFoundException exception = assertThrows(
+                ResourceNotFoundException.class,
+                () -> recipientService.getById(88L)
+        );
+
+        assertEquals("Recipient with id 88 not found", exception.getMessage());
     }
 }

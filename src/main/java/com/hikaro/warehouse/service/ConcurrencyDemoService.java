@@ -157,9 +157,7 @@ public class ConcurrencyDemoService {
         private int value;
 
         private void increment() {
-            int currentValue = value;
-            LockSupport.parkNanos(1L);
-            value = currentValue + 1;
+            value++;
         }
 
         private int get() {

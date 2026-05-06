@@ -12,6 +12,8 @@ import com.hikaro.warehouse.repository.ProductRepository;
 import com.hikaro.warehouse.repository.SupplierRepository;
 import com.hikaro.warehouse.repository.WarehouseRepository;
 import jakarta.persistence.EntityManager;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -187,7 +189,9 @@ public class ProductService {
 
         product.setSku(request.sku());
         product.setName(request.name());
+        product.setDescription(normalizeDescription(request.description()));
         product.setQuantity(request.quantity());
+        product.setPrice(normalizePrice(request.price()));
         product.setWarehouse(warehouse);
         product.setSupplier(supplier);
         product.setCategories(categories);
@@ -230,6 +234,19 @@ public class ProductService {
         return Optional.ofNullable(name)
                 .map(String::trim)
                 .filter(value -> !value.isBlank())
+                .orElse(null);
+    }
+
+    private String normalizeDescription(String description) {
+        return Optional.ofNullable(description)
+                .map(String::trim)
+                .filter(value -> !value.isBlank())
+                .orElse(null);
+    }
+
+    private BigDecimal normalizePrice(BigDecimal price) {
+        return Optional.ofNullable(price)
+                .map(value -> value.setScale(2, RoundingMode.HALF_UP))
                 .orElse(null);
     }
 

@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 017-add-product-created-updated-at
+      author: hikaro
+      changes:
+        - addColumn:
+            tableName: products
+            columns:
+              - column:
+                  name: created_at
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP WITH TIME ZONE
+        - update:
+            tableName: products
+            columns:
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+            where: created_at IS NULL
+        - update:
+            tableName: products
+            columns:
+              - column:
+                  name: updated_at
+                  valueComputed: CURRENT_TIMESTAMP
+            where: updated_at IS NULL
+        - addNotNullConstraint:
+            tableName: products
+            columnName: created_at
+            columnDataType: TIMESTAMP WITH TIME ZONE
+        - addNotNullConstraint:
+            tableName: products
+            columnName: updated_at
+            columnDataType: TIMESTAMP WITH TIME ZONE

@@ -100,6 +100,19 @@ cd /home/hikaro/java/warehouse
 
 При старте Liquibase сам применит все миграции к твоей БД.
 
+Для отдельного frontend на Vite CORS уже настроен на `http://localhost:5173`.
+Если frontend запускается с другого origin, укажи его в `.env`:
+
+```properties
+APP_CORS_ALLOWED_ORIGINS=http://localhost:5173
+```
+
+Можно перечислить несколько origin через запятую:
+
+```properties
+APP_CORS_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+```
+
 Команды запуска:
 
 ```bash

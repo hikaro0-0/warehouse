@@ -20,7 +20,11 @@ Table products {
   id bigint [pk, increment, not null]
   sku varchar(255) [not null, unique]
   name varchar(255) [not null]
+  description varchar(1000)
   quantity int [not null]
+  price numeric(12,2)
+  created_at timestamptz [not null]
+  updated_at timestamptz [not null]
   warehouse_id bigint [not null, ref: > warehouses.id]
   supplier_id bigint [not null, ref: > suppliers.id]
 }
@@ -38,6 +42,30 @@ Table shipments {
   id bigint [pk, increment, not null]
   reference_number varchar(255) [not null, unique]
   warehouse_id bigint [not null, ref: > warehouses.id]
+}
+
+Table recipients {
+  id bigint [pk, increment, not null]
+  name varchar(255) [not null, unique]
+  type varchar(20) [not null]
+  contact_email varchar(255)
+  address varchar(255)
+}
+
+Table dispatches {
+  id bigint [pk, increment, not null]
+  reference_number varchar(255) [not null, unique]
+  warehouse_id bigint [not null, ref: > warehouses.id]
+  recipient_id bigint [not null, ref: > recipients.id]
+  created_at timestamptz [not null]
+  updated_at timestamptz [not null]
+}
+
+Table dispatch_items {
+  id bigint [pk, increment, not null]
+  dispatch_id bigint [not null, ref: > dispatches.id]
+  product_id bigint [not null, ref: > products.id]
+  quantity int [not null]
 }
 
 Table shipment_products {

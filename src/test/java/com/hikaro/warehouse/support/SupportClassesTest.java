@@ -22,6 +22,7 @@ import com.hikaro.warehouse.exception.ApiErrorResponse;
 import com.hikaro.warehouse.exception.ApiExceptionHandler;
 import com.hikaro.warehouse.exception.ResourceNotFoundException;
 import com.hikaro.warehouse.mapper.ProductMapper;
+import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -39,6 +40,8 @@ class SupportClassesTest {
         Category firstCategory = new Category(3L, "Cables", "Cables");
         Category secondCategory = new Category(4L, "Accessories", "Accessories");
         Product product = new Product(5L, "SKU-5", "Dock", 9);
+        product.setDescription("USB-C dock");
+        product.setPrice(new BigDecimal("129.99"));
         product.setWarehouse(warehouse);
         product.setSupplier(supplier);
         product.setCategories(new LinkedHashSet<>(List.of(firstCategory, secondCategory)));
@@ -46,6 +49,8 @@ class SupportClassesTest {
         ProductResponseDto response = new ProductMapper().toResponseDto(product);
 
         assertEquals(5L, response.id());
+        assertEquals("USB-C dock", response.description());
+        assertEquals(new BigDecimal("129.99"), response.price());
         assertEquals("Main", response.warehouseName());
         assertEquals(List.of("Accessories", "Cables"), response.categories());
     }
@@ -128,7 +133,9 @@ class SupportClassesTest {
         product.setId(5L);
         product.setSku("SKU-5");
         product.setName("Monitor");
+        product.setDescription("4K office monitor");
         product.setQuantity(7);
+        product.setPrice(new BigDecimal("599.90"));
         product.setWarehouse(warehouse);
         product.setSupplier(supplier);
         product.setCategories(new LinkedHashSet<>(List.of(category)));
@@ -158,7 +165,9 @@ class SupportClassesTest {
         assertEquals(1, warehouse.getShipments().size());
         assertEquals("SKU-5", product.getSku());
         assertEquals("Monitor", product.getName());
+        assertEquals("4K office monitor", product.getDescription());
         assertEquals(7, product.getQuantity());
+        assertEquals(new BigDecimal("599.90"), product.getPrice());
         assertEquals(warehouse, product.getWarehouse());
         assertEquals(supplier, product.getSupplier());
         assertEquals(1, product.getCategories().size());

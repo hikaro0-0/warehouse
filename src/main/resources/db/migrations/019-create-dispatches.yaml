@@ -1,0 +1,55 @@
+databaseChangeLog:
+  - changeSet:
+      id: 019-create-dispatches
+      author: hikaro
+      changes:
+        - createTable:
+            tableName: dispatches
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_dispatches
+                    nullable: false
+              - column:
+                  name: reference_number
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uk_dispatches_reference_number
+              - column:
+                  name: warehouse_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: recipient_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: dispatches
+            baseColumnNames: warehouse_id
+            constraintName: fk_dispatches_warehouse
+            referencedTableName: warehouses
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: dispatches
+            baseColumnNames: recipient_id
+            constraintName: fk_dispatches_recipient
+            referencedTableName: recipients
+            referencedColumnNames: id

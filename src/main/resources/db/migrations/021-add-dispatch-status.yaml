@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 021-add-dispatch-status
+      author: hikaro
+      changes:
+        - addColumn:
+            tableName: dispatches
+            columns:
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+        - update:
+            tableName: dispatches
+            columns:
+              - column:
+                  name: status
+                  value: CONFIRMED
+        - addNotNullConstraint:
+            tableName: dispatches
+            columnName: status
+            columnDataType: VARCHAR(20)
+        - addDefaultValue:
+            tableName: dispatches
+            columnName: status
+            defaultValue: DRAFT

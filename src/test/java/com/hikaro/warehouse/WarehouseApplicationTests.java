@@ -12,6 +12,7 @@ import com.hikaro.warehouse.repository.WarehouseRepository;
 import com.hikaro.warehouse.service.DemoService;
 import com.hikaro.warehouse.service.ProductService;
 import jakarta.persistence.EntityManagerFactory;
+import java.math.BigDecimal;
 import java.util.List;
 import org.hibernate.SessionFactory;
 import org.hibernate.stat.Statistics;
@@ -196,25 +197,41 @@ class WarehouseApplicationTests {
         Product createdProduct = productService.create(new ProductRequestDto(
                 "SKU-777",
                 "Docking Station",
+                "USB-C docking station for office setup",
                 18,
+                new BigDecimal("249.99"),
                 1L,
                 1L,
                 List.of(1L, 3L)
         ));
 
         Assertions.assertNotNull(createdProduct.getId());
-        Assertions.assertEquals("Docking Station", productService.getById(createdProduct.getId()).getName());
+        Product persistedAfterCreate = productService.getById(createdProduct.getId());
+        Assertions.assertEquals("Docking Station", persistedAfterCreate.getName());
+        Assertions.assertEquals(
+                "USB-C docking station for office setup",
+                persistedAfterCreate.getDescription()
+        );
+        Assertions.assertEquals(new BigDecimal("249.99"), persistedAfterCreate.getPrice());
 
         productService.update(createdProduct.getId(), new ProductRequestDto(
                 "SKU-777",
                 "Docking Station Pro",
+                "Upgraded dock with dual display output",
                 20,
+                new BigDecimal("319.50"),
                 2L,
                 2L,
                 List.of(1L, 2L)
         ));
 
-        Assertions.assertEquals("Docking Station Pro", productService.getById(createdProduct.getId()).getName());
+        Product persistedAfterUpdate = productService.getById(createdProduct.getId());
+        Assertions.assertEquals("Docking Station Pro", persistedAfterUpdate.getName());
+        Assertions.assertEquals(
+                "Upgraded dock with dual display output",
+                persistedAfterUpdate.getDescription()
+        );
+        Assertions.assertEquals(new BigDecimal("319.50"), persistedAfterUpdate.getPrice());
 
         productService.delete(createdProduct.getId());
         Assertions.assertFalse(productRepository.findById(createdProduct.getId()).isPresent());

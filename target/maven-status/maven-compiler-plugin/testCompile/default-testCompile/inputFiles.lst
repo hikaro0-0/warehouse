@@ -9,6 +9,7 @@
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/DemoAsyncServiceTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/DemoAsyncTaskProcessorTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/DemoServiceTest.java
+/home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/DispatchServiceTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/ProductServiceTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/service/ShipmentServiceTest.java
 /home/hikaro/java/warehouse/src/test/java/com/hikaro/warehouse/support/SupportClassesTest.java
