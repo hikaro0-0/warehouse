@@ -14,6 +14,7 @@ import {
   deleteRecipient,
   updateRecipient
 } from "../api/recipients";
+import { HeaderActionPortal } from "../components/layout/HeaderActionPortal";
 import { Button } from "../components/ui/Button";
 import { ConfirmDialog } from "../components/ui/ConfirmDialog";
 import { EmptyState } from "../components/ui/EmptyState";
@@ -181,21 +182,12 @@ export function RecipientsPage() {
 
   return (
     <div className={styles.page}>
-      <section className={styles.hero}>
-        <div className={styles.heroSurface}>
-          <div className={styles.heroCopy}>
-            <span className={styles.heroEyebrow}>Клиенты</span>
-            <h2>Фирмы и магазины, куда ты отгружаешь технику</h2>
-            <p>Справочник клиентов для исходящих отгрузок.</p>
-          </div>
-          <div className={styles.heroActions}>
-            <Button onClick={openCreate}>
-              <Plus size={16} />
-              <span>Добавить клиента</span>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <HeaderActionPortal>
+        <Button onClick={openCreate}>
+          <Plus size={16} />
+          <span>Добавить клиента</span>
+        </Button>
+      </HeaderActionPortal>
 
       {error ? (
         <div className={styles.errorBanner}>
@@ -243,7 +235,7 @@ export function RecipientsPage() {
                   ) : null}
                 </div>
                 <div className={styles.entityFooter}>
-                  <Button variant="ghost" size="sm" onClick={() => openEdit(recipient)}>
+                  <Button variant="secondary" size="sm" onClick={() => openEdit(recipient)}>
                     <Pencil size={16} />
                     <span>Редактировать</span>
                   </Button>

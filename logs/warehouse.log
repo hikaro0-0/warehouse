@@ -29139,3 +29139,435 @@ Unconditional classes:
 2026-05-06 15:05:52.786 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-05-06 15:05:52.789 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2026-05-06 15:05:52.794 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-05-06 15:36:46.751 INFO  [main] c.h.warehouse.WarehouseApplication - Starting WarehouseApplication using Java 25.0.2 with PID 27233 (/home/hikaro/java/warehouse/target/classes started by hikaro in /home/hikaro/java/warehouse)
+2026-05-06 15:36:46.753 DEBUG [main] c.h.warehouse.WarehouseApplication - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-05-06 15:36:46.754 INFO  [main] c.h.warehouse.WarehouseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-05-06 15:36:47.704 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-06 15:36:47.836 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 122 ms. Found 7 JPA repository interfaces.
+2026-05-06 15:36:48.495 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-05-06 15:36:48.506 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-05-06 15:36:48.508 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-05-06 15:36:48.509 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-05-06 15:36:48.546 INFO  [main] o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1727 ms
+2026-05-06 15:36:48.671 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-06 15:36:48.747 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5cbe95b1
+2026-05-06 15:36:48.748 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-06 15:36:49.169 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2026-05-06 15:36:49.329 INFO  [main] liquibase.ui - Database is up to date, no changesets to execute
+2026-05-06 15:36:49.332 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2026-05-06 15:36:49.371 INFO  [main] liquibase.util - UPDATE SUMMARY
+2026-05-06 15:36:49.371 INFO  [main] liquibase.util - Run:                          0
+2026-05-06 15:36:49.372 INFO  [main] liquibase.util - Previously run:              21
+2026-05-06 15:36:49.372 INFO  [main] liquibase.util - Filtered out:                 0
+2026-05-06 15:36:49.372 INFO  [main] liquibase.util - -------------------------------
+2026-05-06 15:36:49.373 INFO  [main] liquibase.util - Total change sets:           21
+2026-05-06 15:36:49.375 INFO  [main] liquibase.util - Update summary generated
+2026-05-06 15:36:49.378 INFO  [main] liquibase.command - Command execution complete
+2026-05-06 15:36:50.896 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-06 15:36:52.006 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-06 15:36:52.128 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-05-06 15:36:53.834 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-05-06 15:36:53.851 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-05-06 15:36:53.857 INFO  [main] c.h.warehouse.WarehouseApplication - Started WarehouseApplication in 7.646 seconds (process running for 7.937)
+2026-05-06 15:37:08.612 INFO  [http-nio-8080-exec-5] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-06 15:37:08.613 INFO  [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-05-06 15:37:08.614 INFO  [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-05-06 15:37:08.821 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 153 ms
+2026-05-06 15:37:08.821 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 153 ms
+2026-05-06 15:37:08.821 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 153 ms
+2026-05-06 15:37:08.821 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 153 ms
+2026-05-06 15:37:08.821 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 153 ms
+2026-05-06 15:37:08.824 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.getById executed in 140 ms
+2026-05-06 15:37:09.003 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 12 ms
+2026-05-06 15:37:11.628 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:37:11.629 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:37:11.636 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 7 ms
+2026-05-06 15:37:11.639 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 8 ms
+2026-05-06 15:37:11.641 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 7 ms
+2026-05-06 15:37:11.641 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 8 ms
+2026-05-06 15:37:11.683 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 35 ms
+2026-05-06 15:37:11.695 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 47 ms
+2026-05-06 15:37:11.704 WARN  [http-nio-8080-exec-10] o.s.d.w.c.SpringDataJackson3Configuration$PageModule$WarningLoggingModifier - Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2026-05-06 15:37:37.121 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:37:37.132 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 10 ms
+2026-05-06 15:37:37.132 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 9 ms
+2026-05-06 15:37:37.135 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 8 ms
+2026-05-06 15:37:37.135 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 9 ms
+2026-05-06 15:37:37.142 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 9 ms
+2026-05-06 15:37:37.153 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 20 ms
+2026-05-06 15:37:37.157 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 23 ms
+2026-05-06 15:37:49.622 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:37:49.623 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:37:49.631 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 12 ms
+2026-05-06 15:37:49.638 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 19 ms
+2026-05-06 15:37:51.591 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 6 ms
+2026-05-06 15:37:51.599 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 8 ms
+2026-05-06 15:37:54.237 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 8 ms
+2026-05-06 15:37:54.245 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 7 ms
+2026-05-06 15:37:58.669 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 6 ms
+2026-05-06 15:37:58.669 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 7 ms
+2026-05-06 15:37:58.752 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 90 ms
+2026-05-06 15:37:58.752 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 85 ms
+2026-05-06 15:38:01.216 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:38:01.221 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 7 ms
+2026-05-06 15:38:01.224 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 17 ms
+2026-05-06 15:38:01.224 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 8 ms
+2026-05-06 15:38:01.228 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 6 ms
+2026-05-06 15:38:01.238 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 21 ms
+2026-05-06 15:38:01.244 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 17 ms
+2026-05-06 15:38:01.247 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 18 ms
+2026-05-06 15:38:13.594 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 8 ms
+2026-05-06 15:38:13.599 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 10 ms
+2026-05-06 15:38:13.601 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 8 ms
+2026-05-06 15:38:13.612 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:38:13.614 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 7 ms
+2026-05-06 15:38:13.616 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 7 ms
+2026-05-06 15:38:53.890 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:38:53.897 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:39:07.587 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 6 ms
+2026-05-06 15:39:07.590 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:39:15.299 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 4 ms
+2026-05-06 15:39:15.305 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 7 ms
+2026-05-06 15:39:27.006 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 4 ms
+2026-05-06 15:39:27.013 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 10 ms
+2026-05-06 15:39:27.021 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 5 ms
+2026-05-06 15:39:27.034 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 17 ms
+2026-05-06 15:39:29.655 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:39:29.655 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:39:29.661 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 15 ms
+2026-05-06 15:39:29.665 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:39:29.670 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 5 ms
+2026-05-06 15:39:29.675 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 16 ms
+2026-05-06 15:40:01.184 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:40:01.184 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:40:01.186 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 6 ms
+2026-05-06 15:40:01.192 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:40:01.194 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 6 ms
+2026-05-06 15:40:01.197 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 6 ms
+2026-05-06 15:40:26.843 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 3 ms
+2026-05-06 15:40:26.844 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:40:26.844 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 3 ms
+2026-05-06 15:40:26.845 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 3 ms
+2026-05-06 15:40:26.845 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 3 ms
+2026-05-06 15:40:26.848 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 3 ms
+2026-05-06 15:40:37.206 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 4 ms
+2026-05-06 15:40:37.206 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 3 ms
+2026-05-06 15:40:38.521 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 3 ms
+2026-05-06 15:40:38.521 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 3 ms
+2026-05-06 15:40:38.521 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 2 ms
+2026-05-06 15:40:38.524 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 3 ms
+2026-05-06 15:40:38.524 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 3 ms
+2026-05-06 15:40:38.524 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 2 ms
+2026-05-06 15:40:55.164 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:40:55.169 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:41:03.556 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 4 ms
+2026-05-06 15:41:03.564 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:41:10.326 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 4 ms
+2026-05-06 15:41:10.331 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 6 ms
+2026-05-06 15:41:16.297 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:41:16.299 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 4 ms
+2026-05-06 15:41:16.308 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 13 ms
+2026-05-06 15:41:16.308 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 13 ms
+2026-05-06 15:41:25.505 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 4 ms
+2026-05-06 15:41:25.508 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:41:25.514 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 13 ms
+2026-05-06 15:41:25.527 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 10 ms
+2026-05-06 15:41:25.529 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 11 ms
+2026-05-06 15:41:25.529 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 21 ms
+2026-05-06 15:42:50.050 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 5 ms
+2026-05-06 15:42:50.050 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 7 ms
+2026-05-06 15:42:50.050 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 8 ms
+2026-05-06 15:42:50.054 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:42:50.058 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:42:50.064 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 6 ms
+2026-05-06 15:43:53.259 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:43:53.260 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 4 ms
+2026-05-06 15:43:53.260 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 4 ms
+2026-05-06 15:44:27.616 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 4 ms
+2026-05-06 15:44:27.617 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:44:27.620 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 5 ms
+2026-05-06 15:44:27.622 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:44:27.624 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 6 ms
+2026-05-06 15:44:27.624 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 4 ms
+2026-05-06 15:44:31.235 INFO  [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-05-06 15:44:31.239 INFO  [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-05-06 15:44:31.247 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-06 15:44:31.250 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-05-06 15:44:31.254 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-05-06 15:44:36.091 INFO  [main] c.h.warehouse.WarehouseApplication - Starting WarehouseApplication using Java 25.0.2 with PID 34753 (/home/hikaro/java/warehouse/target/classes started by hikaro in /home/hikaro/java/warehouse)
+2026-05-06 15:44:36.093 DEBUG [main] c.h.warehouse.WarehouseApplication - Running with Spring Boot v4.0.3, Spring v7.0.5
+2026-05-06 15:44:36.093 INFO  [main] c.h.warehouse.WarehouseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-05-06 15:44:36.711 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-06 15:44:36.764 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 45 ms. Found 7 JPA repository interfaces.
+2026-05-06 15:44:37.337 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-05-06 15:44:37.349 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-05-06 15:44:37.351 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-05-06 15:44:37.351 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-05-06 15:44:37.389 INFO  [main] o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1257 ms
+2026-05-06 15:44:37.510 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-06 15:44:37.588 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5cbe95b1
+2026-05-06 15:44:37.589 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-06 15:44:38.001 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2026-05-06 15:44:38.129 INFO  [main] liquibase.ui - Database is up to date, no changesets to execute
+2026-05-06 15:44:38.131 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2026-05-06 15:44:38.149 INFO  [main] liquibase.util - UPDATE SUMMARY
+2026-05-06 15:44:38.149 INFO  [main] liquibase.util - Run:                          0
+2026-05-06 15:44:38.149 INFO  [main] liquibase.util - Previously run:              21
+2026-05-06 15:44:38.149 INFO  [main] liquibase.util - Filtered out:                 0
+2026-05-06 15:44:38.149 INFO  [main] liquibase.util - -------------------------------
+2026-05-06 15:44:38.149 INFO  [main] liquibase.util - Total change sets:           21
+2026-05-06 15:44:38.150 INFO  [main] liquibase.util - Update summary generated
+2026-05-06 15:44:38.151 INFO  [main] liquibase.command - Command execution complete
+2026-05-06 15:44:39.485 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-06 15:44:40.464 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-06 15:44:40.558 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-05-06 15:44:42.085 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-05-06 15:44:42.096 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-05-06 15:44:42.101 INFO  [main] c.h.warehouse.WarehouseApplication - Started WarehouseApplication in 6.513 seconds (process running for 6.811)
+2026-05-06 15:44:44.662 INFO  [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-06 15:44:44.662 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-05-06 15:44:44.666 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2026-05-06 15:44:44.948 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 163 ms
+2026-05-06 15:44:44.948 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 190 ms
+2026-05-06 15:44:44.948 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 191 ms
+2026-05-06 15:44:44.948 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 163 ms
+2026-05-06 15:44:44.948 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 191 ms
+2026-05-06 15:44:44.948 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 191 ms
+2026-05-06 15:44:45.050 WARN  [http-nio-8080-exec-4] o.s.d.w.c.SpringDataJackson3Configuration$PageModule$WarningLoggingModifier - Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2026-05-06 15:44:45.083 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 12 ms
+2026-05-06 15:44:45.086 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 14 ms
+2026-05-06 15:44:45.735 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:44:45.744 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 8 ms
+2026-05-06 15:44:45.746 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 9 ms
+2026-05-06 15:44:45.750 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 7 ms
+2026-05-06 15:44:45.751 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 10 ms
+2026-05-06 15:44:45.757 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 9 ms
+2026-05-06 15:44:45.760 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 20 ms
+2026-05-06 15:44:45.779 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 27 ms
+2026-05-06 15:44:49.085 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 8 ms
+2026-05-06 15:44:49.088 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:44:49.099 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 16 ms
+2026-05-06 15:44:49.103 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 15 ms
+2026-05-06 15:44:49.729 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 8 ms
+2026-05-06 15:44:49.738 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 9 ms
+2026-05-06 15:44:50.293 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 9 ms
+2026-05-06 15:44:50.296 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 9 ms
+2026-05-06 15:44:51.220 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:44:51.221 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 6 ms
+2026-05-06 15:44:51.221 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 6 ms
+2026-05-06 15:44:51.225 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:44:51.228 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 7 ms
+2026-05-06 15:44:51.228 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 7 ms
+2026-05-06 15:44:53.003 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:44:53.006 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:44:53.502 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 6 ms
+2026-05-06 15:44:53.507 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:44:54.496 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:44:54.496 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:44:54.498 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 6 ms
+2026-05-06 15:44:54.501 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:44:54.502 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 5 ms
+2026-05-06 15:44:54.502 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:46:39.602 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 5 ms
+2026-05-06 15:46:39.602 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:46:39.603 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:46:39.612 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:46:39.613 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:46:39.613 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 5 ms
+2026-05-06 15:46:41.060 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:46:41.065 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:46:41.575 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 6 ms
+2026-05-06 15:46:41.577 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:46:42.015 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 7 ms
+2026-05-06 15:46:42.018 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 7 ms
+2026-05-06 15:46:43.796 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:46:43.802 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 9 ms
+2026-05-06 15:46:43.807 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:46:43.810 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 8 ms
+2026-05-06 15:46:43.826 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 29 ms
+2026-05-06 15:46:43.838 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.ProductService.findByName executed in 34 ms
+2026-05-06 15:46:43.889 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 97 ms
+2026-05-06 15:46:43.889 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 91 ms
+2026-05-06 15:46:44.283 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 4 ms
+2026-05-06 15:46:44.287 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 5 ms
+2026-05-06 15:46:44.300 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 22 ms
+2026-05-06 15:46:44.308 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 24 ms
+2026-05-06 15:50:26.892 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 4 ms
+2026-05-06 15:50:26.895 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 4 ms
+2026-05-06 15:50:26.901 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 11 ms
+2026-05-06 15:50:26.909 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 16 ms
+2026-05-06 15:50:57.460 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 4 ms
+2026-05-06 15:50:57.468 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 11 ms
+2026-05-06 15:51:23.439 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 5 ms
+2026-05-06 15:51:23.447 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 7 ms
+2026-05-06 15:51:23.451 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 15 ms
+2026-05-06 15:51:23.457 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 16 ms
+2026-05-06 15:51:26.129 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 6 ms
+2026-05-06 15:51:26.130 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 9 ms
+2026-05-06 15:51:26.131 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 6 ms
+2026-05-06 15:51:26.136 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:51:26.136 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 6 ms
+2026-05-06 15:51:26.142 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 7 ms
+2026-05-06 15:51:26.930 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:51:26.938 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:51:27.563 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 6 ms
+2026-05-06 15:51:27.570 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 6 ms
+2026-05-06 15:51:28.874 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 5 ms
+2026-05-06 15:51:28.877 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 6 ms
+2026-05-06 15:51:29.456 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:51:29.457 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:51:29.462 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 9 ms
+2026-05-06 15:51:29.468 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 13 ms
+2026-05-06 15:51:29.975 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:51:29.975 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 4 ms
+2026-05-06 15:51:29.977 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 12 ms
+2026-05-06 15:51:29.980 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:51:29.980 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:51:29.988 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 12 ms
+2026-05-06 15:51:30.834 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 4 ms
+2026-05-06 15:51:30.861 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 27 ms
+2026-05-06 15:51:30.862 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 12 ms
+2026-05-06 15:51:30.868 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 19 ms
+2026-05-06 15:51:37.064 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 8 ms
+2026-05-06 15:51:37.064 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 8 ms
+2026-05-06 15:51:37.066 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:51:37.065 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 9 ms
+2026-05-06 15:51:37.069 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 7 ms
+2026-05-06 15:51:37.070 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 9 ms
+2026-05-06 15:51:40.635 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:51:40.635 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:51:40.642 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 5 ms
+2026-05-06 15:51:40.646 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:51:40.646 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:51:40.654 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 8 ms
+2026-05-06 15:51:50.832 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:51:50.835 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:52:02.048 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 6 ms
+2026-05-06 15:52:02.049 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:52:10.421 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 5 ms
+2026-05-06 15:52:10.424 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 4 ms
+2026-05-06 15:52:15.740 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 4 ms
+2026-05-06 15:52:15.752 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 5 ms
+2026-05-06 15:52:15.755 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 14 ms
+2026-05-06 15:52:15.759 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 11 ms
+2026-05-06 15:52:24.639 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:52:24.640 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 4 ms
+2026-05-06 15:52:24.644 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 11 ms
+2026-05-06 15:52:24.650 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:52:24.656 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 14 ms
+2026-05-06 15:52:24.657 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 9 ms
+2026-05-06 15:53:33.631 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:53:33.632 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 5 ms
+2026-05-06 15:53:33.633 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 9 ms
+2026-05-06 15:53:58.928 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 8 ms
+2026-05-06 15:53:58.931 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 6 ms
+2026-05-06 15:53:58.933 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:53:58.935 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 5 ms
+2026-05-06 15:53:58.939 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 19 ms
+2026-05-06 15:53:58.942 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 16 ms
+2026-05-06 15:53:59.535 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:53:59.541 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 4 ms
+2026-05-06 15:53:59.546 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 6 ms
+2026-05-06 15:53:59.548 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 5 ms
+2026-05-06 15:53:59.548 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:53:59.552 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 5 ms
+2026-05-06 15:54:00.916 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:54:00.921 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:54:02.591 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:54:02.597 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:54:03.817 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 5 ms
+2026-05-06 15:54:03.820 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 4 ms
+2026-05-06 15:54:04.506 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:54:04.509 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:54:04.513 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 10 ms
+2026-05-06 15:54:04.519 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 11 ms
+2026-05-06 15:54:06.284 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 4 ms
+2026-05-06 15:54:06.284 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 4 ms
+2026-05-06 15:54:06.285 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 4 ms
+2026-05-06 15:54:06.288 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 4 ms
+2026-05-06 15:54:06.293 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 4 ms
+2026-05-06 15:54:06.296 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 6 ms
+2026-05-06 15:54:49.481 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:54:49.483 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:54:53.447 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:54:53.451 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:54:54.260 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 10 ms
+2026-05-06 15:54:54.260 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 19 ms
+2026-05-06 15:54:54.848 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:54:54.848 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:54:54.852 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 7 ms
+2026-05-06 15:54:54.864 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 17 ms
+2026-05-06 15:54:55.593 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:54:55.596 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 8 ms
+2026-05-06 15:54:55.598 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:54:55.605 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:54:55.606 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:54:55.608 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 8 ms
+2026-05-06 15:54:57.131 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 4 ms
+2026-05-06 15:54:57.133 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 4 ms
+2026-05-06 15:54:57.134 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 4 ms
+2026-05-06 15:54:57.136 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 3 ms
+2026-05-06 15:54:57.139 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 4 ms
+2026-05-06 15:54:57.141 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 4 ms
+2026-05-06 15:55:09.191 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 3 ms
+2026-05-06 15:55:09.191 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 4 ms
+2026-05-06 15:55:09.193 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 4 ms
+2026-05-06 15:55:19.424 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 2 ms
+2026-05-06 15:55:19.425 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 3 ms
+2026-05-06 15:55:19.425 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 2 ms
+2026-05-06 15:55:19.424 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 1 ms
+2026-05-06 15:55:19.425 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 2 ms
+2026-05-06 15:55:19.433 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 4 ms
+2026-05-06 15:55:20.603 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 7 ms
+2026-05-06 15:55:20.612 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:55:22.412 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 7 ms
+2026-05-06 15:55:22.413 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:55:22.877 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 4 ms
+2026-05-06 15:55:22.877 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 6 ms
+2026-05-06 15:55:23.376 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:55:23.381 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 4 ms
+2026-05-06 15:55:23.387 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 10 ms
+2026-05-06 15:55:23.388 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 9 ms
+2026-05-06 15:55:23.927 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 4 ms
+2026-05-06 15:55:23.932 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 4 ms
+2026-05-06 15:56:12.912 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 4 ms
+2026-05-06 15:56:19.424 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 3 ms
+2026-05-06 15:56:19.425 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 3 ms
+2026-05-06 15:56:19.846 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 3 ms
+2026-05-06 15:56:19.846 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 2 ms
+2026-05-06 15:56:19.847 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 3 ms
+2026-05-06 15:56:19.848 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 3 ms
+2026-05-06 15:56:19.849 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 3 ms
+2026-05-06 15:56:19.850 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 5 ms
+2026-05-06 15:56:22.118 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 3 ms
+2026-05-06 15:56:22.118 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 2 ms
+2026-05-06 15:56:22.958 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 5 ms
+2026-05-06 15:56:22.961 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 5 ms
+2026-05-06 15:56:23.889 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:56:23.889 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:56:23.898 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 8 ms
+2026-05-06 15:56:23.900 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 10 ms
+2026-05-06 15:56:24.789 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:56:24.790 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:56:24.791 INFO  [http-nio-8080-exec-9] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 8 ms
+2026-05-06 15:56:24.796 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:56:24.798 INFO  [http-nio-8080-exec-10] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 3 ms
+2026-05-06 15:56:24.806 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 15 ms
+2026-05-06 15:57:03.856 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 5 ms
+2026-05-06 15:57:03.869 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.RecipientService.findAll executed in 4 ms
+2026-05-06 15:57:03.869 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 6 ms
+2026-05-06 15:57:03.872 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:57:03.874 INFO  [http-nio-8080-exec-7] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 10 ms
+2026-05-06 15:57:03.874 INFO  [http-nio-8080-exec-8] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.DispatchService.findAll executed in 7 ms
+2026-05-06 15:57:04.302 INFO  [http-nio-8080-exec-4] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 8 ms
+2026-05-06 15:57:04.305 INFO  [http-nio-8080-exec-1] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 6 ms
+2026-05-06 15:57:04.308 INFO  [http-nio-8080-exec-5] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.WarehouseService.findAll executed in 5 ms
+2026-05-06 15:57:04.314 INFO  [http-nio-8080-exec-3] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 5 ms
+2026-05-06 15:57:04.314 INFO  [http-nio-8080-exec-2] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.SupplierService.findAll executed in 5 ms
+2026-05-06 15:57:04.314 INFO  [http-nio-8080-exec-6] c.h.w.a.ServiceExecutionTimeLoggingAspect - Service method com.hikaro.warehouse.service.CategoryService.findAll executed in 4 ms

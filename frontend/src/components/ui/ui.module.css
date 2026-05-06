@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
+  white-space: nowrap;
   border: 1px solid transparent;
   border-radius: 18px;
   font-weight: 700;

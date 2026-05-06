@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { getErrorMessage } from "../api/client";
 import { deleteProduct } from "../api/products";
+import { HeaderActionPortal } from "../components/layout/HeaderActionPortal";
 import { Badge } from "../components/ui/Badge";
 import { Button, getButtonClassName } from "../components/ui/Button";
 import { ConfirmDialog } from "../components/ui/ConfirmDialog";
@@ -133,24 +134,15 @@ export function ProductsPage() {
 
   return (
     <div className={styles.page}>
-      <section className={styles.hero}>
-        <div className={styles.heroSurface}>
-          <div className={styles.heroCopy}>
-            <span className={styles.heroEyebrow}>Каталог техники</span>
-            <h2>Управление ассортиментом, остатками и карточками товаров</h2>
-            <p>Поиск, фильтрация и управление товарами в одном разделе.</p>
-          </div>
-          <div className={styles.heroActions}>
-            <Link
-              to="/products/new"
-              className={getButtonClassName({ variant: "primary", size: "lg" })}
-            >
-              <Plus size={18} />
-              <span>Создать товар</span>
-            </Link>
-          </div>
-        </div>
-      </section>
+      <HeaderActionPortal>
+        <Link
+          to="/products/new"
+          className={getButtonClassName({ variant: "primary", size: "md" })}
+        >
+          <Plus size={16} />
+          <span>Создать товар</span>
+        </Link>
+      </HeaderActionPortal>
 
       <section className={styles.filtersBar}>
         <div className={styles.filtersGrid}>
@@ -323,7 +315,7 @@ export function ProductsPage() {
                     <Link
                       to={`/products/${product.id}/edit`}
                       className={getButtonClassName({
-                        variant: "ghost",
+                        variant: "secondary",
                         size: "sm"
                       })}
                     >

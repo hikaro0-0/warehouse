@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { MapPin, Pencil, Plus, Trash2, Warehouse as WarehouseIcon } from "lucide-react";
 import { getErrorMessage } from "../api/client";
 import { createWarehouse, deleteWarehouse, updateWarehouse } from "../api/warehouses";
+import { HeaderActionPortal } from "../components/layout/HeaderActionPortal";
 import { Button } from "../components/ui/Button";
 import { ConfirmDialog } from "../components/ui/ConfirmDialog";
 import { EmptyState } from "../components/ui/EmptyState";
@@ -140,21 +141,12 @@ export function WarehousesPage() {
 
   return (
     <div className={styles.page}>
-      <section className={styles.hero}>
-        <div className={styles.heroSurface}>
-          <div className={styles.heroCopy}>
-            <span className={styles.heroEyebrow}>Склады</span>
-            <h2>Локации хранения и распределения техники</h2>
-            <p>Управляй площадками хранения и распределения техники.</p>
-          </div>
-          <div className={styles.heroActions}>
-            <Button onClick={openCreate}>
-              <Plus size={16} />
-              <span>Создать склад</span>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <HeaderActionPortal>
+        <Button onClick={openCreate}>
+          <Plus size={16} />
+          <span>Создать склад</span>
+        </Button>
+      </HeaderActionPortal>
 
       {error ? (
         <div className={styles.errorBanner}>
@@ -189,7 +181,7 @@ export function WarehousesPage() {
                 <span>{countProducts(warehouse.id)} товаров привязано</span>
               </div>
               <div className={styles.entityFooter}>
-                <Button variant="ghost" size="sm" onClick={() => openEdit(warehouse)}>
+                <Button variant="secondary" size="sm" onClick={() => openEdit(warehouse)}>
                   <Pencil size={16} />
                   <span>Редактировать</span>
                 </Button>

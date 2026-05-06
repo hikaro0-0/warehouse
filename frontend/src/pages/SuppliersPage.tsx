@@ -6,6 +6,7 @@ import {
   deleteSupplier,
   updateSupplier
 } from "../api/suppliers";
+import { HeaderActionPortal } from "../components/layout/HeaderActionPortal";
 import { Button } from "../components/ui/Button";
 import { ConfirmDialog } from "../components/ui/ConfirmDialog";
 import { EmptyState } from "../components/ui/EmptyState";
@@ -146,21 +147,12 @@ export function SuppliersPage() {
 
   return (
     <div className={styles.page}>
-      <section className={styles.hero}>
-        <div className={styles.heroSurface}>
-          <div className={styles.heroCopy}>
-            <span className={styles.heroEyebrow}>Поставщики</span>
-            <h2>Управление дистрибьюторами и партнёрами</h2>
-            <p>База партнёров и поставщиков для карточек товаров.</p>
-          </div>
-          <div className={styles.heroActions}>
-            <Button onClick={openCreate}>
-              <Plus size={16} />
-              <span>Создать поставщика</span>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <HeaderActionPortal>
+        <Button onClick={openCreate}>
+          <Plus size={16} />
+          <span>Создать поставщика</span>
+        </Button>
+      </HeaderActionPortal>
 
       {error ? (
         <div className={styles.errorBanner}>
@@ -195,7 +187,7 @@ export function SuppliersPage() {
                 <span>{countProducts(supplier.id)} товаров в поставке</span>
               </div>
               <div className={styles.entityFooter}>
-                <Button variant="ghost" size="sm" onClick={() => openEdit(supplier)}>
+                <Button variant="secondary" size="sm" onClick={() => openEdit(supplier)}>
                   <Pencil size={16} />
                   <span>Редактировать</span>
                 </Button>

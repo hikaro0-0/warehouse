@@ -3,6 +3,11 @@
   gap: 1.5rem;
 }
 
+.pageToolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .hero {
   position: relative;
 }
@@ -842,6 +847,7 @@
   .filterNote,
   .pagination,
   .detailActions,
+  .pageToolbar,
   .dispatchRowsHeader,
   .dispatchItemRow,
   .dispatchCardTop {

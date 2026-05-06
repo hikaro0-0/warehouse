@@ -16,6 +16,7 @@ import {
   deleteDispatch,
   updateDispatch
 } from "../api/dispatches";
+import { HeaderActionPortal } from "../components/layout/HeaderActionPortal";
 import { Badge } from "../components/ui/Badge";
 import { Button } from "../components/ui/Button";
 import { ConfirmDialog } from "../components/ui/ConfirmDialog";
@@ -398,21 +399,12 @@ export function DispatchesPage() {
 
   return (
     <div className={styles.page}>
-      <section className={styles.hero}>
-        <div className={styles.heroSurface}>
-          <div className={styles.heroCopy}>
-            <span className={styles.heroEyebrow}>Отгрузки</span>
-            <h2>Списание техники со склада в фирмы и магазины</h2>
-            <p>Создавай и подтверждай документы списания со склада.</p>
-          </div>
-          <div className={styles.heroActions}>
-            <Button onClick={openCreate}>
-              <Plus size={16} />
-              <span>Оформить отгрузку</span>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <HeaderActionPortal>
+        <Button onClick={openCreate}>
+          <Plus size={16} />
+          <span>Оформить отгрузку</span>
+        </Button>
+      </HeaderActionPortal>
 
       {error ? (
         <div className={styles.errorBanner}>
@@ -450,7 +442,6 @@ export function DispatchesPage() {
                     <Badge tone="accent">
                       {getDispatchUnits(dispatch.items)} шт
                     </Badge>
-                    <Send size={18} />
                   </div>
                 </div>
 
@@ -494,7 +485,7 @@ export function DispatchesPage() {
                 <div className={styles.entityFooter}>
                   {dispatch.status === "DRAFT" ? (
                     <>
-                      <Button variant="ghost" size="sm" onClick={() => openEdit(dispatch)}>
+                      <Button variant="secondary" size="sm" onClick={() => openEdit(dispatch)}>
                         <Pencil size={16} />
                         <span>Редактировать</span>
                       </Button>

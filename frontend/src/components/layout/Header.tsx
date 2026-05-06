@@ -1,7 +1,5 @@
-import { Menu, Plus } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
-import { formatLongDate } from "../../utils/format";
-import { getButtonClassName } from "../ui/Button";
+import { Menu } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import styles from "./layout.module.css";
 
 const pageLabels: Record<string, string> = {
@@ -51,20 +49,10 @@ export function Header({ onMenuClick }: HeaderProps) {
           ) : null}
           <div className={styles.pageTitleRow}>
             {title ? <h1>{title}</h1> : null}
-            <span>{formatLongDate()}</span>
           </div>
         </div>
       </div>
-
-      <div className={styles.headerActions}>
-        <Link
-          to="/products/new"
-          className={getButtonClassName({ variant: "primary", size: "md" })}
-        >
-          <Plus size={16} />
-          <span>Добавить товар</span>
-        </Link>
-      </div>
+      <div id="header-action-root" className={styles.headerActions} />
     </header>
   );
 }

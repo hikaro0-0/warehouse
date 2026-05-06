@@ -81,15 +81,6 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             );
           })}
         </nav>
-
-        <div className={styles.sidebarCard}>
-          <span className={styles.sidebarEyebrow}>Подсказка</span>
-          <h4>Низкий остаток всегда на виду</h4>
-          <p>
-            На карточках и в таблицах товары с малым запасом выделяются цветом,
-            чтобы менеджер быстрее реагировал.
-          </p>
-        </div>
       </aside>
     </>
   );
