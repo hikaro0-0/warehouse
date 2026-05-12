@@ -245,17 +245,6 @@ jmeter -n -t docs/jmeter/race-condition.jmx -Jhost=localhost -Jport=8080 -JraceU
 - связи между ними строятся через `needs`
 - именно поэтому в интерфейсе GitHub появляется схема наподобие `Build -> Deploy -> Healthcheck`
 
-## Troubleshooting: Liquibase и права на схему
-
-Если при старте появляется ошибка `нет доступа к схеме public` / `Failed SQL: CREATE TABLE public.databasechangelog`, это означает, что пользователь БД не имеет прав на схему `public`.
-
-Исправление для существующей БД (выполнить от суперпользователя PostgreSQL):
-
-```sql
-GRANT USAGE, CREATE ON SCHEMA public TO hikaro;
-ALTER SCHEMA public OWNER TO hikaro;
-```
-
 В проекте схема теперь настраивается через `.env`:
 
 ```properties
