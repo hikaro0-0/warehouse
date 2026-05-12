@@ -29,4 +29,4 @@ EXPOSE 8080
 
 USER spring
 
-ENTRYPOINT ["sh", "-c", "if [ -n \"$DATABASE_URL\" ] && [ -z \"$DB_URL\" ]; then DB_URL=\"$DATABASE_URL\"; case \"$DB_URL\" in jdbc:*) ;; postgresql://*) DB_URL=\"jdbc:$DB_URL\" ;; esac; export DB_URL; fi; exec java -jar /app/app.jar"]
+ENTRYPOINT ["sh", "-c", "if [ -n \"$DATABASE_URL\" ] && [ -z \"$DB_URL\" ]; then raw=\"$DATABASE_URL\"; case \"$raw\" in jdbc:*) DB_URL=\"$raw\" ;; postgresql://*) rest=${raw#postgresql://}; creds=${rest%%@*}; hostdb=${rest#*@}; dbuser=${creds%%:*}; dbpass=${creds#*:}; DB_URL=\"jdbc:postgresql://$hostdb?user=$dbuser&password=$dbpass\" ;; *) DB_URL=\"$raw\" ;; esac; export DB_URL; fi; exec java -jar /app/app.jar"]
