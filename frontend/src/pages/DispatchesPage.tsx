@@ -640,21 +640,28 @@ export function DispatchesPage() {
                     error={errors[`quantity-${index}`]}
                     hint={
                       item.productId
-                        ? `Доступно для документа: ${getAvailableQuantity(item.productId) ?? 0} шт`
-                        : "Сначала выбери товар"
+                        ? `Доступно:\u00A0${getAvailableQuantity(item.productId) ?? 0}\u00A0шт`
+                        : undefined
                     }
                   />
-                </div>
-                <div className={styles.dispatchRowActions}>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => removeItem(index)}
-                  >
-                    <Trash2 size={16} />
-                    <span>Убрать</span>
-                  </Button>
+                  <div className={styles.dispatchRowActionField}>
+                    <span
+                      className={styles.dispatchRowActionLabel}
+                      aria-hidden="true"
+                    >
+                      Действие
+                    </span>
+                    <Button
+                      type="button"
+                      className={styles.dispatchRowActionButton}
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => removeItem(index)}
+                    >
+                      <Trash2 size={16} />
+                      <span>Убрать</span>
+                    </Button>
+                  </div>
                 </div>
               </div>
             ))}

@@ -760,13 +760,26 @@
 
 .dispatchRowGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(180px, 0.55fr);
+  grid-template-columns: minmax(0, 1.45fr) minmax(180px, 0.55fr) auto;
   gap: 0.9rem;
+  align-items: start;
 }
 
-.dispatchRowActions {
-  display: flex;
-  justify-content: flex-end;
+.dispatchRowActionField {
+  display: grid;
+  gap: 0.5rem;
+  justify-items: end;
+}
+
+.dispatchRowActionLabel {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: transparent;
+  user-select: none;
+}
+
+.dispatchRowActionButton {
+  justify-self: end;
 }
 
 .inlineError {

@@ -1,0 +1,13 @@
+.env
+.git
+.github
+target
+logs
+frontend
+docs
+*.log
+README.md
+HELP.md
+dbdiagram.dbml
+warehouse-hub-postman-collection.json
+warehouse-postman-collection.json

@@ -1,0 +1,48 @@
+databases:
+  - name: warehouse-accounting-db
+    plan: free
+    region: frankfurt
+    postgresMajorVersion: "16"
+    databaseName: warehouse_db
+    user: hikaro
+
+services:
+  - type: web
+    name: warehouse-accounting-api
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: warehouse-accounting-db
+          property: connectionString
+      - key: DB_SCHEMA
+        value: public
+      - key: APP_LOG_PATH
+        value: /app/logs
+      - key: APP_LOG_FILE
+        value: warehouse.log
+      - key: APP_CORS_ALLOWED_ORIGINS
+        value: https://warehouse-accounting-web.onrender.com
+      - key: SPRINGDOC_API_DOCS_ENABLED
+        value: "false"
+      - key: SPRINGDOC_SWAGGER_UI_ENABLED
+        value: "false"
+
+  - type: web
+    name: warehouse-accounting-web
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: VITE_API_BASE_URL
+        value: https://warehouse-accounting-api.onrender.com/api
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

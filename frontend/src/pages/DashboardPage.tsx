@@ -152,7 +152,6 @@ export function DashboardPage() {
               <h3>Товары с низким остатком</h3>
               <p>Требуют внимания в первую очередь</p>
             </div>
-            <Link to="/products">Смотреть все</Link>
           </div>
 
           <div className={styles.sectionBody}>
@@ -187,9 +186,7 @@ export function DashboardPage() {
           <div className={styles.sectionHeader}>
             <div className={styles.sectionTitleGroup}>
               <h3>Последние добавленные товары</h3>
-              <p>Используем реальные даты создания, которые теперь приходят из backend.</p>
             </div>
-            <Link to="/products/new">Новая позиция</Link>
           </div>
 
           <div className={styles.productQuickGrid}>

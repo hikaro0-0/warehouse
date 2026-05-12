@@ -385,7 +385,7 @@ export function ProductsPage() {
                         <Link
                           to={`/products/${product.id}/edit`}
                           className={getButtonClassName({
-                            variant: "ghost",
+                            variant: "secondary",
                             size: "sm"
                           })}
                         >

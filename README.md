@@ -89,16 +89,99 @@ JMeter:
 ## Запуск
 
 1. Настрой `.env` на основе [`.env.example`](./.env.example).
-2. Подними PostgreSQL через Docker Compose.
-3. Из-за сетевых ограничений Docker на Fedora контейнер запускается в `host` network mode и использует порт `5432` напрямую на хосте.
-4. Запусти:
+2. Выбери один из режимов запуска.
+
+### Режим 1: всё в Docker
+
+Запуск:
 
 ```bash
-cd /home/hikaro/java/warehouse
+docker compose up --build -d
+```
+
+Доступ:
+
+- backend API: `http://localhost:8080`
+- frontend: `http://localhost:5173`
+
+Остановка:
+
+```bash
+docker compose down
+```
+
+### Режим 2: backend локально, frontend + PostgreSQL в Docker
+
+Запуск:
+
+```bash
+docker compose up -d --build postgres frontend
 ./mvnw spring-boot:run
 ```
 
-При старте Liquibase сам применит все миграции к твоей БД.
+Доступ:
+
+- backend API: `http://localhost:8080`
+- frontend: `http://localhost:5173`
+
+Остановка:
+
+```bash
+docker compose down
+```
+
+Локальный backend в этом режиме подключается к PostgreSQL через `DB_URL`.
+Сервис `frontend` собирается в production-режиме и раздаётся через `nginx`, поэтому после изменений во frontend используй пересборку:
+
+```bash
+docker compose up -d --build frontend
+```
+
+### Режим 3: всё локально
+
+Backend:
+
+```bash
+./mvnw spring-boot:run
+```
+
+Frontend:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Доступ:
+
+- backend API: `http://localhost:8080`
+- frontend: `http://localhost:5173`
+
+Frontend использует `VITE_API_BASE_URL=http://localhost:8080/api`.
+
+### Примечания
+
+На Fedora сервис `postgres` запускается в `host` network mode, чтобы локальный Spring Boot стабильно подключался к БД на `127.0.0.1:5432`.
+При старте Liquibase сам применит все миграции к БД.
+
+Основные переменные окружения:
+
+- `SERVER_PORT` - порт приложения
+- `DB_URL` - полный JDBC URL для backend, удобно для локального запуска с PostgreSQL в Docker
+- `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_DB` - подключение к БД при локальном запуске приложения
+- `POSTGRES_USER`, `POSTGRES_PASSWORD` - учётные данные БД
+- `DB_SCHEMA` - схема PostgreSQL
+- `APP_CORS_ALLOWED_ORIGINS` - список разрешённых frontend-origin через запятую
+- `FRONTEND_PORT` - порт frontend в Docker
+- `FRONTEND_API_BASE_URL` - URL backend API для frontend
+
+Команды управления окружением:
+
+```bash
+docker compose down -v --remove-orphans
+docker compose up --build -d
+```
 
 Для отдельного frontend на Vite CORS уже настроен на `http://localhost:5173`.
 Если frontend запускается с другого origin, укажи его в `.env`:
@@ -111,15 +194,6 @@ APP_CORS_ALLOWED_ORIGINS=http://localhost:5173
 
 ```properties
 APP_CORS_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
-```
-
-Команды запуска:
-
-```bash
-docker compose down -v --remove-orphans
-docker compose up -d
-cp .env.example .env
-./mvnw spring-boot:run
 ```
 
 Примеры запуска JMeter:
