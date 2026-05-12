@@ -212,11 +212,16 @@ jmeter -n -t docs/jmeter/race-condition.jmx -Jhost=localhost -Jport=8080 -JraceU
 - `Backend Build and Test` запускает `./mvnw verify -Dcheckstyle.skip=true`
 - `Frontend Build` запускает `npm ci && npm run build`
 - `Docker Build` проверяет сборку backend- и frontend-образов
+- `Deploy Backend to Render` вызывает deploy hook backend-сервиса
+- `Deploy Frontend to Render` вызывает deploy hook frontend-сервиса
+- `Backend Healthcheck` проверяет `GET /actuator/health`
+- `Frontend Healthcheck` проверяет доступность frontend URL
 
 Развертывание выполняет Render через [`render.yaml`](./render.yaml):
 
-- для backend и frontend включен `autoDeployTrigger: checksPass`
-- новый деплой стартует только после успешных GitHub checks на `main` / `master`
+- для backend и frontend включен `autoDeployTrigger: off`
+- деплой запускается из GitHub Actions через Render Deploy Hooks
+- на `pull_request` выполняется только CI, а деплой и healthcheck идут только на `push` в `main` / `master`
 - для backend настроен `healthCheckPath: /actuator/health`
 
 Для healthcheck backend использует Spring Boot Actuator:
@@ -228,8 +233,17 @@ jmeter -n -t docs/jmeter/race-condition.jmx -Jhost=localhost -Jport=8080 -JraceU
 
 1. Запушь репозиторий в GitHub и включи GitHub Actions.
 2. Подключи репозиторий к Render Blueprint через `render.yaml`.
-3. Убедись, что сервисы Render смотрят на ветку `main` или `master`.
-4. После каждого push в основную ветку GitHub прогонит CI, а Render начнет деплой только если все checks успешны.
+3. В Render открой backend-service `warehouse-accounting-api` и frontend-service `warehouse-accounting-web`, затем создай для каждого Deploy Hook.
+4. Добавь в GitHub repository secrets:
+   - `RENDER_BACKEND_DEPLOY_HOOK_URL`
+   - `RENDER_FRONTEND_DEPLOY_HOOK_URL`
+5. После каждого push в `main` / `master` GitHub прогонит CI, затем вызовет deploy hooks и после этого выполнит healthcheck обоих сервисов.
+
+Ключевая идея для графа в GitHub Actions:
+
+- отдельные стадии оформляются как отдельные `jobs`
+- связи между ними строятся через `needs`
+- именно поэтому в интерфейсе GitHub появляется схема наподобие `Build -> Deploy -> Healthcheck`
 
 ## Troubleshooting: Liquibase и права на схему
 
