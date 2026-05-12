@@ -205,6 +205,32 @@ jmeter -n -t docs/jmeter/race-condition.jmx -Jhost=localhost -Jport=8080 -JraceU
 
 `all-endpoints.jmx` использует уникальные имена на поток и очищает созданные CRUD-сущности в конце сценария. Асинхронный demo flow сохраняет отдельные demo-записи с уникальными именами, как часть проверки `POST /api/demo/async/with-transaction`.
 
+## CI/CD
+
+В репозитории настроен GitHub Actions workflow [`.github/workflows/ci.yml`](./.github/workflows/ci.yml):
+
+- `Backend Build and Test` запускает `./mvnw verify -Dcheckstyle.skip=true`
+- `Frontend Build` запускает `npm ci && npm run build`
+- `Docker Build` проверяет сборку backend- и frontend-образов
+
+Развертывание выполняет Render через [`render.yaml`](./render.yaml):
+
+- для backend и frontend включен `autoDeployTrigger: checksPass`
+- новый деплой стартует только после успешных GitHub checks на `main` / `master`
+- для backend настроен `healthCheckPath: /actuator/health`
+
+Для healthcheck backend использует Spring Boot Actuator:
+
+- endpoint: `GET /actuator/health`
+- Docker-образ также содержит `HEALTHCHECK`, который проверяет этот endpoint внутри контейнера
+
+Чтобы это заработало в GitHub + Render:
+
+1. Запушь репозиторий в GitHub и включи GitHub Actions.
+2. Подключи репозиторий к Render Blueprint через `render.yaml`.
+3. Убедись, что сервисы Render смотрят на ветку `main` или `master`.
+4. После каждого push в основную ветку GitHub прогонит CI, а Render начнет деплой только если все checks успешны.
+
 ## Troubleshooting: Liquibase и права на схему
 
 Если при старте появляется ошибка `нет доступа к схеме public` / `Failed SQL: CREATE TABLE public.databasechangelog`, это означает, что пользователь БД не имеет прав на схему `public`.

@@ -27,6 +27,9 @@ ENV APP_LOG_PATH=/app/logs
 
 EXPOSE 8080
 
+HEALTHCHECK --interval=30s --timeout=5s --start-period=45s --retries=5 \
+  CMD wget -qO- "http://127.0.0.1:${PORT:-8080}/actuator/health" | grep -q '"status":"UP"' || exit 1
+
 USER spring
 
 ENTRYPOINT ["sh", "-c", "if [ -n \"$DATABASE_URL\" ] && [ -z \"$DB_URL\" ]; then raw=\"$DATABASE_URL\"; case \"$raw\" in jdbc:*) DB_URL=\"$raw\" ;; postgresql://*) rest=${raw#postgresql://}; creds=${rest%%@*}; hostdb=${rest#*@}; dbuser=${creds%%:*}; dbpass=${creds#*:}; DB_URL=\"jdbc:postgresql://$hostdb?user=$dbuser&password=$dbpass\" ;; *) DB_URL=\"$raw\" ;; esac; export DB_URL; fi; exec java -jar /app/app.jar"]

@@ -13,6 +13,8 @@ services:
     plan: free
     region: frankfurt
     dockerfilePath: ./Dockerfile
+    autoDeployTrigger: checksPass
+    healthCheckPath: /actuator/health
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -37,6 +39,7 @@ services:
     rootDir: frontend
     buildCommand: npm run build
     staticPublishPath: dist
+    autoDeployTrigger: checksPass
     envVars:
       - key: NODE_VERSION
         value: "20"
